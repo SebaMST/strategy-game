@@ -13,8 +13,8 @@ public class NoiseGenerator {
 
         int y;
         for (y = 0; y < octaves; ++y) {
-            double offsetX = (double) (r.nextInt(200000) - 100000);
-            double offsetY = (double) (r.nextInt(200000) - 100000);
+            double offsetX = r.nextInt(200000) - 100000;
+            double offsetY = r.nextInt(200000) - 100000;
             octaveOffsets[y][0] = offsetX;
             octaveOffsets[y][1] = offsetY;
         }

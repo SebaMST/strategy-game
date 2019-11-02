@@ -6,7 +6,7 @@ public class MessageLog {
     private LinkedList<String> messages;
 
     public MessageLog() {
-        messages = new LinkedList();
+        messages = new LinkedList<>();
     }
 
     public String append(String Who, String What) {

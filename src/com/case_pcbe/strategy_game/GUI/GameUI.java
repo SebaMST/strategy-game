@@ -59,7 +59,7 @@ public class GameUI extends Application {
         rootChildren.add(l1);
         ChoiceBox playersNr = new ChoiceBox();
         playersNr.setId("playersNr");
-        playersNr.setItems(FXCollections.observableArrayList(new Integer[]{2, 3, 4, 5, 6, 7, 8}));
+        playersNr.setItems(FXCollections.observableArrayList(2, 3, 4, 5, 6, 7, 8));
         playersNr.setPrefWidth(150.0D);
         playersNr.setLayoutX(210.0D);
         playersNr.setLayoutY(50.0D);
@@ -122,7 +122,7 @@ public class GameUI extends Application {
         rootChildren.add(l2);
         ChoiceBox mapSize = new ChoiceBox();
         mapSize.setId("mapSize");
-        mapSize.setItems(FXCollections.observableArrayList(new String[]{"Tiny", "Small", "Medium", "Large", "Giant"}));
+        mapSize.setItems(FXCollections.observableArrayList("Tiny", "Small", "Medium", "Large", "Giant"));
         mapSize.setPrefWidth(150.0D);
         mapSize.setLayoutX(210.0D);
         mapSize.setLayoutY(90.0D);
@@ -134,7 +134,7 @@ public class GameUI extends Application {
         rootChildren.add(l3);
         ChoiceBox resDensity = new ChoiceBox();
         resDensity.setId("resDensity");
-        resDensity.setItems(FXCollections.observableArrayList(new String[]{"Starvation", "Moderate", "Richness"}));
+        resDensity.setItems(FXCollections.observableArrayList("Starvation", "Moderate", "Richness"));
         resDensity.setPrefWidth(150.0D);
         resDensity.setLayoutX(210.0D);
         resDensity.setLayoutY(130.0D);
@@ -144,11 +144,10 @@ public class GameUI extends Application {
         playButton.setLayoutX(150.0D);
         playButton.setLayoutY(640.0D);
         playButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-            Accordion a = (Accordion) playersAccordion.lookup("#playersSettings");
             int nr = (Integer) playersNr.getValue();
 
             for (int i = 1; i <= nr; ++i) {
-                TextField tf = (TextField) (a.lookup("#player" + i + "Name"));
+                TextField tf = (TextField) (playersAccordion.lookup("#player" + i + "Name"));
                 String s = tf.getText();
                 Game.players.add(new Player(s, Color.GOLD));
             }
@@ -183,7 +182,7 @@ public class GameUI extends Application {
         mapPane.setLayoutX(320.0D);
         long elapsedTime = System.currentTimeMillis() - start;
         System.out.println(elapsedTime);
-        root.getChildren().addAll(new Node[]{playersPanel, gameLog, mapPane});
+        root.getChildren().addAll(playersPanel, gameLog, mapPane);
         return new Scene(root, 1600.0D, 900.0D);
     }
 
@@ -198,10 +197,10 @@ public class GameUI extends Application {
                 for (int h = 0; h < Map.terrainHeights.length; ++h) {
                     if (noiseMatrix[i][j] <= Map.terrainHeights[h]) {
                         Rectangle r = new Rectangle();
-                        r.setWidth((double) tileSize);
-                        r.setHeight((double) tileSize);
-                        r.setY((double) (i * tileSize));
-                        r.setX((double) (j * tileSize));
+                        r.setWidth(tileSize);
+                        r.setHeight(tileSize);
+                        r.setY(i * tileSize);
+                        r.setX(j * tileSize);
                         r.setFill(Map.terrainColors[h]);
                         mapTilesList.add(r);
                         break;

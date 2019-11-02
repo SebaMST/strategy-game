@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public final class Game {
     public static Map MAP = new Map();
-    public static ArrayList<Player> players = new ArrayList();
+    public static ArrayList<Player> players = new ArrayList<>();
 
     static {
         speak("Welcome to the PIXEL Wars!");
