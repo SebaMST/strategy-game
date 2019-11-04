@@ -5,15 +5,14 @@ import com.case_pcbe.strategy_game.Console.MessagingSystem;
 import javafx.scene.paint.Color;
 
 public class Player {
-    String name;
-    Color color;
-    MessageLog playerLog;
+    private String name;
+    private Color color;
+    private MessageLog playerLog;
 
     public Player(String name, Color color) {
         this.name = name;
         this.color = color;
         this.playerLog = MessagingSystem.MESSAGE_LOG;
-        this.speak("Has joined PIXEL Wars!");
     }
 
     public String getName() {
