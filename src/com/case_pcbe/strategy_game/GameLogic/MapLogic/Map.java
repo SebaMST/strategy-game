@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 
 public class Map {
-    private static final int MAP_WIDTH_PX = 1280, MAP_HEIGHT_PX = 900;
+    private static final int MAP_WIDTH_PX = 1260, MAP_HEIGHT_PX = 840;
     public static final double[] terrainHeights = new double[]{0.2D, 0.345D, 0.37D, 0.58D, 0.75D, 0.85D, 1.0D};
     public static final Color[] terrainColors = new Color[]{Color.BLUE, Color.DODGERBLUE, Color.BEIGE, Color.GREEN, Color.DARKGREEN, Color.DARKGREY, Color.WHITESMOKE};
     public static final Class[] terrainClasses = new Class[]{NonoperationalMapTile.class, NonoperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, NonoperationalMapTile.class};

@@ -15,12 +15,13 @@ public class GameEngine extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("PIXEL WARS");
-        primaryStage.setResizable(false);
+        //primaryStage.setFullScreen(true);
         //Creating the Scene object for the introUI
         Scene introUI = GameUI.createIntroUI();
         //Setting the stage's scene to introUI
         primaryStage.setScene(introUI);
         primaryStage.show();
+
         //Adding event handler for the play Button inside introUI
         Button playButton = (Button) introUI.lookup("#playButton");
         playButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -44,6 +45,7 @@ public class GameEngine extends Application {
             primaryStage.close();
             primaryStage.setScene(inGameUI);
             primaryStage.show();
+            System.out.println(primaryStage.getWidth() + " " + primaryStage.getHeight());
         });
     }
 

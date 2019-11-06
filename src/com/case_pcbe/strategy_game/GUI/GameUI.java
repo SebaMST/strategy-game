@@ -8,6 +8,8 @@ import com.case_pcbe.strategy_game.GameLogic.Player;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -18,16 +20,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Scale;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.util.ArrayList;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class GameUI {
+    public static double SCREEN_WIDTH, SCREEN_HEIGHT;
+
+    static {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        SCREEN_WIDTH = screenSize.getWidth();
+        SCREEN_HEIGHT = screenSize.getHeight();
+        System.out.println(SCREEN_WIDTH + " " + SCREEN_HEIGHT);
+    }
     /*Not useful here. Just send a new empty Node Object instead of the Class object.
     public static <T extends Node> T setupElement(Class<T> nodeType,String id,Double layoutX,Double layoutY,Boolean visible) throws Exception {
         return setupElement(nodeType.newInstance(),id,layoutX,layoutY,visible);
@@ -84,8 +98,13 @@ public class GameUI {
     }
 
     public static Scene createIntroUI() {
+        /*AnchorPane megaroot = new AnchorPane();
+        setupElement(megaroot, "introUImegaroot", null, null, SCREEN_WIDTH, SCREEN_HEIGHT);
+        ObservableList<Node> megarootChildren = megaroot.getChildren();*/
+
         AnchorPane root = new AnchorPane();
-        setupElement(root, "introUIroot", null, null, 400.0D, 700.0D);
+        setupElement(root, "introUiroot", null, null, 400.0D, 700.0D);
+        root.setStyle("-fx-background-color: GRAY");
         ObservableList<Node> rootChildren = root.getChildren();
 
         Text introDialog = new Text("Welcome to PIXEL Wars! First, we need to configure the game for you:");
@@ -93,13 +112,13 @@ public class GameUI {
         rootChildren.add(introDialog);
 
         Label l1 = new Label("Nr. of players:");
-        setupElement(l1, null, 40.0D, 50.0D);
+        setupElement(l1, null, 30.0D, 50.0D);
         l1.setFont(Font.font("System", 16.0D));
         Label l2 = new Label("Map size:");
-        setupElement(l2, null, 40.0D, 90.0D);
+        setupElement(l2, null, 30.0D, 90.0D);
         l2.setFont(Font.font("System", 16.0D));
         Label l3 = new Label("Resources density:");
-        setupElement(l3, null, 40.0D, 130.0D);
+        setupElement(l3, null, 30.0D, 130.0D);
         l3.setFont(Font.font("System", 16.0D));
 
         rootChildren.add(l1);
@@ -149,19 +168,25 @@ public class GameUI {
         AnchorPane root = new AnchorPane();
         setupElement(root, "inGameUIroot", null, null, 1600.0D, 900.0D);
         ObservableList<Node> rootChildren = root.getChildren();
+        root.setStyle("-fx-background-color: BLACK");
+
+        AnchorPane leftSide = new AnchorPane();
+        setupElement(leftSide, "leftSide", null, null, 320.0D, 900.0D);
+        leftSide.setStyle("-fx-background-color: GREY");
+        rootChildren.add(leftSide);
+        ObservableList<Node> leftSideChildren = leftSide.getChildren();
 
         Accordion playersPanelsAccordion = playersAsAccordion(g.getPlayers());
         setupElement(playersPanelsAccordion, "playersPanelsAccordion", null, null, 320.0D, 600.0D);
-        rootChildren.add(playersPanelsAccordion);
+        leftSideChildren.add(playersPanelsAccordion);
 
         TextArea globalLogTA = messageLogAsTextArea(MessagingSystem.MESSAGE_LOG);
         setupElement(globalLogTA, "globalLogTA", null, 600.0D, 320.0D, 300.0D);
-        rootChildren.add(globalLogTA);
+        leftSideChildren.add(globalLogTA);
 
         Pane mapPane = mapAsPane(g.getMap());
-        setupElement(mapPane, "mapPane", 320.0D, null, 1280.0D, 900.0D);
+        setupElement(mapPane, "mapPane", 330.0D, 30.0D, 1260.0D, 840.0D);
         rootChildren.add(mapPane);
-
         return new Scene(root);
     }
 
