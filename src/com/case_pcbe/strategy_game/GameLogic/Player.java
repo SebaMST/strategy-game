@@ -1,7 +1,7 @@
 package com.case_pcbe.strategy_game.GameLogic;
 
-import com.case_pcbe.strategy_game.Console.MessageLog;
-import com.case_pcbe.strategy_game.Console.MessagingSystem;
+import com.case_pcbe.strategy_game.GameLogic.Messaging.MessageLog;
+import com.case_pcbe.strategy_game.GameLogic.Messaging.MessagingSystem;
 import javafx.scene.paint.Color;
 
 public class Player {

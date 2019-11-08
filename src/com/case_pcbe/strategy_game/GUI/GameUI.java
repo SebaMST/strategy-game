@@ -1,40 +1,36 @@
 package com.case_pcbe.strategy_game.GUI;
 
-import com.case_pcbe.strategy_game.Console.MessageLog;
-import com.case_pcbe.strategy_game.Console.MessagingSystem;
+import com.case_pcbe.strategy_game.GameLogic.Messaging.MessageLog;
+import com.case_pcbe.strategy_game.GameLogic.Messaging.MessagingSystem;
 import com.case_pcbe.strategy_game.GameLogic.Game;
 import com.case_pcbe.strategy_game.GameLogic.MapLogic.Map;
 import com.case_pcbe.strategy_game.GameLogic.Player;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.print.PrinterJob;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Scale;
-import sun.plugin.javascript.navig.Anchor;
+import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.util.*;
 
 public class GameUI {
-    public static double SCREEN_WIDTH, SCREEN_HEIGHT;
+    private static final double SCREEN_WIDTH, SCREEN_HEIGHT;
 
     static {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -42,14 +38,6 @@ public class GameUI {
         SCREEN_HEIGHT = screenSize.getHeight();
         System.out.println(SCREEN_WIDTH + " " + SCREEN_HEIGHT);
     }
-    /*Not useful here. Just send a new empty Node Object instead of the Class object.
-    public static <T extends Node> T setupElement(Class<T> nodeType,String id,Double layoutX,Double layoutY,Boolean visible) throws Exception {
-        return setupElement(nodeType.newInstance(),id,layoutX,layoutY,visible);
-    }*/
-        /*Not useful here. Just send a new empty Region Object instead of the Class object.
-    public static <T extends Region> T setupElement(Class<T> nodeType, String id, Double layoutX, Double layoutY, Boolean visible, Double width, Double height) throws Exception {
-        return setupElement(nodeType.newInstance(), id, layoutX, layoutY, visible,width, height);
-    }*/
 
     private static <T extends Node> void setupElement(T r, String id, Double layoutX, Double layoutY) {
         if (id != null) {
@@ -78,114 +66,148 @@ public class GameUI {
         playersTitledPanes.clear();
 
         for (int i = 1; i <= playersNr; ++i) {
-            Label playerNameLabel = new Label("Name:");
-            setupElement(playerNameLabel, null, 35.0D, 50.0D);
-            playerNameLabel.setFont(Font.font("System", 16.0D));
-            Label playerColorLabel = new Label("Color:");
-            setupElement(playerColorLabel, null, 35.0D, 110.0D);
-            playerColorLabel.setFont(Font.font("System", 16.0D));
+            HBox HBox_playerConfig = new HBox();
+            ObservableList<Node> HBox_playerConfig_Children = HBox_playerConfig.getChildren();
+            VBox VBox_playerLabels = new VBox();
+            VBox_playerLabels.getStyleClass().add("VBox-playerLabels");
+            ObservableList<Node> VBox_playerLabels_Children = VBox_playerLabels.getChildren();
+            Label Label_playerName = new Label("Name:");
+            Label_playerName.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
 
-            TextField playerNameInput = new TextField("Player #" + i);
-            setupElement(playerNameInput, "player" + i + "NameTF", 100.0D, 45.0D, 180.0D, null);
-            playerNameInput.setFont(Font.font("System", 16.0D));
-            ColorPicker playerColorPicker = new ColorPicker();
-            setupElement(playerColorPicker, "player" + i + "ColorCP", 100.0D, 110.0);
+            Label Label_playerColor = new Label("Color:");
+            Label_playerColor.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
 
-            AnchorPane playerAP = new AnchorPane(playerNameLabel, playerColorLabel, playerNameInput, playerColorPicker);
-            playersTitledPanes.add(new TitledPane("Player #" + i, playerAP));
+            VBox_playerLabels_Children.addAll(Label_playerName, Label_playerColor);
+            VBox VBox_playerInputs = new VBox();
+            VBox_playerInputs.getStyleClass().add("VBox-playerInputs");
+            ObservableList<Node> VBox_playerInputs_Children = VBox_playerInputs.getChildren();
+            TextField TextField_playerName = new TextField("Player #" + i);
+            TextField_playerName.setId("TextField-player" + i + "Name");
+
+            ColorPicker ColorPicker_playerColor = new ColorPicker();
+            ColorPicker_playerColor.setId("ColorPicker-player" + i + "Color");
+
+            VBox_playerInputs_Children.addAll(TextField_playerName, ColorPicker_playerColor);
+            HBox_playerConfig_Children.addAll(VBox_playerLabels, VBox_playerInputs);
+
+            playersTitledPanes.add(new TitledPane("Player #" + i, HBox_playerConfig));
         }
-
     }
 
     public static Scene createIntroUI() {
-        /*AnchorPane megaroot = new AnchorPane();
-        setupElement(megaroot, "introUImegaroot", null, null, SCREEN_WIDTH, SCREEN_HEIGHT);
-        ObservableList<Node> megarootChildren = megaroot.getChildren();*/
+        HBox HBox_root = new HBox();
+        Scene introUI = new Scene(HBox_root);
+        introUI.getStylesheets().add("res/css/intro.css");
+        HBox_root.setId("HBox-root");
+        ObservableList<Node> HBox_root_Children = HBox_root.getChildren();
+        VBox VBox_mainPanel = new VBox();
+        VBox_mainPanel.setId("VBox-mainPanel");
+        ObservableList<Node> VBox_mainPanel_Children = VBox_mainPanel.getChildren();
+        VBox VBox_welcome = new VBox();
+        VBox_welcome.setId("VBox-welcome");
+        ObservableList<Node> VBox_welcome_Children = VBox_welcome.getChildren();
+        Text Text_title = new Text("PIXEL Wars");
+        Text_title.setId("Text-title");
+        Text_title.getStyleClass().addAll("Text-size3XL", "Text-shadowEffect");
 
-        AnchorPane root = new AnchorPane();
-        setupElement(root, "introUiroot", null, null, 400.0D, 700.0D);
-        root.setStyle("-fx-background-color: GRAY");
-        ObservableList<Node> rootChildren = root.getChildren();
+        Text Text_motto = new Text("The PIXEL world awaits you: Grind, Build, Conquer!\n\n");
+        Text_motto.getStyleClass().addAll("Text-sizeM", "Text-shadowEffect");
 
-        Text introDialog = new Text("Welcome to PIXEL Wars! First, we need to configure the game for you:");
-        setupElement(introDialog, "introDialog", 14.0D, 27.0D);
-        rootChildren.add(introDialog);
+        Text Text_adv = new Text("Firstly, let us configure the game for you:");
+        Text_adv.setId("Text-adv");
+        Text_adv.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
 
-        Label l1 = new Label("Nr. of players:");
-        setupElement(l1, null, 30.0D, 50.0D);
-        l1.setFont(Font.font("System", 16.0D));
-        Label l2 = new Label("Map size:");
-        setupElement(l2, null, 30.0D, 90.0D);
-        l2.setFont(Font.font("System", 16.0D));
-        Label l3 = new Label("Resources density:");
-        setupElement(l3, null, 30.0D, 130.0D);
-        l3.setFont(Font.font("System", 16.0D));
+        VBox_welcome_Children.addAll(Text_title, Text_motto, Text_adv);
+        HBox HBox_config1 = new HBox();
+        HBox_config1.setId("HBox-config1");
+        ObservableList<Node> HBox_config1_Children = HBox_config1.getChildren();
+        VBox VBox_labels = new VBox();
+        VBox_labels.setId("VBox-labels");
+        ObservableList<Node> VBox_labels_Children = VBox_labels.getChildren();
+        Label Label_playersNr = new Label("Nr. of players:");
+        Label_playersNr.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
 
-        rootChildren.add(l1);
-        rootChildren.add(l2);
-        rootChildren.add(l3);
+        Label Label_mapSize = new Label("Map size:");
+        Label_mapSize.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
 
-        ChoiceBox playersNrCB = new ChoiceBox(FXCollections.observableArrayList(2, 3, 4, 5, 6, 7, 8));
-        setupElement(playersNrCB, "playersNrCB", 210D, 50.0D, 150.0D, null);
-        playersNrCB.setValue(2);
-        ChoiceBox mapSizeCB = new ChoiceBox(FXCollections.observableArrayList("Tiny", "Small", "Medium", "Large", "Giant"));
-        setupElement(mapSizeCB, "mapSizeCB", 210.0D, 90.0D, 150.0D, null);
-        mapSizeCB.setValue("Tiny");
-        ChoiceBox resDensityCB = new ChoiceBox(FXCollections.observableArrayList("Starvation", "Moderate", "Richness"));
-        setupElement(resDensityCB, "resDensityCB", 210.0D, 130.0D, 150.0D, null);
-        resDensityCB.setValue("Starvation");
-        rootChildren.add(playersNrCB);
-        rootChildren.add(mapSizeCB);
-        rootChildren.add(resDensityCB);
+        Label Label_resDensity = new Label("Resources density:");
+        Label_resDensity.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
 
-        AnchorPane accordionAnchor = new AnchorPane();
-        setupElement(accordionAnchor, null, null, 180.0D, 400.D, 440.D);
-        rootChildren.add(accordionAnchor);
-        ObservableList<Node> accordionAnchorChildren = accordionAnchor.getChildren();
+        VBox_labels_Children.addAll(Label_playersNr, Label_mapSize, Label_resDensity);
+        VBox VBox_choices = new VBox();
+        VBox_choices.setId("VBox-choices");
+        ObservableList<Node> VBox_choices_Children = VBox_choices.getChildren();
+        ChoiceBox ChoiceBox_playersNr = new ChoiceBox(FXCollections.observableArrayList(2, 3, 4, 5, 6, 7, 8));
+        ChoiceBox_playersNr.setId("ChoiceBox-playersNr");
+        ChoiceBox_playersNr.setValue(2);
 
-        Label l4 = new Label("Player Settings");
-        setupElement(l4, null, 145.0D, 8.0D);
-        l4.setFont(Font.font("System", 16.0D));
-        accordionAnchorChildren.add(l4);
+        ChoiceBox ChoiceBox_mapSize = new ChoiceBox(FXCollections.observableArrayList("Tiny", "Small", "Medium", "Large", "Giant"));
+        ChoiceBox_mapSize.setId("ChoiceBox-mapSize");
+        ChoiceBox_mapSize.setValue("Tiny");
 
-        Accordion playersAccordion = new Accordion();
-        setupElement(playersAccordion, "playersAccordion", 40.0D, 40.0D, 320.0D, 400.0D);
-        updatePlayersAccordion((int) playersNrCB.getValue(), playersAccordion);
+        ChoiceBox ChoiceBox_resDensity = new ChoiceBox(FXCollections.observableArrayList("Starvation", "Moderate", "Richness"));
+        ChoiceBox_resDensity.setId("ChoiceBox-resDensity");
+        ChoiceBox_resDensity.setValue("Moderate");
 
-        playersNrCB.valueProperty().addListener((ChangeListener<Object>) (observable, oldValue, newValue) -> {
-            updatePlayersAccordion((int) playersNrCB.getValue(), playersAccordion);
+        VBox_choices_Children.addAll(ChoiceBox_playersNr, ChoiceBox_mapSize, ChoiceBox_resDensity);
+        HBox_config1_Children.addAll(VBox_labels, VBox_choices);
+        VBox VBox_config2 = new VBox();
+        VBox_config2.setId("HBox-config2");
+        ObservableList<Node> VBox_config2_Children = VBox_config2.getChildren();
+        Text Text_playerSettings = new Text("Players Settings");
+        Text_playerSettings.setId("Text-playersSettings");
+        Text_playerSettings.getStyleClass().addAll("Text-sizeS", "Text-shadowEffect");
+
+        Accordion Accordion_playersSettings = new Accordion();
+        Accordion_playersSettings.setId("Accordion-playersSettings");
+        updatePlayersAccordion((int) ChoiceBox_playersNr.getValue(), Accordion_playersSettings);
+        ChoiceBox_playersNr.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                updatePlayersAccordion((int) ChoiceBox_playersNr.getValue(), Accordion_playersSettings);
+            }
         });
-        accordionAnchorChildren.add(playersAccordion);
+        VBox_config2_Children.addAll(Text_playerSettings, Accordion_playersSettings);
+        HBox VBox_buttons = new HBox();
+        VBox_buttons.setId("VBox-buttons");
+        ObservableList<Node> VBox_buttons_Children = VBox_buttons.getChildren();
+        Button BTN_play = new Button("PLAY");
+        BTN_play.setId("Button-play");
+        BTN_play.getStyleClass().addAll("Button-mainPanel");
 
-        Button playButton = new Button("PLAY");
-        setupElement(playButton, "playButton", 150.0D, 640.0D, 100.0D, 20.0D);
-        rootChildren.add(playButton);
-        return new Scene(root);
+        Button BTN_quit = new Button("QUIT");
+        BTN_quit.setId("Button-quit");
+        BTN_quit.getStyleClass().add("Button-mainPanel");
+
+        VBox_buttons_Children.addAll(BTN_play, BTN_quit);
+        VBox_mainPanel_Children.addAll(VBox_welcome, HBox_config1, VBox_config2, VBox_buttons);
+        HBox_root_Children.add(VBox_mainPanel);
+
+        return introUI;
     }
 
     public static Scene createInGameUI(Game g) {
-
         AnchorPane root = new AnchorPane();
-        setupElement(root, "inGameUIroot", null, null, 1600.0D, 900.0D);
+        setupElement(root, "inGameUIroot", null, null, 1920.0D, 1080.0D);
         ObservableList<Node> rootChildren = root.getChildren();
         root.setStyle("-fx-background-color: BLACK");
 
         AnchorPane leftSide = new AnchorPane();
-        setupElement(leftSide, "leftSide", null, null, 320.0D, 900.0D);
+        setupElement(leftSide, "leftSide", null, null, 520.0D, 1080.0D);
         leftSide.setStyle("-fx-background-color: GREY");
         rootChildren.add(leftSide);
         ObservableList<Node> leftSideChildren = leftSide.getChildren();
 
         Accordion playersPanelsAccordion = playersAsAccordion(g.getPlayers());
-        setupElement(playersPanelsAccordion, "playersPanelsAccordion", null, null, 320.0D, 600.0D);
+        setupElement(playersPanelsAccordion, "playersPanelsAccordion", null, null, 320.0D, 700.0D);
         leftSideChildren.add(playersPanelsAccordion);
 
         TextArea globalLogTA = messageLogAsTextArea(MessagingSystem.MESSAGE_LOG);
-        setupElement(globalLogTA, "globalLogTA", null, 600.0D, 320.0D, 300.0D);
+        setupElement(globalLogTA, "globalLogTA", null, 700.0D, 520.0D, 380.0D);
         leftSideChildren.add(globalLogTA);
 
         Pane mapPane = mapAsPane(g.getMap());
-        setupElement(mapPane, "mapPane", 330.0D, 30.0D, 1260.0D, 840.0D);
+        setupElement(mapPane, "mapPane", 530.0D, 30.0D, 1260.0D, 840.0D);
         rootChildren.add(mapPane);
         return new Scene(root);
     }

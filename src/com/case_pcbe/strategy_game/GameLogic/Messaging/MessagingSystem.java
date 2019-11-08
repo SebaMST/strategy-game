@@ -1,4 +1,4 @@
-package com.case_pcbe.strategy_game.Console;
+package com.case_pcbe.strategy_game.GameLogic.Messaging;
 
 public final class MessagingSystem {
     public static final MessageLog MESSAGE_LOG = new MessageLog();

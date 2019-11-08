@@ -1,4 +1,4 @@
-package com.case_pcbe.strategy_game.Generation;
+package com.case_pcbe.strategy_game.GameLogic.MapLogic.Generation;
 
 import java.util.Random;
 

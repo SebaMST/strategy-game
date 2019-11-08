@@ -1,4 +1,4 @@
-package com.case_pcbe.strategy_game.Console;
+package com.case_pcbe.strategy_game.GameLogic.Messaging;
 
 import java.util.LinkedList;
 
@@ -15,10 +15,10 @@ public class MessageLog {
     }
 
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (String m : messages) {
-            res += m + "\n";
+            res.append(m).append("\n");
         }
-        return res;
+        return res.toString();
     }
 }

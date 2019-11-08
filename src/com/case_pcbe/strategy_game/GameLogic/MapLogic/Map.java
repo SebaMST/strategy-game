@@ -1,6 +1,6 @@
 package com.case_pcbe.strategy_game.GameLogic.MapLogic;
 
-import com.case_pcbe.strategy_game.Generation.NoiseGenerator;
+import com.case_pcbe.strategy_game.GameLogic.MapLogic.Generation.NoiseGenerator;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
