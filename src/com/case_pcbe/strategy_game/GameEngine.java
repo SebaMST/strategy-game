@@ -27,7 +27,7 @@ public class GameEngine extends Application {
         //Setting the stage's scene to introUI
         primaryStage.setScene(introUI);
         primaryStage.show();
-
+        //Adding event handler for the play button to transit to the next scene (after creating the map/game object from the form data)
         Button playButton = (Button) introUI.lookup("#Button-play");
         playButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             //Creating ArrayList<Player> object
@@ -47,9 +47,8 @@ public class GameEngine extends Application {
             //Creating the Scene object for the inGameUI
             Scene inGameUI = GameUI.createInGameUI(g);
             //Setting the stage's scene to inGameUI
-            primaryStage.close();
             primaryStage.setScene(inGameUI);
-            primaryStage.show();
+            primaryStage.setFullScreen(true);
         });
     }
 

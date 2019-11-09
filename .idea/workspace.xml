@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameEngine.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="newUI" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1T4CuGhruY5exwong1wnzV9rSVK" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.stylelint" value="true" />
+    <property name="node.js.path.for.package.stylelint" value="project" />
+    <property name="node.js.selected.package.stylelint" value="" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.GameEngine">
+    <configuration name="CMMMC" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.GUI.CMMMC" />
+      <module name="PIXEL Wars GIT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.case_pcbe.strategy_game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FXCSSHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.GUI.FXCSSHandler" />
+      <module name="PIXEL Wars GIT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.case_pcbe.strategy_game.GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameEngine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.GameEngine" />
+      <module name="PIXEL Wars GIT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.case_pcbe.strategy_game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.GUI.GameUI" />
+      <module name="PIXEL Wars GIT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.case_pcbe.strategy_game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GameEngine" />
+        <item itemvalue="Application.GameUI" />
+        <item itemvalue="Application.FXCSSHandler" />
+        <item itemvalue="Application.CMMMC" />
+        <item itemvalue="Application.GameUI" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="" />
+      <created>1572710201073</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1572710201073</updated>
+      <workItem from="1572710202241" duration="2629000" />
+      <workItem from="1572786990615" duration="23465000" />
+      <workItem from="1572892071402" duration="12899000" />
+      <workItem from="1572907643916" duration="41000" />
+      <workItem from="1572955576170" duration="5000" />
+      <workItem from="1572958557868" duration="525000" />
+      <workItem from="1572979174573" duration="19119000" />
+      <workItem from="1573003846508" duration="3657000" />
+      <workItem from="1573007713757" duration="167000" />
+      <workItem from="1573036052105" duration="14629000" />
+      <workItem from="1573057663683" duration="29825000" />
+      <workItem from="1573132029958" duration="10351000" />
+      <workItem from="1573170732097" duration="15773000" />
+      <workItem from="1573215994698" duration="35099000" />
+    </task>
+    <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
+      <created>1572711273038</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572711273038</updated>
+    </task>
+    <task id="LOCAL-00002" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
+      <created>1572711856522</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572711856522</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1. Removed the excess of static context&#10;2. GameUI class now uses the generic methods &quot;setupElement&quot; in order to position specific Node Elements/set sizes for specific Region elements&#10;3. A lot of code refactoring">
+      <created>1572907331102</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1572907331102</updated>
+    </task>
+    <task id="LOCAL-00004" summary="1. Removed the excess of static context&#10;2. GameUI class now uses the generic methods &quot;setupElement&quot; in order to position specific Node Elements/set sizes for specific Region elements&#10;3. A lot of code refactoring">
+      <created>1572907666062</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1572907666062</updated>
+    </task>
+    <task id="LOCAL-00005" summary="More UI &amp; Map Logic changes&#10;&#10;1. The map drawing inside it's layout should had not a FIXED size in pixels, it was depending on the dimension of the noiseMatrix resulted from the Map Pane's width/height (in pixels) divided into the variable tileSize selected before. Considering the old resolution for map was: 1280*900, for example, 3 does not divide 1280 or 7 does not divide 900! We would like to keep the tileSizes in pixels like that.&#10;Solution: Map Pane's (in pixels) should be choosen in such way that it will be able to be EXACTLY divided by each of the tileSizes in pixels: 3,4,5,6,7 (depending on the map type selected before). So we are doing the least common multiple of (3,4,5,6,7)=420 -&gt; a close resolution of 1260*840(3:2 aspect ratio) for the Map Pane should work fine for the 1600x900 window size we test on. Soon we will have a responsive update for &gt;=720p monitors.&#10;Why? Doing so we'll have noiseMatrix's width=1260/tileSize and height=840/tileSize (both INTEGER numbers, better than doubles). Why? An unexact division with the tileSizes would result in a double width and height, that must be converted into int in order to be the number of columns/rows in the matrixes. Conversion Double to Int would result in precision loss and different sizes for the mapPane's when drawn.&#10;Bad example, tilesize=7: 1280/7=182.8571428571429 -&gt; converted to 182 and 900/7 -&gt; 128.5714285714286 converted to 128&#10;now multiplying those by the tile drawing size we have 182*7=1274 and 128*7=896 a totally different resolutions than the one we chose!&#10;&#10;2. Few Changes to the UI: added more containers for easy alignment. Following commit will be more focused on this part.">
+      <created>1573007722561</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1573007722561</updated>
+    </task>
+    <task id="LOCAL-00006" summary="New introUI &amp; graphics using CSS&#10;&#10;The introUI was totally remaked using layouts. The structure is done via Java Code, while the graphics is now styled with an external css.&#10;This allows separation of the UI structure/graphics, but also permits flexibility for the game's graphics, as long as it fits to the structure in the java code.">
+      <created>1573254627234</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1573254627234</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm" />
+    <MESSAGE value="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm&#10;..." />
+    <MESSAGE value="1. Removed the excess of static context&#10;2. GameUI class now uses the generic methods &quot;setupElement&quot; in order to position specific Node Elements/set sizes for specific Region elements&#10;3. A lot of code refactoring" />
+    <MESSAGE value="More UI &amp; Map Logic changes&#10;&#10;1. The map drawing inside it's layout should had not a FIXED size in pixels, it was depending on the dimension of the noiseMatrix resulted from the Map Pane's width/height (in pixels) divided into the variable tileSize selected before. Considering the old resolution for map was: 1280*900, for example, 3 does not divide 1280 or 7 does not divide 900! We would like to keep the tileSizes in pixels like that.&#10;Solution: Map Pane's (in pixels) should be choosen in such way that it will be able to be EXACTLY divided by each of the tileSizes in pixels: 3,4,5,6,7 (depending on the map type selected before). So we are doing the least common multiple of (3,4,5,6,7)=420 -&gt; a close resolution of 1260*840(3:2 aspect ratio) for the Map Pane should work fine for the 1600x900 window size we test on. Soon we will have a responsive update for &gt;=720p monitors.&#10;Why? Doing so we'll have noiseMatrix's width=1260/tileSize and height=840/tileSize (both INTEGER numbers, better than doubles). Why? An unexact division with the tileSizes would result in a double width and height, that must be converted into int in order to be the number of columns/rows in the matrixes. Conversion Double to Int would result in precision loss and different sizes for the mapPane's when drawn.&#10;Bad example, tilesize=7: 1280/7=182.8571428571429 -&gt; converted to 182 and 900/7 -&gt; 128.5714285714286 converted to 128&#10;now multiplying those by the tile drawing size we have 182*7=1274 and 128*7=896 a totally different resolutions than the one we chose!&#10;&#10;2. Few Changes to the UI: added more containers for easy alignment. Following commit will be more focused on this part." />
+    <MESSAGE value="New introUI &amp; graphics using CSS&#10;&#10;The introUI was totally remaked using layouts. The structure is done via Java Code, while the graphics is now styled with an external css.&#10;This allows separation of the UI structure/graphics, but also permits flexibility for the game's graphics, as long as it fits to the structure in the java code." />
+    <option name="LAST_COMMIT_MESSAGE" value="New introUI &amp; graphics using CSS&#10;&#10;The introUI was totally remaked using layouts. The structure is done via Java Code, while the graphics is now styled with an external css.&#10;This allows separation of the UI structure/graphics, but also permits flexibility for the game's graphics, as long as it fits to the structure in the java code." />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine.ic" NAME="GameEngine Coverage Results" MODIFIED="1573048401600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.case_pcbe.strategy_game.GUI.*</FILTER>
+    </SUITE>
+  </component>
+</project>
