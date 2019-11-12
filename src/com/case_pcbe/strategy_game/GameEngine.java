@@ -35,7 +35,7 @@ public class GameEngine extends Application {
         game();
     }
 
-    public void game() {
+    private void game() {
         //Creating the Parent object for the introUI
         Parent intro = GameUI.IntroUI.createIntroUI();
         //Setting the scene object from the root intro
@@ -71,6 +71,7 @@ public class GameEngine extends Application {
 
         Button quitButton = (Button) mainScene.lookup("#Button-intro-quit");
         quitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> mainStage.close());
+        //
     }
 
     public static void main(String[] args) {
