@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CssDialectMappings">
     <file url="file://$PROJECT_DIR$" dialect="JavaFX" />
-    <file url="file://$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/css/intro.css" dialect="CLASSIC" />
+    <file url="file://$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/css/game.css" dialect="CLASSIC" />
     <file url="PROJECT" dialect="JavaFX" />
   </component>
 </project>

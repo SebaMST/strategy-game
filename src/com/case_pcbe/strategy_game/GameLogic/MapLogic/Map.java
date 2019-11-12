@@ -4,14 +4,15 @@ import com.case_pcbe.strategy_game.GameLogic.MapLogic.Generation.NoiseGenerator;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Map {
-    private static final int MAP_WIDTH_PX = 1260, MAP_HEIGHT_PX = 840;
-    public static final double[] terrainHeights = new double[]{0.2D, 0.345D, 0.37D, 0.58D, 0.75D, 0.85D, 1.0D};
-    public static final Color[] terrainColors = new Color[]{Color.BLUE, Color.DODGERBLUE, Color.BEIGE, Color.GREEN, Color.DARKGREEN, Color.DARKGREY, Color.WHITESMOKE};
-    public static final Class[] terrainClasses = new Class[]{NonoperationalMapTile.class, NonoperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, NonoperationalMapTile.class};
+    public static final int MAP_WIDTH_PX = 1440, MAP_HEIGHT_PX = 840;
+    public static final double[] terrainHeights = new double[]{0.2D, 0.345D, 0.38D, 0.58D, 0.83D, 0.91D, 1.0D};
+    public static final Color[] terrainColors = new Color[]{Color.rgb(0, 93, 244), Color.DODGERBLUE, Color.BEIGE, Color.GREEN, Color.DARKGREEN, Color.DARKGREY, Color.WHITESMOKE};
+    private static final Class[] terrainClasses = new Class[]{NonoperationalMapTile.class, NonoperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, OperationalMapTile.class, NonoperationalMapTile.class};
     private int tileSize;
-    private static HashMap<String, Integer> mapSizes;
+    private static HashMap<String, Integer> mapSizes, resDensities;
     private int width;
     private int height;
     private double[][] noiseMatrix;
@@ -19,18 +20,22 @@ public class Map {
 
     static {
         mapSizes = new HashMap<>();
-        mapSizes.put("Tiny", 7);
-        mapSizes.put("Small", 6);
-        mapSizes.put("Medium", 5);
-        mapSizes.put("Large", 4);
-        mapSizes.put("Giant", 3);
+        mapSizes.put("Small", 12);
+        mapSizes.put("Medium", 10);
+        mapSizes.put("Large", 8);
+        mapSizes.put("Giant", 6);
+
+        resDensities = new HashMap<>();
+        resDensities.put("Starvation", 3);
+        resDensities.put("Moderate", 5);
+        resDensities.put("Richness", 7);
     }
 
     public Map(String mapType) {
         tileSize = mapSizes.get(mapType);
         width = MAP_WIDTH_PX / tileSize;
         height = MAP_HEIGHT_PX / tileSize;
-        noiseMatrix = NoiseGenerator.generateNoiseMatrix(width, height, (int) System.currentTimeMillis(), 120, 4, 0.5D, 2.0D);
+        noiseMatrix = NoiseGenerator.generateNoiseMatrix(width, height, (int) System.currentTimeMillis(), 70, 5, 0.5D, 1.7D);
         mapTilesMatrix = fromNoiseToTiles();
     }
 
@@ -71,6 +76,14 @@ public class Map {
 
     public MapTile[][] getMapTilesMatrix() {
         return mapTilesMatrix;
+    }
+
+    public static Set<String> getMapSizes() {
+        return mapSizes.keySet();
+    }
+
+    public static Set<String> getResDensities() {
+        return resDensities.keySet();
     }
 
 }

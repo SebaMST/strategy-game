@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="Code refactoring, CSS and Player Icons&#10;&#10;-A lot of code refactoring all over the classes;&#10;-The graphics are based mainly on css now and on the res folder;&#10;-Players may choose now their icons;&#10;-Different map tiles size: 6, 8, 10, 12, in order for the icons to fit there fine. 3,4,5,6,7 had a stupid common multiple of 420, but 6,8,10,12 have 120 in common. everything is more flexible now considering map size!&#10;new map size: 1680 x 840">
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/META-INF/PIXEL Wars GIT.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$InGameUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$IntroUI$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$IntroUI$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$IntroUI.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/css/game.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/blue.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/brown.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/cyan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/green.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/orange.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/purple.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/red.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/yellow.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/cssdialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Food.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Food.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Gold.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Gold.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Iron.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Iron.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Map.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Map.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/ResourceBank.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/ResourceBank.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Stone.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Stone.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Wood.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Wood.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/css/intro.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GUI/GameUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Player.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +64,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GUI" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.selected.package.stylelint" value="" />
@@ -36,6 +73,11 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\abesg\IdeaProjects\PIXEL Wars GIT\src\com\case_pcbe\strategy_game\GUI" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -102,13 +144,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MULTIPLU" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.MULTIPLU" />
+      <module name="PIXEL Wars GIT" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.case_pcbe.strategy_game.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.GameEngine" />
+        <item itemvalue="Application.MULTIPLU" />
         <item itemvalue="Application.GameUI" />
         <item itemvalue="Application.FXCSSHandler" />
         <item itemvalue="Application.CMMMC" />
-        <item itemvalue="Application.GameUI" />
       </list>
     </recent_temporary>
   </component>
@@ -135,7 +190,8 @@
       <workItem from="1573057663683" duration="29825000" />
       <workItem from="1573132029958" duration="10351000" />
       <workItem from="1573170732097" duration="15773000" />
-      <workItem from="1573215994698" duration="35442000" />
+      <workItem from="1573215994698" duration="75233000" />
+      <workItem from="1573474704172" duration="32966000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -186,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573321053641</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added out folder for .class files and res folder for the resources">
+      <created>1573321076960</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573321076960</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,7 +274,9 @@
     <MESSAGE value="1. Removed the excess of static context&#10;2. GameUI class now uses the generic methods &quot;setupElement&quot; in order to position specific Node Elements/set sizes for specific Region elements&#10;3. A lot of code refactoring" />
     <MESSAGE value="More UI &amp; Map Logic changes&#10;&#10;1. The map drawing inside it's layout should had not a FIXED size in pixels, it was depending on the dimension of the noiseMatrix resulted from the Map Pane's width/height (in pixels) divided into the variable tileSize selected before. Considering the old resolution for map was: 1280*900, for example, 3 does not divide 1280 or 7 does not divide 900! We would like to keep the tileSizes in pixels like that.&#10;Solution: Map Pane's (in pixels) should be choosen in such way that it will be able to be EXACTLY divided by each of the tileSizes in pixels: 3,4,5,6,7 (depending on the map type selected before). So we are doing the least common multiple of (3,4,5,6,7)=420 -&gt; a close resolution of 1260*840(3:2 aspect ratio) for the Map Pane should work fine for the 1600x900 window size we test on. Soon we will have a responsive update for &gt;=720p monitors.&#10;Why? Doing so we'll have noiseMatrix's width=1260/tileSize and height=840/tileSize (both INTEGER numbers, better than doubles). Why? An unexact division with the tileSizes would result in a double width and height, that must be converted into int in order to be the number of columns/rows in the matrixes. Conversion Double to Int would result in precision loss and different sizes for the mapPane's when drawn.&#10;Bad example, tilesize=7: 1280/7=182.8571428571429 -&gt; converted to 182 and 900/7 -&gt; 128.5714285714286 converted to 128&#10;now multiplying those by the tile drawing size we have 182*7=1274 and 128*7=896 a totally different resolutions than the one we chose!&#10;&#10;2. Few Changes to the UI: added more containers for easy alignment. Following commit will be more focused on this part." />
     <MESSAGE value="New introUI &amp; graphics using CSS&#10;&#10;The introUI was totally remaked using layouts. The structure is done via Java Code, while the graphics is now styled with an external css.&#10;This allows separation of the UI structure/graphics, but also permits flexibility for the game's graphics, as long as it fits to the structure in the java code." />
-    <option name="LAST_COMMIT_MESSAGE" value="New introUI &amp; graphics using CSS&#10;&#10;The introUI was totally remaked using layouts. The structure is done via Java Code, while the graphics is now styled with an external css.&#10;This allows separation of the UI structure/graphics, but also permits flexibility for the game's graphics, as long as it fits to the structure in the java code." />
+    <MESSAGE value="Added out folder for .class files and res folder for the resources" />
+    <MESSAGE value="Code refactoring, CSS and Player Icons&#10;&#10;-A lot of code refactoring all over the classes;&#10;-The graphics are based mainly on css now and on the res folder;&#10;-Players may choose now their icons;&#10;-Different map tiles size: 6, 8, 10, 12, in order for the icons to fit there fine. 3,4,5,6,7 had a stupid common multiple of 420, but 6,8,10,12 have 120 in common. everything is more flexible now considering map size!&#10;new map size: 1680 x 840" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code refactoring, CSS and Player Icons&#10;&#10;-A lot of code refactoring all over the classes;&#10;-The graphics are based mainly on css now and on the res folder;&#10;-Players may choose now their icons;&#10;-Different map tiles size: 6, 8, 10, 12, in order for the icons to fit there fine. 3,4,5,6,7 had a stupid common multiple of 420, but 6,8,10,12 have 120 in common. everything is more flexible now considering map size!&#10;new map size: 1680 x 840" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">

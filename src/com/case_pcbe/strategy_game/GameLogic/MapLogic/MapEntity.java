@@ -2,12 +2,10 @@ package com.case_pcbe.strategy_game.GameLogic.MapLogic;
 
 import javafx.scene.paint.Color;
 
-import javax.annotation.Resource;
-
 public abstract class MapEntity {
     private int posX;
     private int posY;
-    Color color;
+    private Color color;
 
     public MapEntity(int posX, int posY) {
         this.posX = posX;

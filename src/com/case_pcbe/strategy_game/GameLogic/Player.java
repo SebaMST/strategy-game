@@ -2,14 +2,14 @@ package com.case_pcbe.strategy_game.GameLogic;
 
 import com.case_pcbe.strategy_game.GameLogic.Messaging.MessageLog;
 import com.case_pcbe.strategy_game.GameLogic.Messaging.MessagingSystem;
-import javafx.scene.paint.Color;
 
 public class Player {
+    private static final String[] playersColors = new String[]{"Red", "Orange", "Yellow", "Brown", "Green", "Cyan", "Blue", "Purple"};
     private String name;
-    private Color color;
+    private String color;
     private MessageLog playerLog;
 
-    public Player(String name, Color color) {
+    public Player(String name, String color) {
         this.name = name;
         this.color = color;
         this.playerLog = MessagingSystem.MESSAGE_LOG;
@@ -19,11 +19,15 @@ public class Player {
         return this.name;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return this.color;
     }
 
     public void speak(String s) {
-        MessagingSystem.chat(this.name, s);
+        MessagingSystem.chat(this.name + " (" + color + ")", s);
+    }
+
+    public static String[] getPlayersColors() {
+        return playersColors;
     }
 }
