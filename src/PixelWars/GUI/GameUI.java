@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
+
 import java.awt.*;
 import java.io.File;
 import java.util.*;
@@ -34,21 +35,45 @@ public class GameUI {
         SCREEN_WIDTH = screenSize.getWidth();
         SCREEN_HEIGHT = screenSize.getHeight();
         System.out.println(SCREEN_WIDTH + " " + SCREEN_HEIGHT);
+        ImageLoader.loadIcons();
     }
 
     private static class ImageLoader {
-        private static String iconsPath = "res/img/icon/";
-        private static HashMap<String,Image> iconsMap;
-        static {
-            //loadPlayerIcons();
-        }
-        private static void loadIconPlayer()
-        {
-            String path = iconsPath+"player/";
-            File folder = new File(path);
+        private static final String PATH_ICON_FOLDER = "res/img/icon/";
+        private static HashMap<String, HashMap<String,Image>> iconsMap;
 
-            //for(File f: folder.listFiles())
+        private static void loadIcons() {
+            iconsMap=new HashMap<>();
+            File iconFolder = new File(PATH_ICON_FOLDER);
+            File[] iconSubfolders = iconFolder.listFiles();
+            if (iconSubfolders != null)
+            {
+                for(File subfolder: iconSubfolders)
+                {
+                    String subfolderName = subfolder.getName(); //to be added in iconsMap
+                    HashMap<String,Image> subfolderIconsMap=new HashMap<>();
+                    File[] icons = subfolder.listFiles();
+                    if (icons != null) {
+                        for(File icon: icons)
+                        {
+                            String fullIconName = icon.getName();
+                            String iconName = fullIconName.substring(0,fullIconName.length()-4); //without .png extension
+                            Image img = new Image(PATH_ICON_FOLDER+subfolderName+"/"+fullIconName);
+                            subfolderIconsMap.put(iconName,img);
+                        }
+                    }
+                    iconsMap.put(subfolderName,subfolderIconsMap);
+                }
+            }
+            System.out.println(iconsMap);
         }
+
+        public static Image getIcon(String category, String name)
+        {
+            System.out.println(category+" "+name);
+            return iconsMap.get(category).get(name);
+        }
+
     }
 
     public static class IntroUI {
@@ -249,7 +274,8 @@ public class GameUI {
             {
                 mapTileColors[i] = new Background(new BackgroundFill(terrainColors[i],CornerRadii.EMPTY,Insets.EMPTY));
             }
-            Image p =new Image("res/img/icon/player/Red.png");
+
+            Random r = new Random();
 
             for (int i = 0; i < map.getHeight(); i++) {
                 for (int j = 0; j < map.getWidth(); j++) {
@@ -257,10 +283,19 @@ public class GameUI {
                         if (noiseMatrix[i][j] <= Map.terrainHeights[h]) {
                             AnchorPane a = new AnchorPane();
                             a.setBackground(mapTileColors[h]);
-                                ImageView iv = new ImageView();
-                                iv.setFitWidth(tileSize); iv.setFitHeight(tileSize);
-                                iv.setImage(p);
-                                a.getChildren().add(iv);
+                            ImageView iv = new ImageView();
+                            iv.setFitWidth(tileSize); iv.setFitHeight(tileSize);
+                            /*if(r.nextInt(7000)%611==0)
+                            iv.setImage(ImageLoader.getIcon("ResourceBank","Tree"));
+                            else if (r.nextInt(7000)%2111==0)
+                                iv.setImage(ImageLoader.getIcon("ResourceBank","Iron"));
+                            else if (r.nextInt(7000)%1333==0)
+                                iv.setImage(ImageLoader.getIcon("ResourceBank","Gold"));
+                            else if (r.nextInt(7000)%700==0)
+                                iv.setImage(ImageLoader.getIcon("ResourceBank","Stone"));
+                            else if (r.nextInt(7000)%1555==0)
+                                iv.setImage(ImageLoader.getIcon("ResourceBank","Food"));*/
+                            a.getChildren().add(iv);
                             mapPane.add(a,j,i);
                             break;
                         }

@@ -4,6 +4,7 @@ import PixelWars.GUI.GameUI;
 import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.MapLogic.Map;
 import PixelWars.GameLogic.Player;
+import com.sun.deploy.ui.ImageLoader;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import javax.swing.text.html.ImageView;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameEngine extends Application {
@@ -71,7 +76,6 @@ public class GameEngine extends Application {
 
         Button quitButton = (Button) mainScene.lookup("#Button-intro-quit");
         quitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> mainStage.close());
-        //
     }
 
     public static void main(String[] args) {

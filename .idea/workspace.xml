@@ -2,56 +2,82 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/Files.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cssdialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cssdialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PIXEL Wars GIT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PIXEL Wars GIT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/cssdialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/META-INF/PIXEL Wars GIT.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$InGameUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$IntroUI$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$IntroUI$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI$IntroUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GUI/GameUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameEngine.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Food.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Generation/ImprovedNoise.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Generation/NoiseGenerator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Gold.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Iron.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Map.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapTile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/NonoperationalMapTile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/OperationalMapTile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/ResourceBank.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Stone.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/MapLogic/Wood.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Messaging/MessageLog.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Messaging/MessagingSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/com/case_pcbe/strategy_game/GameLogic/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PIXEL Wars GIT.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GUI/GameUI$ImageLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GUI/GameUI$InGameUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GUI/GameUI$IntroUI$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GUI/GameUI$IntroUI$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GUI/GameUI$IntroUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GUI/GameUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameEngine.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Food.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Generation/ImprovedNoise.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Generation/NoiseGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Gold.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Iron.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Map.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/MapEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/MapTile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/NonoperationalMapTile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/OperationalMapTile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/ResourceBank.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Stone.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/MapLogic/Wood.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/Messaging/MessageLog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/Messaging/MessagingSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/PixelWars/GameLogic/Player.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/css/game.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/blue.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/brown.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/cyan.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/brown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/cyan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/orange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/purple.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/old/yellow.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/orange.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/purple.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/red12.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/icon/player/yellow.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/res/img/introBG.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GUI/GameUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/Generation/ImprovedNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Generation/ImprovedNoise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/Generation/NoiseGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Generation/NoiseGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/MapLogic/MapTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Messaging/MessageLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Messaging/MessagingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GameLogic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GUI/GameUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameEngine.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/Game.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/MapLogic/Generation/ImprovedNoise.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/MapLogic/Generation/NoiseGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/MapLogic/Map.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/MapLogic/MapEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/MapLogic/MapTile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/Messaging/MessageLog.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/src/PixelWars/GameLogic/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PIXEL Wars GIT/strategy-game.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/brown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/cyan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/orange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/purple.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/old/yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/player/red12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -174,10 +200,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.GameEngine (1)" />
+        <item itemvalue="Application.MULTIPLU" />
+        <item itemvalue="Application.GameEngine" />
         <item itemvalue="Application.Files (1)" />
         <item itemvalue="Application.Files" />
-        <item itemvalue="Application.GameEngine" />
-        <item itemvalue="Application.MULTIPLU" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +235,9 @@
       <workItem from="1573523582798" duration="113000" />
       <workItem from="1573568979808" duration="144000" />
       <workItem from="1573580869705" duration="3455000" />
-      <workItem from="1573587135029" duration="13360000" />
+      <workItem from="1573587135029" duration="15837000" />
+      <workItem from="1573649717918" duration="8585000" />
+      <workItem from="1573676904551" duration="6089000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -288,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573523683980</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Unnamed">
+      <created>1573602180434</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1573602180434</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,7 +350,8 @@
     <MESSAGE value="New introUI &amp; graphics using CSS&#10;&#10;The introUI was totally remaked using layouts. The structure is done via Java Code, while the graphics is now styled with an external css.&#10;This allows separation of the UI structure/graphics, but also permits flexibility for the game's graphics, as long as it fits to the structure in the java code." />
     <MESSAGE value="Added out folder for .class files and res folder for the resources" />
     <MESSAGE value="Code refactoring, CSS and Player Icons&#10;&#10;-A lot of code refactoring all over the classes;&#10;-The graphics are based mainly on css now and on the res folder;&#10;-Players may choose now their icons;&#10;-Different map tiles size: 6, 8, 10, 12, in order for the icons to fit there fine. 3,4,5,6,7 had a stupid common multiple of 420, but 6,8,10,12 have 120 in common. everything is more flexible now considering map size!&#10;new map size: 1680 x 840" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code refactoring, CSS and Player Icons&#10;&#10;-A lot of code refactoring all over the classes;&#10;-The graphics are based mainly on css now and on the res folder;&#10;-Players may choose now their icons;&#10;-Different map tiles size: 6, 8, 10, 12, in order for the icons to fit there fine. 3,4,5,6,7 had a stupid common multiple of 420, but 6,8,10,12 have 120 in common. everything is more flexible now considering map size!&#10;new map size: 1680 x 840" />
+    <MESSAGE value="Unnamed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Unnamed" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine.ic" NAME="GameEngine Coverage Results" MODIFIED="1573048401600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
