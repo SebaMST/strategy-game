@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="Updates to the InGameUI&#10;&#10;-InGame interface now looks nice.&#10;-Added RESET button, that will take the user back to the intro scene and reconfigure the game settings.">
-      <change afterPath="$PROJECT_DIR$/res/img/icon/ResourceBank/Food.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/ResourceBank/Gold.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/ResourceBank/Iron.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/ResourceBank/Lumber.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/ResourceBank/Stone.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/ResourceBank/Wood.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/brown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/cyan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/orange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/purple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/old/yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Building.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/ResourceBank.java" afterDir="false" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="Updates to Map&#10;&#10;-Map in the inGameUI is now Zoomable, Pannable.&#10;-Further performance optimizations for Large/Giant maps coming soon">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/res/css/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/res/css/game.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -185,7 +165,8 @@
       <workItem from="1573580869705" duration="3455000" />
       <workItem from="1573587135029" duration="15837000" />
       <workItem from="1573649717918" duration="8585000" />
-      <workItem from="1573676904551" duration="19336000" />
+      <workItem from="1573676904551" duration="19989000" />
+      <workItem from="1573730765808" duration="21040000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -278,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573685698704</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Updates to the InGameUI&#10;&#10;-InGame interface now looks nice.&#10;-Added RESET button, that will take the user back to the intro scene and reconfigure the game settings.">
+      <created>1573700141044</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1573700141044</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,7 +296,8 @@
     <MESSAGE value="Unnamed" />
     <MESSAGE value="Added ImageLoader class, used for processing the Icons for the MapEtities in the UI" />
     <MESSAGE value="Updates to the InGameUI&#10;&#10;-InGame interface now looks nice.&#10;-Added RESET button, that will take the user back to the intro scene and reconfigure the game settings." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates to the InGameUI&#10;&#10;-InGame interface now looks nice.&#10;-Added RESET button, that will take the user back to the intro scene and reconfigure the game settings." />
+    <MESSAGE value="Updates to Map&#10;&#10;-Map in the inGameUI is now Zoomable, Pannable.&#10;-Further performance optimizations for Large/Giant maps coming soon" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates to Map&#10;&#10;-Map in the inGameUI is now Zoomable, Pannable.&#10;-Further performance optimizations for Large/Giant maps coming soon" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine.ic" NAME="GameEngine Coverage Results" MODIFIED="1573048401600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

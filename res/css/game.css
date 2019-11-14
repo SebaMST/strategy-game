@@ -239,10 +239,7 @@ Text,
     -fx-border-radius: 5;
 }
 
-#GridPane-ingame-mapPane {
-    -fx-border-width: 20;
-    -fx-border-color: MAP_BORDER_COLOR;
-    -fx-border-radius: 5;
+#ScrollPane-ingame-mapPane {
 }
 
 /*concrete containers*/
@@ -327,6 +324,14 @@ Text,
 }
 
 #VBox-ingame-right {
-    -fx-max-width: 1440px;
+    -fx-pref-width: 1452px;
     -fx-spacing: 10;
+}
+
+#ScrollPane-ingame-mapPane {
+    -fx-pref-width: 1442px;
+    -fx-pref-height: 962px;
+    -fx-pannable: true;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
 }
