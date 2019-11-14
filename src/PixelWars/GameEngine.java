@@ -3,8 +3,8 @@ package PixelWars;
 import PixelWars.GUI.GameUI;
 import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.MapLogic.Map;
+import PixelWars.GameLogic.Messaging.MessagingSystem;
 import PixelWars.GameLogic.Player;
-import com.sun.deploy.ui.ImageLoader;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,10 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javax.swing.text.html.ImageView;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameEngine extends Application {
@@ -27,16 +23,18 @@ public class GameEngine extends Application {
     @Override
     public void start(Stage primaryStage) {
         mainStage = primaryStage;
+        //Initializing the stage
         mainStage.setTitle("PIXEL WARS");
         mainStage.setFullScreen(true);
         mainStage.setFullScreenExitHint("");
         mainStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        //Creating empty scene
-        mainScene = new Scene(new Region());
-        //Setting scene's css reference
-        mainScene.getStylesheets().add("res/css/game.css");
-        //Setting stage's scene
+        //Initializing the scene
+        mainScene = new Scene(new Region());//dummy scene
+        mainScene.getStylesheets().add("res/css/game.css");//Setting scene's css reference
+        //Setting the stage's scene
         mainStage.setScene(mainScene);
+        //Initializing GameUI Components
+        GameUI.init();
         game();
     }
 
@@ -71,6 +69,11 @@ public class GameEngine extends Application {
             //Setting the scene's root to inGameUI
             Parent ingame = GameUI.InGameUI.createInGameUI(g);
             mainScene.setRoot(ingame);
+            Button resetButton = (Button) mainScene.lookup("#Button-ingame-reset");
+            resetButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (f) -> {
+                MessagingSystem.reset();
+                game();
+            });
             System.out.println(System.currentTimeMillis() - l);
         });
 

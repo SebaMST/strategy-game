@@ -1,5 +1,7 @@
 package PixelWars.GameLogic.MapLogic;
 
+import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
+
 public abstract class MapTile {
     public abstract boolean isOperational();
 }

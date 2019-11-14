@@ -14,6 +14,11 @@ public class MessageLog {
         return this.messages.add(message) ? message : null;
     }
 
+    public void clear()
+    {
+        messages.clear();
+    }
+
     public String toString() {
         StringBuilder res = new StringBuilder();
         for (String m : messages) {

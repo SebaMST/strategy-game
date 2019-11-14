@@ -6,4 +6,9 @@ public final class MessagingSystem {
     public static void chat(String name, String s) {
         MESSAGE_LOG.append(name, s);
     }
+
+    public static void reset()
+    {
+        MESSAGE_LOG.clear();
+    }
 }

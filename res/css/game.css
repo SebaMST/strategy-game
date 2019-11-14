@@ -2,10 +2,12 @@
     TEXT_COLOR: white;
     SHADOW_COLOR: black;
     BORDER_COLOR: rgba(255,255,255,0.5);
-    CONTROL_DEFAULT_BG_COLOR: rgba(0,0,0,0.65);
-    CONTROL_FOCUS_BG_COLOR: rgba(55,55,55,0.65);
-    CONTROL_ACTION_BG_COLOR: rgba(111,111,111,0.65);
-    CONTAINER_DEFAULT_BG_COLOR: rgba(88,88,88,0.15);
+    MAP_BORDER_COLOR: rgba(0,0,0,0.5);
+    CONTROL_DEFAULT_BG_COLOR: linear-gradient(to top right, rgba(0,11,22,0.65) 0%, rgba(255,255,255,0.15) 100% );
+    CONTROL_FOCUS_BG_COLOR: linear-gradient(to top left, rgba(0,11,22,0.65) 0%, rgba(255,255,255,0.15) 100% );
+    CONTROL_ACTION_BG_COLOR: linear-gradient(to top left, rgba(0,11,22,0.75) 0%, rgba(255,255,255,0.25) 100% );
+    CONTAINER_DEFAULT_BG_COLOR: linear-gradient(to bottom right, rgba(0,11,22,0.33) 0%, rgba(166,166,166,0.15) 100% );
+    CONTAINER_DARK_BG_COLOR: linear-gradient(to bottom left, rgba(0,5,11,0.7) 0%, rgba(88,88,88,0.15) 100% );
 }
 
 .Background-gameTheme {
@@ -37,10 +39,11 @@
 Text,
 .label,
 .TextField-gameTheme,
+.TextArea-gameTheme,
 .Accordion-gameTheme > .titled-pane > .title,
 .Button-gameTheme {
     -fx-font-family: "Courier New";
-    -fx-font-weight: 900;
+    -fx-font-weight: 900; /*safe to ignore warning*/
 }
 
 .Font-family-header {
@@ -126,24 +129,24 @@ Text,
 /*controls*/
 .ChoiceBox-gameTheme,
 .ColorPicker-gameTheme {
-    -fx-pref-width: 200;
-    -fx-pref-height: 30;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 30px;
 }
 
 .TextField-gameTheme {
-    -fx-max-width: 200;
-    -fx-min-width: 200;
-    -fx-max-height: 30;
-    -fx-min-height: 30;
+    -fx-max-width: 200px;
+    -fx-min-width: 200px;
+    -fx-max-height: 30px;
+    -fx-min-height: 30px;
 }
 
 .ChoiceBox-gameTheme .context-menu {
-    -fx-pref-width: 200;
+    -fx-pref-width: 200px;
 }
 
 .Button-gameTheme {
-    -fx-pref-width: 136;
-    -fx-pref-height: 50;
+    -fx-pref-width: 136px;
+    -fx-pref-height: 50px;
 }
 
 .Accordion-gameTheme > .titled-pane {
@@ -184,6 +187,14 @@ Text,
     -fx-background-radius: 5;
 }
 
+
+.TextArea-gameTheme {
+    -fx-control-inner-background: black;
+    -fx-background-radius: 5;
+}
+
+
+
 .ChoiceBox-gameTheme:hover,
 .TextField-gameTheme:hover,
 .ColorPicker-gameTheme:hover,
@@ -207,6 +218,12 @@ Text,
     -fx-background-radius: 5;
 }
 
+#VBox-ingame-right,
+#VBox-ingame-left {
+    -fx-background-color: CONTAINER_DARK_BG_COLOR;
+    -fx-background-radius: 5;
+}
+
 .ChoiceBox-gameTheme,
 .ChoiceBox-gameTheme .context-menu,
 .TextField-gameTheme,
@@ -215,13 +232,22 @@ Text,
 .Accordion-gameTheme > .titled-pane > .title,
 .Accordion-gameTheme > .titled-pane > .content,
 .Button-gameTheme,
-#VBox-intro-mainPanel {
+#VBox-intro-mainPanel,
+#VBox-ingame-left,
+#VBox-ingame-right {
     -fx-border-color: BORDER_COLOR;
     -fx-border-radius: 5;
 }
 
+#GridPane-ingame-mapPane {
+    -fx-border-width: 20;
+    -fx-border-color: MAP_BORDER_COLOR;
+    -fx-border-radius: 5;
+}
+
 /*concrete containers*/
-#HBox-intro-root {
+/*intro*/
+#HBox-intro-root, #HBox-ingame-root {
     -fx-pref-width: 1920px;
     -fx-pref-height: 1080px;
 }
@@ -276,4 +302,31 @@ Text,
 #HBox-intro-buttons {
     -fx-pref-height: 108px;
     -fx-spacing: 14;
+}
+
+/*ingame*/
+#VBox-ingame-left {
+    -fx-pref-width: 480px;
+}
+
+#VBox-ingame-leftUpper, #VBox-ingame-leftLower {
+    -fx-spacing: 20;
+    -fx-padding: 25;
+}
+
+#VBox-ingame-leftUpper {
+    -fx-pref-height: 600px;
+}
+
+#VBox-ingame-leftLower {
+    -fx-pref-height: 480px;
+}
+
+#TextArea-ingame-globalLog {
+    -fx-pref-height: 386;
+}
+
+#VBox-ingame-right {
+    -fx-max-width: 1440px;
+    -fx-spacing: 10;
 }
