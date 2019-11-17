@@ -1,36 +1,34 @@
 package PixelWars.GUI;
 
+import PixelWars.GUI.CustomFX.ZoomableScrollPane;
+import PixelWars.GUI.Events.Capturers.Capturer_ImageView;
+import PixelWars.GUI.Events.Capturers.Capturer_TextArea;
 import PixelWars.GameLogic.Game;
+import PixelWars.GameLogic.MapLogic.MapTile;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
 import PixelWars.GameLogic.Messaging.MessageLog;
 import PixelWars.GameLogic.MapLogic.Map;
-import PixelWars.GameLogic.Player;
+import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
-import javafx.scene.transform.Scale;
 
 import java.awt.*;
-import java.io.File;
 import java.util.*;
+import java.util.List;
 
 public class GameUI {
     private static final double SCREEN_WIDTH, SCREEN_HEIGHT;
@@ -43,43 +41,7 @@ public class GameUI {
 
     public static void init()
     {
-        ImageLoader.loadIcons();
-    }
-
-    private static class ImageLoader {
-        private static final String PATH_ICON_FOLDER = "res/img/icon/";
-        private static HashMap<String, HashMap<String,Image>> iconsMap;
-
-        private static void loadIcons() {
-            iconsMap=new HashMap<>();
-            File iconFolder = new File(PATH_ICON_FOLDER);
-            File[] iconSubfolders = iconFolder.listFiles();
-            if (iconSubfolders != null)
-            {
-                for(File subfolder: iconSubfolders)
-                {
-                    String subfolderName = subfolder.getName(); //to be added in iconsMap
-                    HashMap<String,Image> subfolderIconsMap=new HashMap<>();
-                    File[] icons = subfolder.listFiles();
-                    if (icons != null) {
-                        for(File icon: icons)
-                        {
-                            String fullIconName = icon.getName();
-                            String iconName = fullIconName.substring(0,fullIconName.length()-4); //without .png extension
-                            Image img = new Image(PATH_ICON_FOLDER+subfolderName+"/"+fullIconName);
-                            subfolderIconsMap.put(iconName,img);
-                        }
-                    }
-                    iconsMap.put(subfolderName,subfolderIconsMap);
-                }
-            }
-        }
-
-        public static Image getIcon(String category, String name)
-        {
-            return iconsMap.get(category).get(name);
-        }
-
+        new ImageLoader();
     }
 
     public static class IntroUI {
@@ -162,12 +124,7 @@ public class GameUI {
             }
             ChoiceBox_intro_playersNr.setValue(playersNrMin);
             IntroUI.updatePlayersSettingsAccordion(playersNrMin, Accordion_intro_playersSettings);
-            ChoiceBox_intro_playersNr.valueProperty().addListener(new ChangeListener<Object>() {
-                @Override
-                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                    IntroUI.updatePlayersSettingsAccordion((int) newValue, Accordion_intro_playersSettings);
-                }
-            });
+            ChoiceBox_intro_playersNr.valueProperty().addListener((ChangeListener<Object>) (observable, oldValue, newValue) -> IntroUI.updatePlayersSettingsAccordion((int) newValue, Accordion_intro_playersSettings));
             return ChoiceBox_intro_playersNr;
         }
 
@@ -225,12 +182,7 @@ public class GameUI {
             ChoiceBox<String> ChoiceBox_playerColors = new ChoiceBox<>(FXCollections.observableArrayList(playerColors));
             ChoiceBox_playerColors.setValue(color);
             img.setImage(ImageLoader.getIcon("Player",color));
-            ChoiceBox_playerColors.valueProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    img.setImage(ImageLoader.getIcon("Player",newValue));
-                }
-            });
+            ChoiceBox_playerColors.valueProperty().addListener((observable, oldValue, newValue) -> img.setImage(ImageLoader.getIcon("Player",newValue)));
             return ChoiceBox_playerColors;
         }
     }
@@ -257,118 +209,116 @@ public class GameUI {
                             ObservableList<Node> VBox_ingame_leftLower_Children = VBox_ingame_leftLower.getChildren();
                                 Text Text_ingame_globalLog = new Text("Global Event Log");
                                 Text_ingame_globalLog.getStyleClass().addAll("Font-size-S", "Font-family-header", "Effect-dropshadow");
-                                TextArea TextArea_ingame_globalLog = messageLogAsTextArea(MessagingSystem.MESSAGE_LOG);
+                                TextArea TextArea_ingame_globalLog = messageLogAsCapturerTextArea(MessagingSystem.getGlobalLog());
                                 TextArea_ingame_globalLog.getStyleClass().add("TextArea-gameTheme"); TextArea_ingame_globalLog.setId("TextArea-ingame-globalLog");
                                 VBox_ingame_leftLower_Children.addAll(Text_ingame_globalLog, TextArea_ingame_globalLog);
                             VBox_ingame_left_Children.addAll(VBox_ingame_leftUpper, VBox_ingame_leftLower);
                     VBox VBox_ingame_right = new VBox();
-                    VBox_ingame_right.getStyleClass().add("Alignment-center");
-                    VBox_ingame_right.setId("VBox-ingame-right");
+                    VBox_ingame_right.getStyleClass().add("Alignment-center"); VBox_ingame_right.setId("VBox-ingame-right");
                     ObservableList<Node> VBox_ingame_right_Children = VBox_ingame_right.getChildren();
                             Text Text_ingame_pixelMap = new Text("PIXEL Map");
                             Text_ingame_pixelMap.getStyleClass().addAll("Font-size-S","Font-family-header","Effect-dropshadow");
-                            ScrollPane ScrollPane_ingame_map = new ScrollPane();
-                            ScrollPane_ingame_map.setId("ScrollPane-ingame-mapPane");
-                            ScrollPane_ingame_map.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); ScrollPane_ingame_map.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-                                    GridPane GridPane_ingame_mapPane = mapAsPane(g.getMap());
-                                    GridPane_ingame_mapPane.setId("GridPane-ingame-mapPane");
-                                            Slider Slider_ingame_mapZoom = createMapZoomSlider(GridPane_ingame_mapPane);
-                                    GridPane_ingame_mapPane.addEventHandler(ScrollEvent.ANY, (scrollEvent) -> {
-                                        int direction = scrollEvent.getDeltaY()>0 ? 1 : -1;
-                                        Slider_ingame_mapZoom.setValue(Slider_ingame_mapZoom.getValue()+direction);
-                                    });
-                                    ScrollPane_ingame_map.setContent(GridPane_ingame_mapPane);
-                            HBox HBox_ingame_rightBottom = new HBox();
-                            HBox_ingame_rightBottom.getStyleClass().add("Alignment-center");
-                            HBox_ingame_rightBottom.setSpacing(30);
-                            ObservableList<Node> HBox_ingame_rightBottom_Children = HBox_ingame_rightBottom.getChildren();
+                            ZoomableScrollPane ZoomableScrollPane_ingame_map=new ZoomableScrollPane();
+                            ZoomableScrollPane_ingame_map.getStyleClass().add("ZoomableScrollPane-gameTheme"); ZoomableScrollPane_ingame_map.setId("ZoomableScrollPane-ingame-map");
+                                    Pane Pane_ingame_mapContainer = new Pane();
+                                            Pane Pane_ingame_mapTerrain = new Pane();
+                                            Pane_ingame_mapTerrain.setId("Pane-ingame-mapTerrain");
+                                            Service<Void> bg1 = new Service<Void>() {
+                                                @Override
+                                                protected Task<Void> createTask() {
+                                                    return new Task<Void>() {
+                                                        @Override
+                                                        protected Void call() {
+                                                            createPaneForMapTerrain(g.getMap(),Pane_ingame_mapTerrain);
+                                                            return null;
+                                                        }
+                                                    };
+                                                }
+                                            };
+                                            long l=System.currentTimeMillis();
+                                            bg1.setOnSucceeded(event -> {
+                                                Pane_ingame_mapContainer.getChildren().add(Pane_ingame_mapTerrain);
+                                                Pane_ingame_mapTerrain.toBack();
+                                                ZoomableScrollPane_ingame_map.setInside(Pane_ingame_mapContainer);
+                                                System.out.println(System.currentTimeMillis()-l);
+                                            });
+                                            bg1.start();
+                                            Pane Pane_ingame_mapEntities = new Pane();
+                                            Pane_ingame_mapEntities.setId("Pane-ingame-mapEntities");
+                                            Service<Void> bg2 = new Service<Void>() {
+                                                @Override
+                                                protected Task<Void> createTask() {
+                                                    return new Task<Void>() {
+                                                        @Override
+                                                        protected Void call() {
+                                                            createPaneForMapEntities(g.getMap(),Pane_ingame_mapEntities);
+                                                            return null;
+                                                        }
+                                                    };
+                                                }
+                                            };
+                                            bg2.setOnSucceeded(event -> {
+                                                Pane_ingame_mapContainer.getChildren().add(Pane_ingame_mapEntities);
+                                                Pane_ingame_mapEntities.toFront();
+                                            });
+                                            bg2.start();
+                                    Text loading = new Text("LOADING...");
+                                    loading.getStyleClass().addAll("Font-size-2XL","Effect-dropshadow");
+                                    loading.setLayoutX(460);
+                                    loading.setLayoutY(500);
+                                    ZoomableScrollPane_ingame_map.setInside(loading);
+                            HBox HBox_ingame_buttons = new HBox();
+                            HBox_ingame_buttons.getStyleClass().add("Alignment-center"); HBox_ingame_buttons.setId("HBox-ingame-buttons");
+                            ObservableList<Node> HBox_ingame_buttons_Children = HBox_ingame_buttons.getChildren();
+                                    Button Button_ingame_begin = new Button("BEGIN");
+                                    Button_ingame_begin.getStyleClass().addAll("Button-gameTheme","Font-size-S"); Button_ingame_begin.setId("Button-ingame-begin");
                                     Button Button_ingame_reset = new Button("RESET");
                                     Button_ingame_reset.getStyleClass().addAll("Button-gameTheme", "Font-size-S"); Button_ingame_reset.setId("Button-ingame-reset");
-                                    HBox_ingame_rightBottom_Children.addAll(Button_ingame_reset,Slider_ingame_mapZoom);
-                            VBox_ingame_right_Children.addAll(Text_ingame_pixelMap,ScrollPane_ingame_map,HBox_ingame_rightBottom);
+                                    HBox_ingame_buttons_Children.addAll(Button_ingame_begin,Button_ingame_reset);
+                            VBox_ingame_right_Children.addAll(Text_ingame_pixelMap,ZoomableScrollPane_ingame_map,HBox_ingame_buttons);
                     HBox_ingame_root_Children.addAll(VBox_ingame_left, VBox_ingame_right);
             return HBox_ingame_root;
         }
 
-        private static GridPane mapAsPane(Map map) {
-            GridPane mapPane = new GridPane();
+        private static void createPaneForMapTerrain(Map map, Pane Pane_ingame_mapTerrain) {
             double[][] noiseMatrix = map.getNoiseMatrix();
             int tileSize = Map.getDefaultTileSize();
 
-            Color[] terrainColors = Map.terrainColors;
-            int terrainColorsLength=terrainColors.length;
-
-            Background[] mapTileColors = new Background[terrainColorsLength];
-            for(int i=0;i<terrainColorsLength;i++)
-            {
-                mapTileColors[i] = new Background(new BackgroundFill(terrainColors[i],CornerRadii.EMPTY,Insets.EMPTY));
-            }
-
-            Random r = new Random();
-            long s = System.currentTimeMillis();
+            ObservableList<Node> Pane_ingame_mapTerrain_Children = Pane_ingame_mapTerrain.getChildren();
             for (int i = 0; i < map.getHeight(); i++) {
                 for (int j = 0; j < map.getWidth(); j++) {
                     for (int h = 0; h < Map.terrainHeights.length; h++) {
                         if (noiseMatrix[i][j] <= Map.terrainHeights[h]) {
-                            AnchorPane a = new AnchorPane();
-                            a.setBackground(mapTileColors[h]);
-                                    ImageView iv = new ImageView();
-                                    iv.setFitWidth(tileSize); iv.setFitHeight(tileSize);
-                            if(r.nextInt(7000)%611==0)
-                            iv.setImage(ImageLoader.getIcon("ResourceBank","Wood"));
-                            else if (r.nextInt(7000)%2111==0)
-                                iv.setImage(ImageLoader.getIcon("ResourceBank","Iron"));
-                            else if (r.nextInt(7000)%1333==0)
-                                iv.setImage(ImageLoader.getIcon("ResourceBank","Gold"));
-                            else if (r.nextInt(7000)%700==0)
-                                iv.setImage(ImageLoader.getIcon("ResourceBank","Stone"));
-                            else if (r.nextInt(7000)%1555==0)
-                                iv.setImage(ImageLoader.getIcon("ResourceBank","Food"));
-                            else if (r.nextInt(7000)%444==0)
-                                iv.setImage(ImageLoader.getIcon("Player","Cyan"));
-                                a.getChildren().add(iv);
-                            mapPane.add(a,j,i);
+                            Rectangle a = new Rectangle(tileSize,tileSize);
+                            a.setFill(Map.terrainColors[h]);
+                            a.setLayoutX(j*tileSize); a.setLayoutY(i*tileSize);
+                            Pane_ingame_mapTerrain_Children.add(a);
                             break;
                         }
                     }
                 }
             }
-            System.out.println("D: "+(System.currentTimeMillis()-s));
-            return mapPane;
         }
 
-        private static Slider createMapZoomSlider(GridPane GridPane_ingame_mapPane)
-        {
-            Slider slider = new Slider(8.,16.,Map.getDefaultTileSize());
-            slider.setBlockIncrement(1.);
-            slider.setPrefSize(0,0);
-            slider.setVisible(false);
-            slider.valueProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    double newImageViewSize = newValue.intValue();
-                    updateImageViewsSizeInsideMapPane(newImageViewSize, GridPane_ingame_mapPane);
-                }
-            });
-            return slider;
-        }
-
-        private static void updateImageViewsSizeInsideMapPane(double imageViewSize,GridPane GridPane_ingame_mapPane)
-        {
-            long l = System.currentTimeMillis();
-            ObservableList<Node> GridPane_ingame_mapPane_Children = GridPane_ingame_mapPane.getChildren();
-            for(Node n: GridPane_ingame_mapPane_Children)
-            {
-                if(n instanceof AnchorPane)
-                {
-                    ImageView iv = (ImageView) ((AnchorPane)n).getChildren().iterator().next();
-                    iv.setFitWidth(imageViewSize); iv.setFitHeight(imageViewSize);
+        private static void createPaneForMapEntities(Map map, Pane Pane_ingame_mapEntities) {
+            double tileSize=Map.getDefaultTileSize();
+            MapTile[][] mapTiles = map.getMapTilesMatrix();
+            ObservableList<Node> Pane_ingame_mapEntities_Children=Pane_ingame_mapEntities.getChildren();
+            for(int i=0;i<map.getHeight();i++) {
+                for(int j=0;j<map.getWidth();j++) {
+                    Capturer_ImageView civ = new Capturer_ImageView();
+                    civ.setFitWidth(tileSize); civ.setFitHeight(tileSize);
+                    civ.setLayoutX(j*tileSize); civ.setLayoutY(i*tileSize);
+                    if(mapTiles[i][j]!=null)
+                    {
+                        mapTiles[i][j].getEventBroadcaster().addEventCapturer(civ);
+                    }
+                    Pane_ingame_mapEntities_Children.add(civ);
                 }
             }
-            System.out.println("P: "+(System.currentTimeMillis()-l));
         }
 
-        private static Accordion playersAsAccordion(ArrayList<Player> players) {
+        private static Accordion playersAsAccordion(List<Player> players) {
             Accordion playersPanel = new Accordion();
             ObservableList<TitledPane> playerPanes = playersPanel.getPanes();
 
@@ -378,10 +328,12 @@ public class GameUI {
             return playersPanel;
         }
 
-        private static TextArea messageLogAsTextArea(MessageLog log) {
-            TextArea gameLog = new TextArea(log.toString());
-            gameLog.setEditable(false);
-            return gameLog;
+        private static Capturer_TextArea messageLogAsCapturerTextArea(MessageLog log) {
+            Capturer_TextArea cta = new Capturer_TextArea();
+            log.getEventBroadcaster().addEventCapturer(cta);
+            cta.setEditable(false);
+            cta.setWrapText(true);
+            return cta;
         }
     }
 

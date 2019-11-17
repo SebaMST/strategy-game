@@ -6,9 +6,9 @@ public class NoiseGenerator {
     public NoiseGenerator() {
     }
 
-    public static double[][] generateNoiseMatrix(int width, int height, int seed, double scale, int octaves, double persistance, double lacunarity) {
+    public static double[][] generateNoiseMatrix(int width, int height, double scale, int octaves, double persistance, double lacunarity) {
         double[][] noiseMatrix = new double[height][width];
-        Random r = new Random(seed);
+        Random r = new Random();
         double[][] octaveOffsets = new double[octaves][2];
 
         int y;

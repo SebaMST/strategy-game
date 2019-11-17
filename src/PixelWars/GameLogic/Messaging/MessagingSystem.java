@@ -1,14 +1,18 @@
 package PixelWars.GameLogic.Messaging;
 
 public final class MessagingSystem {
-    public static final MessageLog MESSAGE_LOG = new MessageLog();
+    private static final MessageLog GLOBAL_LOG = new MessageLog();
 
     public static void chat(String name, String s) {
-        MESSAGE_LOG.append(name, s);
+        GLOBAL_LOG.addMessage(name, s);
     }
 
     public static void reset()
     {
-        MESSAGE_LOG.clear();
+        GLOBAL_LOG.clearMessages();
+    }
+
+    public static MessageLog getGlobalLog() {
+        return GLOBAL_LOG;
     }
 }

@@ -1,24 +1,59 @@
 package PixelWars.GameLogic;
 
+import PixelWars.GameLogic.MapLogic.MapEntities.Player;
+import PixelWars.GameLogic.MapLogic.MapTile;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
 import PixelWars.GameLogic.MapLogic.Map;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public final class Game {
-    private static int PLAYERS_NR_MIN = 2, PLAYERS_NR_MAX = 8;
     private Map map;
-    private ArrayList<Player> players;
+    private List<Player> players;
 
-    public Game(ArrayList<Player> players, Map map) {
+    public Game(List<Player> players, Map map) {
         this.players = players;
         this.map = map;
-        speak("Welcome to the PIXEL Wars!");
-        for (Player p : players) {
-            p.speak("I have joined the Game!");
+    }
+
+    private static class Spawner {
+        private static void spawn(Map map, List<Player> players) {
+            MapTile[][] mapTiles = map.getMapTilesMatrix();
+            int mapWidth = map.getWidth();
+            int mapHeight = map.getHeight();
+
+            Random r = new Random(System.currentTimeMillis());
+            int posX, posY;
+            for(Player p: players) {
+                do {
+                    posX = r.nextInt(mapWidth);
+                    posY = r.nextInt(mapHeight);
+                } while (mapTiles[posY][posX] == null || mapTiles[posY][posX].getMapEntity() != null);
+                p.setPos(posX,posY);
+                mapTiles[posY][posX].setMapEntity(p);
+            }
         }
     }
 
-    public static void speak(String s) {
+    public void begin() {
+        speak("Welcome to the PIXEL Wars!");
+        speak( "Click BEGIN when you are ready.");
+        speak("A number of " + players.size() + " emperors have joined the battlefield!");
+        Spawner.spawn(map,players);
+        for(Player p:players)
+        {
+            p.start();
+        }
+    }
+
+    public void stop() {
+        for(Player p:players)
+        {
+            p.stop();
+        }
+    }
+
+    private static void speak(String s) {
         MessagingSystem.chat("SYSTEM", s);
     }
 
@@ -26,15 +61,15 @@ public final class Game {
         return map;
     }
 
-    public ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
     public static int getPlayersNrMin() {
-        return PLAYERS_NR_MIN;
+        return 2;
     }
 
     public static int getPlayersNrMax() {
-        return PLAYERS_NR_MAX;
+        return 8;
     }
 }

@@ -1,34 +1,29 @@
 package PixelWars.GameLogic.MapLogic;
 
+import PixelWars.GUI.Events.EventBroadcaster;
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
 
-public abstract class MapTile {
-    public abstract boolean isOperational();
-}
+public class MapTile {
+    private MapEntity mapEntity;
 
-class NonoperationalMapTile extends MapTile {
-
-    public boolean isOperational() {
-        return false;
-    }
-}
-
-class OperationalMapTile extends MapTile {
-    private MapEntity entity;
-
-    public boolean isOperational() {
-        return true;
+    public boolean hasMapEntity() {
+        return mapEntity != null;
     }
 
-    public boolean hasEntity() {
-        return this.entity != null;
+    public void setMapEntity(MapEntity mapEntity) {
+        this.mapEntity = mapEntity;
+        eb.notifyEventCapturers();
     }
 
-    public void setEntity(MapEntity entity) {
-        this.entity = entity;
+    public MapEntity getMapEntity() {
+        return mapEntity;
     }
 
-    public MapEntity getEntity() {
-        return this.entity;
+    //Events
+    private EventBroadcaster eb = new EventBroadcaster(this);
+
+    public EventBroadcaster getEventBroadcaster()
+    {
+        return eb;
     }
 }

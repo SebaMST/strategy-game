@@ -171,6 +171,12 @@ Text,
     -fx-text-fill: TEXT_COLOR;
 }
 
+.TextField-gameTheme,
+.TextArea-gameTheme
+{
+    -fx-highlight-fill: CONTROL_ACTION_BG_COLOR;
+}
+
 Text,
 .Accordion-gameTheme > .titled-pane > .title > .text {
     -fx-fill: TEXT_COLOR;
@@ -193,7 +199,12 @@ Text,
     -fx-background-radius: 5;
 }
 
-
+.ZoomableScrollPane-gameTheme {
+    -fx-background: black;
+    -fx-pannable: true;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+}
 
 .ChoiceBox-gameTheme:hover,
 .TextField-gameTheme:hover,
@@ -298,6 +309,9 @@ Text,
 
 #HBox-intro-buttons {
     -fx-pref-height: 108px;
+}
+
+#HBox-intro-buttons, #HBox-ingame-buttons {
     -fx-spacing: 14;
 }
 
@@ -324,14 +338,11 @@ Text,
 }
 
 #VBox-ingame-right {
-    -fx-pref-width: 1452px;
+    -fx-pref-width: 1440px;
     -fx-spacing: 10;
 }
 
-#ScrollPane-ingame-mapPane {
-    -fx-pref-width: 1442px;
-    -fx-pref-height: 962px;
-    -fx-pannable: true;
-    -fx-fit-to-width: true;
-    -fx-fit-to-height: true;
+#ZoomableScrollPane-ingame-map {
+    -fx-pref-height: 960px;
 }
+
