@@ -7,13 +7,10 @@ import java.util.HashMap;
 
 public class ImageLoader {
     private static final String PATH_ICON_FOLDER = "res/img/icon/";
-    private static HashMap<String, HashMap<String, Image>> iconsMap;
+    private static final HashMap<String, HashMap<String, Image>> iconsMap;
 
     static {
-        loadIcons();
-    }
-
-    private static void loadIcons() {
+        //Loading icons algorithm
         iconsMap=new HashMap<>();
         File iconFolder = new File(PATH_ICON_FOLDER);
         File[] iconSubfolders = iconFolder.listFiles();

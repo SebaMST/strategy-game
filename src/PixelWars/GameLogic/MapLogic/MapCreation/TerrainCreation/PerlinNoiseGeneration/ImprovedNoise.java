@@ -1,4 +1,4 @@
-package PixelWars.GameLogic.MapLogic.Generation;
+package PixelWars.GameLogic.MapLogic.MapCreation.TerrainCreation.PerlinNoiseGeneration;
 
 public final class ImprovedNoise {
     private static final int[] p = new int[512];

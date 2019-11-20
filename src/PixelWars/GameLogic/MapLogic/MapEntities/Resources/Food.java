@@ -3,7 +3,7 @@ package PixelWars.GameLogic.MapLogic.MapEntities.Resources;
 import PixelWars.GUI.ImageLoader;
 import javafx.scene.image.Image;
 
-public class Food extends ResourceBank {
+public class Food extends Resource {
     public Food(int posX, int posY) {
         super(posX, posY);
     }
@@ -14,6 +14,6 @@ public class Food extends ResourceBank {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("ResourceBank","Food");
+        return ImageLoader.getIcon("Resource","Food");
     }
 }

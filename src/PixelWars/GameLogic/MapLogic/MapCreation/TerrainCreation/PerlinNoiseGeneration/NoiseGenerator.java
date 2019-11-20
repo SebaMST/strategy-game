@@ -1,4 +1,4 @@
-package PixelWars.GameLogic.MapLogic.Generation;
+package PixelWars.GameLogic.MapLogic.MapCreation.TerrainCreation.PerlinNoiseGeneration;
 
 import java.util.Random;
 

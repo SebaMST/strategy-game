@@ -1,5 +1,8 @@
 package PixelWars.GUI.Events;
 
+import PixelWars.GUI.Events.Capturers.Capturer_TextField;
+import PixelWars.GameLogic.MapLogic.MapEntities.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +15,11 @@ public class EventBroadcaster {
         eventCapturerList = new ArrayList<>();
     }
 
-    public boolean addEventCapturer(EventCapturer ec)
+    public void addEventCapturer(EventCapturer ec)
     {
-        return eventCapturerList.add(ec);
+        eventCapturerList.add(ec);
+        if(!cause.toString().equals(""))
+        notifyEventCapturers();
     }
 
     public void removeEventCapturer(EventCapturer ec)

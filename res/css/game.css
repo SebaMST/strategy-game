@@ -39,6 +39,8 @@
 Text,
 .label,
 .TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium,
 .TextArea-gameTheme,
 .Accordion-gameTheme > .titled-pane > .title,
 .Button-gameTheme {
@@ -127,17 +129,31 @@ Text,
 }
 
 /*controls*/
-.ChoiceBox-gameTheme,
-.ColorPicker-gameTheme {
+.ChoiceBox-gameTheme {
     -fx-pref-width: 200px;
     -fx-pref-height: 30px;
+}
+
+.TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium{
+    -fx-max-height: 30px;
+    -fx-min-height: 30px;
 }
 
 .TextField-gameTheme {
     -fx-max-width: 200px;
     -fx-min-width: 200px;
-    -fx-max-height: 30px;
-    -fx-min-height: 30px;
+}
+
+.TextField-gameTheme-small {
+    -fx-max-width: 52px;
+    -fx-min-width: 52px;
+}
+
+.TextField-gameTheme-medium {
+    -fx-max-width: 84px;
+    -fx-min-width: 84px;
 }
 
 .ChoiceBox-gameTheme .context-menu {
@@ -156,6 +172,8 @@ Text,
 .ChoiceBox-gameTheme > .label,
 .ChoiceBox-gameTheme .menu-item > .label,
 .TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium,
 .ColorPicker-gameTheme > .label,
 .Button-gameTheme,
 .Accordion-gameTheme > .titled-pane > .title > .text {
@@ -166,12 +184,16 @@ Text,
 .ChoiceBox-gameTheme > .label,
 .ChoiceBox-gameTheme .menu-item > .label,
 .TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium,
 .ColorPicker-gameTheme > .label,
 .Button-gameTheme {
     -fx-text-fill: TEXT_COLOR;
 }
 
 .TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium,
 .TextArea-gameTheme
 {
     -fx-highlight-fill: CONTROL_ACTION_BG_COLOR;
@@ -185,6 +207,8 @@ Text,
 .ChoiceBox-gameTheme,
 .ChoiceBox-gameTheme .context-menu,
 .TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium,
 .ColorPicker-gameTheme,
 .ColorPicker-gameTheme .color-palette,
 .Accordion-gameTheme > .titled-pane > .title,
@@ -206,8 +230,18 @@ Text,
     -fx-vbar-policy: never;
 }
 
+.ScrollPane-gameTheme {
+    -fx-background-color:transparent;
+}
+
+.ScrollPane-gameTheme > .viewport {
+    -fx-background-color: transparent;
+}
+
 .ChoiceBox-gameTheme:hover,
 .TextField-gameTheme:hover,
+.TextField-gameTheme-small:hover,
+.TextField-gameTheme-medium:hover,
 .ColorPicker-gameTheme:hover,
 .Accordion-gameTheme > .titled-pane > .title:hover,
 .Button-gameTheme:hover {
@@ -217,6 +251,8 @@ Text,
 .ChoiceBox-gameTheme:pressed,
 .ChoiceBox-gameTheme .menu-item:focused,
 .TextField-gameTheme:pressed,
+.TextField-gameTheme-small:pressed,
+.TextField-gameTheme-medium:pressed,
 .ColorPicker-gameTheme:pressed,
 .Accordion-gameTheme > .titled-pane > .title:pressed,
 .Button-gameTheme:pressed {
@@ -238,6 +274,8 @@ Text,
 .ChoiceBox-gameTheme,
 .ChoiceBox-gameTheme .context-menu,
 .TextField-gameTheme,
+.TextField-gameTheme-small,
+.TextField-gameTheme-medium,
 .ColorPicker-gameTheme,
 .ColorPicker-gameTheme .color-palette,
 .Accordion-gameTheme > .titled-pane > .title,
@@ -250,12 +288,10 @@ Text,
     -fx-border-radius: 5;
 }
 
-#ScrollPane-ingame-mapPane {
-}
-
 /*concrete containers*/
 /*intro*/
-#HBox-intro-root, #HBox-ingame-root {
+#HBox-intro-root,
+#HBox-ingame-root {
     -fx-pref-width: 1920px;
     -fx-pref-height: 1080px;
 }
@@ -268,7 +304,8 @@ Text,
     -fx-pref-height: 300px;
 }
 
-#VBox-intro-config1, #VBox-intro-config2 {
+#VBox-intro-config1,
+#VBox-intro-config2 {
     -fx-spacing: 15;
     -fx-padding: 20 0;
 }
@@ -277,16 +314,19 @@ Text,
     -fx-pref-height: 240px;
 }
 
-#VBox-intro-config1Labels, #VBox-intro-config1Choices{
+#VBox-intro-config1Labels,
+#VBox-intro-config1Choices{
     -fx-pref-width: 264px;
 }
 
-.VBox-intro-playerLabels, .VBox-intro-playerInputs {
+.VBox-intro-playerLabels,
+.VBox-intro-playerInputs {
     -fx-pref-width: 200px;
 }
 
 #VBox-intro-config1Labels,
-.VBox-intro-playerLabels {
+.VBox-intro-playerLabels,
+.VBox-ingame-playerPanel {
     -fx-spacing: 16;
 }
 
@@ -295,8 +335,13 @@ Text,
     -fx-spacing: 14;
 }
 
-.HBox-intro-playerColor {
-    -fx-spacing: 10;
+.HBox-intro-playerColor,
+.HBox-ingame-playerResourceBar {
+    -fx-spacing: 6;
+}
+
+.VBox-ingame-resource {
+    -fx-spacing: 4;
 }
 
 #VBox-intro-config2 {
@@ -311,7 +356,8 @@ Text,
     -fx-pref-height: 108px;
 }
 
-#HBox-intro-buttons, #HBox-ingame-buttons {
+#HBox-intro-buttons,
+#HBox-ingame-buttons {
     -fx-spacing: 14;
 }
 
@@ -344,5 +390,10 @@ Text,
 
 #ZoomableScrollPane-ingame-map {
     -fx-pref-height: 960px;
+}
+
+#Text-ingame-mapLoading {
+    -fx-translate-x: 460px;
+    -fx-translate-y: 500px;
 }
 

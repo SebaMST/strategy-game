@@ -25,7 +25,7 @@ public class MessageLog{
 
     public String lastMessage()
     {
-        return messages.getLast();
+        return messages.isEmpty()?null:messages.getLast();
     }
 
     public String toString() {

@@ -2,7 +2,6 @@ package PixelWars;
 
 import PixelWars.GUI.GameUI;
 import PixelWars.GameLogic.Game;
-import PixelWars.GameLogic.MapLogic.Map;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import javafx.application.Application;
@@ -53,11 +52,11 @@ public class GameEngine extends Application {
                         String playerColor = (String) ((ChoiceBox) playersAccordion.lookup("#ChoiceBox-intro-player" + i + "Color")).getValue();
                         playersList.add(new Player(playerName,playerColor));
                     }
-                    //Creating the Map object
-                    ChoiceBox mapSizeCB = (ChoiceBox) choices.lookup("#ChoiceBox-intro-mapSize");
-                    Map map = new Map((String) mapSizeCB.getValue());//7-tiny(0)=7 biggest tile or smallest map...7-small(1)=6 second biggest tile or second smallest map...7-giant(4)=3 smallest tile or biggest map
-                    //Creating the Game object
-                    Game g = new Game(playersList, map);
+
+                    String mapSize = (String) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-mapSize")).getValue();
+                    String resDensity = (String) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-resDensity")).getValue();
+
+                    Game g = new Game(playersList,mapSize,resDensity);
 
                     //Setting the scene's root to inGameUI
                     Parent ingame = GameUI.InGameUI.createInGameUI(g);

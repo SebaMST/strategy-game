@@ -2,10 +2,14 @@ package PixelWars.GameLogic.MapLogic.MapEntities.Resources;
 
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
 
-public abstract class ResourceBank extends MapEntity {
+import java.util.LinkedList;
+import java.util.Set;
+
+public abstract class Resource extends MapEntity {
+    public static final String[] RESOURCE_TYPES = {"Food","Wood","Stone","Iron","Gold"};
     private int hp;
 
-    public ResourceBank(int posX, int posY) {
+    public Resource(int posX, int posY) {
         super(posX, posY);
         this.hp = initHP();
     }
