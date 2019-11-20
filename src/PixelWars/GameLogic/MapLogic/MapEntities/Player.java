@@ -91,16 +91,19 @@ public class Player extends MapEntity implements Runnable {
     public void run() {
         Random r = new Random(System.nanoTime());
         speak(BEGIN_THREAT_MESSAGES[r.nextInt(BEGIN_THREAT_MESSAGES.length)]);
-        try {
+
             int direction=1;
             while (true) {
-                setPos(getPosX() + direction, getPosY());
-                delayForDebug(100, 0);
+                try {
+                    setPos(getPosX() + direction, getPosY());
+                    delayForDebug(100, 0);
+                }          catch(InterruptedException | IllegalArgumentException e)
+                    {
+                        stop();
+                        break;
+                    }
             }
-        }catch(InterruptedException | IllegalArgumentException e)
-        {
-            stop();
-        }
+
     }
 
     private void speak(String s) {
@@ -117,7 +120,7 @@ public class Player extends MapEntity implements Runnable {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("Player", color);
+        return ImageLoader.getIcon("player", color);
     }
 
     public static String[] getPlayersColors() {
@@ -152,7 +155,7 @@ public class Player extends MapEntity implements Runnable {
 
     }
 
-    public void delayForDebug(long millis,int nanos) throws InterruptedException {
+    private void delayForDebug(long millis, int nanos) throws InterruptedException {
         Thread.sleep(millis,nanos);
     }
 }

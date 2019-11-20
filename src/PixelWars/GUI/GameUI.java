@@ -242,11 +242,11 @@ public class GameUI {
 
         private static ChoiceBox<String> createChoiceBoxPlayerColor(int playerNr, ImageView img) {
             String[] playerColors = Player.getPlayersColors();
-            String color = playerColors[playerNr - 1];
+            String color = playerColors[playerNr - 1].toLowerCase();
             ChoiceBox<String> ChoiceBox_playerColors = new ChoiceBox<>(FXCollections.observableArrayList(playerColors));
             ChoiceBox_playerColors.setValue(color);
-            img.setImage(ImageLoader.getIcon("Player",color));
-            ChoiceBox_playerColors.valueProperty().addListener((observable, oldValue, newValue) -> img.setImage(ImageLoader.getIcon("Player",newValue)));
+            img.setImage(ImageLoader.getIcon("player",color));
+            ChoiceBox_playerColors.valueProperty().addListener((observable, oldValue, newValue) -> img.setImage(ImageLoader.getIcon("player",newValue)));
             return ChoiceBox_playerColors;
         }
 
@@ -458,7 +458,7 @@ public class GameUI {
                 VBox_ingame_resource.getStyleClass().addAll("Alignment-center","VBox-ingame-resource");
                         HBox HBox_ingame_resname = new HBox();
                         HBox_ingame_resname.getStyleClass().add("Alignment-center");
-                                ImageView iv = new ImageView(ImageLoader.getIcon("Resource",res));
+                                ImageView iv = new ImageView(ImageLoader.getIcon("resource",res.toLowerCase()));
                                 iv.setFitWidth(16); iv.setFitHeight(16);
                         HBox_ingame_resname.getChildren().addAll(iv,new Label(res));
                         Capturer_TextField Capturer_TextField_ingame_resnr = new Capturer_TextField();

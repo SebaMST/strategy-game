@@ -14,6 +14,6 @@ public class Food extends Resource {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("Resource","Food");
+        return ImageLoader.getIcon("resource","food");
     }
 }

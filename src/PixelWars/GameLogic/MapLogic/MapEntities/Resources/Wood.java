@@ -14,6 +14,6 @@ public class Wood extends Resource {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("Resource","Wood");
+        return ImageLoader.getIcon("resource","wood");
     }
 }

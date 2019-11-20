@@ -14,6 +14,6 @@ public class Gold extends Resource {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("Resource","Gold");
+        return ImageLoader.getIcon("resource","gold");
     }
 }

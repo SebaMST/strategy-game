@@ -14,6 +14,6 @@ public class Iron extends Resource {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("Resource","Iron");
+        return ImageLoader.getIcon("resource","iron");
     }
 }

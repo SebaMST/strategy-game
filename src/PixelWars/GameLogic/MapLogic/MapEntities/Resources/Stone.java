@@ -14,6 +14,6 @@ public class Stone extends Resource {
 
     @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("Resource","Stone");
+        return ImageLoader.getIcon("resource","stone");
     }
 }

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="player move now" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="bla bla">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Gold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Gold.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Iron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Iron.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Stone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Stone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Wood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Wood.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +175,7 @@
       <workItem from="1574167044238" duration="2410000" />
       <workItem from="1574204283533" duration="241000" />
       <workItem from="1574208899739" duration="629000" />
-      <workItem from="1574256411580" duration="1881000" />
+      <workItem from="1574256411580" duration="2789000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -287,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574258150462</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="player move now">
+      <created>1574258456409</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1574258456409</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +336,8 @@
     <MESSAGE value="Updates to Map&#10;&#10;-Map in the inGameUI is now Zoomable, Pannable.&#10;-Further performance optimizations for Large/Giant maps coming soon" />
     <MESSAGE value="Observer pattern &amp; Threading features&#10;-Added event broadcasters &amp; captures via observer pattern. Their role is to offer SYNCHRONIZED updates to the ingameUI considering the on-the-fly state of the game object; Further events broadcasters/capturers coming soon.&#10;-Threading for loading the UI faster. &#10;-Players now implement runnable and will have soon their infinite loop ongoing in their run()&#10;-Hitting BEGIN button will trigger the Game begin() method, that will spawn the players and start their threads" />
     <MESSAGE value="player move now" />
-    <option name="LAST_COMMIT_MESSAGE" value="player move now" />
+    <MESSAGE value="bla bla" />
+    <option name="LAST_COMMIT_MESSAGE" value="bla bla" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine.ic" NAME="GameEngine Coverage Results" MODIFIED="1573048401600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
