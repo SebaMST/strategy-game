@@ -11,7 +11,19 @@ import java.util.*;
 
 public class Player extends MapEntity implements Runnable {
     private static final String[] PLAYER_COLORS = new String[]{"Red", "Orange", "Yellow", "Brown", "Green", "Cyan", "Blue", "Purple"};
-    private static final String[] BEGIN_THREAT_MESSAGES = new String[]{"I'm going to spank you until time and space have no meaning!", "All resources on this battlefield will be mine!", "Challenge me and i will send you to the nothingness!", "The god of death demands its pay!", "You will be obliterated them from history!", "Please don't hurt me, i'm neutral... for now", "This is where we fight! This is where they die!", "I will defend my fortress at any cost!"};
+    private static final String[] BEGIN_THREAT_MESSAGES = new String[]
+            {
+                    "I'm going to spank you until time and space have no meaning!",
+                    "All resources on this battlefield will be mine!",
+                    "Challenge me and I will send you to nothingness!",
+                    "The god of death demands its pay!",
+                    "You will be obliterated them from history!",
+                    "Please don't hurt me, I'm neutral... for now",
+                    "This is where we fight! This is where they die!",
+                    "I will defend my fortress at all cost!",
+                    "All your base are belong to us!",
+                    "I will banish you to the shadow realm!"
+            };
     private String name;
     private String color;
     private Map map;

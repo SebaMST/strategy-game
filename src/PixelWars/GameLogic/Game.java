@@ -1,6 +1,7 @@
 package PixelWars.GameLogic;
 
 import PixelWars.GameLogic.MapLogic.MapCreation.MapBuilder;
+import PixelWars.GameLogic.MapLogic.MapCreation.ResourceGeneration.ResGen;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.MapLogic.MapEntities.Resources.Resource;
 import PixelWars.GameLogic.MapLogic.MapTile;
@@ -52,6 +53,9 @@ public final class Game {
         }
 
         private static void spawnResources(Map where,String resDensity) {
+
+            ResGen.startGen(where, resDensity, 16);
+            /*
             int mapWidth = where.getWidth();
             int mapHeight = where.getHeight();
             int mapArea = mapWidth*mapHeight;
@@ -76,7 +80,7 @@ public final class Game {
             }catch(Exception e)
             {
                 e.printStackTrace();
-            }
+            } */
         }
     }
 

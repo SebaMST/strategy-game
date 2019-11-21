@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="bla bla" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="bla bla">
+      <change afterPath="$PROJECT_DIR$/.idea/strategy-game-git.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/ResourceGeneration/ResGen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/strategy-game.iml" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="newUI" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,7 +36,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/case_pcbe/strategy_game/GUI" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.path.for.package.stylelint" value="project" />
     <property name="node.js.selected.package.stylelint" value="" />
