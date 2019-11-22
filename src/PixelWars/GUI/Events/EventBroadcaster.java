@@ -1,8 +1,5 @@
 package PixelWars.GUI.Events;
 
-import PixelWars.GUI.Events.Capturers.Capturer_TextField;
-import PixelWars.GameLogic.MapLogic.MapEntities.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 

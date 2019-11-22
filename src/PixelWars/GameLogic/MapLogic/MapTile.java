@@ -1,8 +1,8 @@
 package PixelWars.GameLogic.MapLogic;
 
 import PixelWars.GUI.Events.EventBroadcaster;
-import PixelWars.GameLogic.MapLogic.MapCreation.TerrainCreation.Terrains.Terrain;
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
+import PixelWars.GameLogic.MapLogic.TerrainCreation.Terrains.Terrain;
 
 public class MapTile {
     private MapEntity mapEntity;
@@ -13,8 +13,8 @@ public class MapTile {
         this.terrain=terrain;
     }
 
-    public boolean hasMapEntity() {
-        return mapEntity != null;
+    public synchronized boolean isFree() {
+        return mapEntity == null;
     }
 
     public synchronized void setMapEntity(MapEntity mapEntity) {
@@ -22,13 +22,17 @@ public class MapTile {
         eb.notifyEventCapturers();
     }
 
-    public MapEntity getMapEntity() {
+    public synchronized MapEntity getMapEntity() {
         return mapEntity;
     }
+
     public Terrain getTerrain() {
         return terrain;
     }
 
+    public boolean isOperational() {
+        return terrain.isOperational();
+    }
     //Events
     private EventBroadcaster eb = new EventBroadcaster(this);
 

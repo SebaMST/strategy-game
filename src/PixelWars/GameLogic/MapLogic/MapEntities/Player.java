@@ -2,20 +2,21 @@ package PixelWars.GameLogic.MapLogic.MapEntities;
 
 import PixelWars.GUI.Events.EventBroadcaster;
 import PixelWars.GUI.ImageLoader;
-import PixelWars.GameLogic.MapLogic.MapEntities.Resources.Resource;
+import PixelWars.GameLogic.MapLogic.Map;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Building;
+import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
+import PixelWars.GameLogic.MapLogic.Point;
+import PixelWars.GameLogic.Messaging.GlobalSpeaker;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
-import PixelWars.GameLogic.MapLogic.MapCreation.Map;
 import javafx.scene.image.Image;
 
 import java.util.*;
 
-public class Player extends MapEntity implements Runnable {
-    private static final String[] PLAYER_COLORS = new String[]{"Red", "Orange", "Yellow", "Brown", "Green", "Cyan", "Blue", "Purple"};
-    private static final String[] BEGIN_THREAT_MESSAGES = new String[]{"I'm going to spank you until time and space have no meaning!", "All resources on this battlefield will be mine!", "Challenge me and i will send you to the nothingness!", "The god of death demands its pay!", "You will be obliterated them from history!", "Please don't hurt me, i'm neutral... for now", "This is where we fight! This is where they die!", "I will defend my fortress at any cost!"};
-    private String name;
-    private String color;
-    private Map map;
-    private final HashMap<String,ResourceValueWrapper> resourceBar;
+public class Player extends MapEntity implements Runnable, GlobalSpeaker {
+    public static final String[] PLAYER_COLORS = new String[]{"red", "orange", "yellow", "brown", "green", "cyan", "blue", "purple"};
+    private final String name;
+    private final String color;
+    private final HashMap<String, ResourceValueWrapper> resourceBar;
 
     public static class ResourceValueWrapper {
         private int value;
@@ -39,75 +40,117 @@ public class Player extends MapEntity implements Runnable {
     }
 
     public Player(String name, String color) {
-        super(-1, -1);
         this.name = name;
         this.color = color;
         resourceBar=new LinkedHashMap<>();
-        for(String res: Resource.RESOURCE_TYPES) {
+        for(String res: ResourceBank.RESOURCEBANK_TYPES) {
             resourceBar.put(res,new ResourceValueWrapper());
         }
     }
 
-    public void setMap(Map map)
-    {
-        this.map=map;
-    }
-
-    public void setPos(int posX, int posY)
-    {
-        try {
-            System.out.println("X: " + posX + " Y: " + posY + " ");
-            if (posX >= 0 && posX < map.getWidth() && posY >= 0 && posY < map.getHeight() && map.getMapTilesMatrix()[posY][posX].getTerrain().isOperational()) {
-                super.setPos(posX, posY);
-                map.getMapTilesMatrix()[posY][posX].setMapEntity(this);
+    private void moveTo(Point coords) {
+        if(Point.equals(this.getCoords(),coords))
+            return;
+        Map map = getMap();
+        if(map.isFreeAtCoords(coords)) {
+            if(map.isOperationalAtCoords(coords)) {
+                map.setMapEntityAtCoords(getCoords(),null);
+                setCoords(coords);
+                map.setMapEntityAtCoords(coords,this);
                 eb.notifyEventCapturers();
-            } else {
-                throw new IllegalStateException();
             }
-        }catch(ArrayIndexOutOfBoundsException e)
-        {
-            e.printStackTrace();
         }
     }
 
-    //Events
-    private EventBroadcaster eb = new EventBroadcaster(this);
-
-    public EventBroadcaster getEventBroadcaster()
+    private Point searchForResource(String resourceName)
     {
-        return eb;
+        Map map = getMap();
+        int[] translateX={-1,0,1,0};
+        int[] translateY={0,1,0,-1};
+        boolean[][] marked = new boolean[map.getHeight()][map.getWidth()];
+
+        Queue<Integer> pointXQueue = new LinkedList<>();
+        Queue<Integer> pointYQueue = new LinkedList<>();
+
+        pointXQueue.add(getCoords().getX()); pointYQueue.add(getCoords().getY());
+
+        Point crtPoint, newPoint;
+        int crtX, crtY,newX,newY;
+        while(!(pointXQueue.isEmpty()&&pointYQueue.isEmpty()))
+        {
+            crtX=pointXQueue.remove();
+            crtY=pointYQueue.remove();
+            crtPoint = new Point(crtX,crtY);
+
+            if(!map.isFreeAtCoords(crtPoint))
+            {   MapEntity currentEntity = map.getMapEntityAtCoords(crtPoint);
+                if((currentEntity instanceof ResourceBank || currentEntity instanceof Building)&&currentEntity.getConcreteName().equals(resourceName) /*&& (Arrays.binarySearch(((ProductionHandler) currentEntity).getProduction(),resourceName)>=0)*/) {
+                    if (neighbourFreePoint(crtPoint) != null)
+                        return crtPoint;
+                }
+            }
+
+            for(int i=0;i<translateX.length;i++)
+            {
+                newX=translateX[i]+crtX;
+                newY=translateY[i]+crtY;
+                newPoint = new Point(newX,newY);
+
+                if(map.areCoordsValid(newPoint)&&!marked[newY][newX])
+                {
+                    marked[newY][newX]=true;
+                    pointXQueue.add(newX);
+                    pointYQueue.add(newY);
+                }
+            }
+        }
+        return null;
     }
 
-    public HashMap<String,ResourceValueWrapper> getResourceBar() {
+    private Point neighbourFreePoint(Point where)
+    {
+        Map map = getMap();
+        int[] translateX={-1,0,1,0};
+        int[] translateY={0,1,0,-1};
+        int crtX=where.getX(),crtY=where.getY(),newX,newY;
+        Point newPoint;
+        for(int i=0;i<translateX.length;i++)
+        {
+            newX=translateX[i]+crtX;
+            newY=translateY[i]+crtY;
+            newPoint = new Point(newX,newY);
+            if(map.areCoordsValid(newPoint)) {
+                if(map.isOperationalAtCoords(newPoint))
+
+                    if (map.isFreeAtCoords(newPoint)||Point.equals(getCoords(),newPoint)) {
+                        return newPoint;
+                    }
+            }
+        }
+        return null;
+    }
+
+    public synchronized HashMap<String, ResourceValueWrapper> getResourceBar()
+    {
         return resourceBar;
     }
 
-    public void updateResourceValueInsideResourceBar(String resourceName, int resourceValue)
-    {
-        resourceBar.get(resourceName).setValue(resourceValue);
-    }
-
-    @Override
-    public void run() {
-        Random r = new Random(System.nanoTime());
-        speak(BEGIN_THREAT_MESSAGES[r.nextInt(BEGIN_THREAT_MESSAGES.length)]);
-
-            int direction=1;
-            while (true) {
-                try {
-                    setPos(getPosX() + direction, getPosY());
-                    delayForDebug(100, 0);
-                }          catch(InterruptedException | IllegalArgumentException e)
-                    {
-                        stop();
-                        break;
-                    }
+    private synchronized void updateResourceBar(String resourceName, int resourcecamount) {
+        ResourceValueWrapper rvw = resourceBar.get(resourceName);
+        if(rvw!=null)
+        {
+            int futureAmount=rvw.getValue()+resourcecamount;
+            if(futureAmount>=0)
+            {
+                rvw.setValue(futureAmount);
             }
-
-    }
-
-    private void speak(String s) {
-        MessagingSystem.chat(this.name + " (" + color + ")", s);
+            else {
+                throw new IllegalArgumentException("Player: updateResourceBar(String resourceName,int resourceAmount): can't update "+resourceName+" on the bar with "+resourcecamount+" because the value will be lower than 0.");
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Player: updateResourceBar(String resourceName,int resourceAmount): invalid resourceName("+resourceName+") to update");
+        }
     }
 
     public String getName() {
@@ -118,16 +161,31 @@ public class Player extends MapEntity implements Runnable {
         return this.color;
     }
 
-    @Override
     public Image getIcon() {
-        return ImageLoader.getIcon("player", color);
+        return ImageLoader.getIcon("player",color);
     }
 
-    public static String[] getPlayersColors() {
-        return PLAYER_COLORS;
+    @Override
+    public String getConcreteName() {
+        return "Player";
     }
 
-    //THREADING
+    //region Messaging
+    public void speak(String message) {
+        GlobalSpeaker.super.speak(message);
+    }
+    //endregion
+
+    //region Events
+    private EventBroadcaster eb = new EventBroadcaster(this);
+
+    public EventBroadcaster getEventBroadcaster()
+    {
+        return eb;
+    }
+    //endregion
+
+    //region THREADING
     private boolean isStarted = false;
     private Thread thread;
 
@@ -144,18 +202,68 @@ public class Player extends MapEntity implements Runnable {
     public void stop() {
         if (isStarted) {
             //System.out.println(toString() + " thread is started. We are trying to stop it");
+            isStarted = false;
             try {
                 thread.join();
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }
-            isStarted = false;
+
             //System.out.println(toString() + " thread STOPPED");
         }
 
     }
 
-    private void delayForDebug(long millis, int nanos) throws InterruptedException {
-        Thread.sleep(millis,nanos);
+    private void delayForDebug(long millis) {
+        try {
+            Thread.sleep(millis);
+        }catch(InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    //endregion
+
+    @Override
+    public void run() {
+       /*
+
+            int direction=1;
+            while (isStarted) {
+                try {
+                    Point oldCoords = getCoords();
+                    moveTo(new Point(oldCoords.getX()+direction,oldCoords.getY()));
+                    delayForDebug(100, 0);
+                } catch(IllegalArgumentException e)
+                    {
+                        isStarted=false;
+                        e.printStackTrace();
+                    }
+            }*/
+        Random r = new Random(System.nanoTime());
+        speak(MessagingSystem.BEGIN_THREAT_MESSAGES[r.nextInt(MessagingSystem.BEGIN_THREAT_MESSAGES.length)]);
+        boolean started=true;
+       while(started) {
+           Point resourcePoint;
+           do {
+               resourcePoint = searchForResource(ResourceBank.RESOURCEBANK_TYPES[r.nextInt(5)]);
+               if (resourcePoint != null) {
+                   //trebuie facut lock la resursa de cand o gaseste si aia e.
+                   ResourceBank exploatable = (ResourceBank)getMap().getMapEntityAtCoords(resourcePoint);
+                   String resourceName=exploatable.getConcreteName();
+                   System.out.println(color + " FOUND "+ resourceName +" AT " + resourcePoint.getX() + " " + resourcePoint.getY());
+                   moveTo(neighbourFreePoint(resourcePoint));
+                       int amount = exploatable.exploit();
+                       if (amount > 0) {
+                           updateResourceBar(resourceName, amount);
+                           speak("Mined from " + resourceName + " at " + resourcePoint.getX() + " " + resourcePoint.getY());
+                           delayForDebug(1);
+                       }
+               } else {
+                   System.out.println("DIDNT FIND ANYTHING");
+                   started=false;
+               }
+           } while (resourcePoint == null);
+       }
     }
 }

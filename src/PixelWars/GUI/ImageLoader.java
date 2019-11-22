@@ -7,37 +7,54 @@ import java.util.HashMap;
 
 public class ImageLoader {
     private static final String PATH_ICON_FOLDER = "res/img/icon/";
-    private static final HashMap<String, HashMap<String, Image>> iconsMap;
+    private static final HashMap<String, Image> playerIconsMap;
+    private static final HashMap<String, Image> resourceIconsMap;
+    private static final HashMap<String, HashMap<String, Image>> buildingIconsMap;
+
 
     static {
-        //Loading icons algorithm
-        iconsMap=new HashMap<>();
-        File iconFolder = new File(PATH_ICON_FOLDER);
-        File[] iconSubfolders = iconFolder.listFiles();
-        if (iconSubfolders != null)
+        playerIconsMap=createIconsMap(PATH_ICON_FOLDER+"player/");
+        resourceIconsMap=createIconsMap(PATH_ICON_FOLDER+"resource/");
+
+        buildingIconsMap=new HashMap<>();
+        File buildingIconsFolder = new File(PATH_ICON_FOLDER+"building/");
+        File[] buildingIconsSubfolders = buildingIconsFolder.listFiles();
+        if (buildingIconsSubfolders != null)
         {
-            for(File subfolder: iconSubfolders)
+            for(File subfolder: buildingIconsSubfolders)
             {
-                String subfolderName = subfolder.getName(); //to be added in iconsMap
-                HashMap<String,Image> subfolderIconsMap=new HashMap<>();
-                File[] icons = subfolder.listFiles();
-                if (icons != null) {
-                    for(File icon: icons)
-                    {
-                        String fullIconName = icon.getName();
-                        String iconName = fullIconName.substring(0,fullIconName.length()-4); //without .png extension
-                        Image img = new Image(PATH_ICON_FOLDER+subfolderName+"/"+fullIconName);
-                        subfolderIconsMap.put(iconName,img);
-                    }
-                }
-                iconsMap.put(subfolderName,subfolderIconsMap);
+                String subfolderName = subfolder.getName(); //to be added in buildingIconsMap
+                HashMap<String,Image> subfolderIconsMap=createIconsMap(PATH_ICON_FOLDER+"building/"+subfolderName+"/");
+                buildingIconsMap.put(subfolderName,subfolderIconsMap);
             }
         }
     }
 
-    public static Image getIcon(String category, String name)
+    private static HashMap<String,Image> createIconsMap(String path)
     {
-        return iconsMap.get(category).get(name);
+        HashMap<String,Image> iconsMap = new HashMap<>();
+        File iconsFolder = new File(path);
+        File[] icons = iconsFolder.listFiles();
+        if (icons != null) {
+            for(File icon: icons)
+            {
+                String fullIconName = icon.getName();
+                String iconName = fullIconName.substring(0,fullIconName.length()-4); //without .png extension
+                Image img = new Image(path+"/"+fullIconName);
+                iconsMap.put(iconName,img);
+            }
+        }
+        return iconsMap;
+    }
+
+    public static Image getIcon(String category, String iconName)
+    {
+        if(category.toLowerCase().equals("player"))
+            return playerIconsMap.get(iconName.toLowerCase());
+        else if(category.toLowerCase().equals("resource"))
+            return resourceIconsMap.get(iconName.toLowerCase());
+        else return buildingIconsMap.get(category.toLowerCase()).get(iconName.toLowerCase());
+        //if null is thrown then the icon was not found
     }
 
 }

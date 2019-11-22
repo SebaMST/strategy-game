@@ -1,18 +1,39 @@
 package PixelWars.GUI.Events.Capturers;
 
+import PixelWars.GUI.ColorUtils;
 import PixelWars.GUI.Events.EventCapturer;
+import PixelWars.GameLogic.Game;
+import PixelWars.GameLogic.MapLogic.MapEntities.Player;
+import PixelWars.GameLogic.Messaging.GlobalSpeaker;
+import PixelWars.GameLogic.Messaging.Message;
 import PixelWars.GameLogic.Messaging.MessageLog;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class Capturer_TextArea extends TextArea implements EventCapturer {
     private static class UpdateHandler {
         static void handle(MessageLog cause, Capturer_TextArea capturer)
         {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    capturer.setText(cause.toString());
+            Platform.runLater(() -> {
+                synchronized (cause) {
+                    Message m = cause.lastMessage();
+                    GlobalSpeaker sender = m.getSender();
+
+                    if(sender instanceof Player)
+                    {
+                        String name = ((Player) sender).getName();
+                        String color = ((Player) sender).getColor();
+                        capturer.appendText(name+" ("+color+"): "+m.getContent()+"\n");
+
+
+                    }
+                    else if(sender instanceof Game)
+                    {
+                        String name = "SYSTEM";
+                        capturer.appendText(name+": "+m.getContent()+"\n");
+                    }
                 }
             });
 

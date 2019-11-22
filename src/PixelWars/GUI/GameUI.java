@@ -4,33 +4,45 @@ import PixelWars.GUI.CustomFX.ZoomableScrollPane;
 import PixelWars.GUI.Events.Capturers.Capturer_ImageView;
 import PixelWars.GUI.Events.Capturers.Capturer_TextArea;
 import PixelWars.GUI.Events.Capturers.Capturer_TextField;
+import PixelWars.GUI.Events.Capturers.Capturer_TextFlow;
 import PixelWars.GameLogic.Game;
-import PixelWars.GameLogic.MapLogic.MapCreation.MapBuilder;
-import PixelWars.GameLogic.MapLogic.MapEntities.Resources.Resource;
-import PixelWars.GameLogic.MapLogic.MapTile;
-import PixelWars.GameLogic.Messaging.MessagingSystem;
-import PixelWars.GameLogic.Messaging.MessageLog;
-import PixelWars.GameLogic.MapLogic.MapCreation.Map;
+import PixelWars.GameLogic.MapLogic.Map;
+import PixelWars.GameLogic.MapLogic.MapBuilder;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
+import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
+import PixelWars.GameLogic.MapLogic.Point;
+
+import PixelWars.GameLogic.Messaging.Message;
+import PixelWars.GameLogic.Messaging.MessageLog;
+import PixelWars.GameLogic.Messaging.MessagingSystem;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameUI {
@@ -174,7 +186,7 @@ public class GameUI {
         }
 
         private static ChoiceBox<String> createChoiceBoxResDensity() {
-            String[] resDensities = Game.Spawner.RESOURCENR_PERCENTS.keySet().toArray(new String[0]);
+            String[] resDensities = MapBuilder.RESOURCENR_PERCENTS.keySet().toArray(new String[0]);
             ChoiceBox<String> ChoiceBox_intro_resDensity = new ChoiceBox<>(FXCollections.observableArrayList(resDensities));
             ChoiceBox_intro_resDensity.setValue(resDensities[0]);
             return ChoiceBox_intro_resDensity;
@@ -241,8 +253,8 @@ public class GameUI {
         }
 
         private static ChoiceBox<String> createChoiceBoxPlayerColor(int playerNr, ImageView img) {
-            String[] playerColors = Player.getPlayersColors();
-            String color = playerColors[playerNr - 1].toLowerCase();
+            String[] playerColors = Player.PLAYER_COLORS;
+            String color = playerColors[playerNr - 1];
             ChoiceBox<String> ChoiceBox_playerColors = new ChoiceBox<>(FXCollections.observableArrayList(playerColors));
             ChoiceBox_playerColors.setValue(color);
             img.setImage(ImageLoader.getIcon("player",color));
@@ -304,12 +316,14 @@ public class GameUI {
                                             //region Pane_ingame_mapTerrain
                                             Pane Pane_ingame_mapTerrain = new Pane();
                                             Pane_ingame_mapTerrain.setId("Pane-ingame-mapTerrain");
+                                            long l = System.currentTimeMillis();
                                             Service<Void> bg1 = new Service<Void>() {
                                                 @Override
                                                 protected Task<Void> createTask() {
                                                     return new Task<Void>() {
                                                         @Override
                                                         protected Void call() {
+
                                                             createPaneMapTerrain(game.getMap(),Pane_ingame_mapTerrain);
                                                             return null;
                                                         }
@@ -317,9 +331,13 @@ public class GameUI {
                                                 }
                                             };
                                             bg1.setOnSucceeded(event -> {
+
                                                 Pane_ingame_mapContainer.getChildren().add(Pane_ingame_mapTerrain);
+                                                System.out.println("MAP TERRAIN THREAD: "+(System.currentTimeMillis()-l));
                                                 Pane_ingame_mapTerrain.toBack();
+
                                                 ZoomableScrollPane_ingame_map.setInside(Pane_ingame_mapContainer);
+
                                             });
                                             bg1.start();
                                             //endregion
@@ -372,13 +390,12 @@ public class GameUI {
         }
 
         private static void createPaneMapTerrain(Map map, Pane Pane_ingame_mapTerrain) {
-            MapTile[][] mapTiles = map.getMapTilesMatrix();
             int tileSize = 12;
             ObservableList<Node> Pane_ingame_mapTerrain_Children = Pane_ingame_mapTerrain.getChildren();
             for (int i = 0; i < map.getHeight(); i++) {
                 for (int j = 0; j < map.getWidth(); j++) {
                     Rectangle a = new Rectangle(tileSize,tileSize);
-                    a.setFill(mapTiles[i][j].getTerrain().getColor());
+                    a.setFill(map.getTerrainAtCoords(new Point(j,i)).getColor());
                     a.setLayoutX(j*tileSize); a.setLayoutY(i*tileSize);
                     Pane_ingame_mapTerrain_Children.add(a);
                 }
@@ -386,19 +403,37 @@ public class GameUI {
         }
 
         private static void createPaneMapEntities(Map map, Pane Pane_ingame_mapEntities) {
-            MapTile[][] mapTiles = map.getMapTilesMatrix();
             double tileSize=12;
             ObservableList<Node> Pane_ingame_mapEntities_Children=Pane_ingame_mapEntities.getChildren();
+
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.getStyleClass().add("ContextMenu-gameTheme");
+            MenuItem me = new MenuItem();
+            me.getStyleClass().add("MenuItem-gameTheme");
+            contextMenu.getItems().add(me);
+
             for(int i=0;i<map.getHeight();i++) {
                 for(int j=0;j<map.getWidth();j++) {
-                    Capturer_ImageView civ = new Capturer_ImageView();
-                    civ.setFitWidth(tileSize); civ.setFitHeight(tileSize);
-                    civ.setLayoutX(j*tileSize); civ.setLayoutY(i*tileSize);
-                    if(mapTiles[i][j].getTerrain().isOperational())
-                    {
-                        mapTiles[i][j].getEventBroadcaster().addEventCapturer(civ);
+
+                    Point p = new Point(j,i);
+                    if(map.getTerrainAtCoords(p).isOperational()) {
+                        Capturer_ImageView civ = new Capturer_ImageView();
+                        civ.setFitWidth(tileSize); civ.setFitHeight(tileSize);
+                        civ.setLayoutX(j*tileSize); civ.setLayoutY(i*tileSize);
+                        int x=j,y=i;
+
+                        EventHandler<MouseEvent> enter = event -> {
+                            contextMenu.show(civ, Side.BOTTOM,event.getX(),event.getY());
+                            contextMenu.getItems().get(0).setText("X:"+x+",Y:"+y);
+                        };
+                        civ.setOnMouseEntered(enter);
+
+                        EventHandler<MouseEvent> exit = event -> contextMenu.hide();
+                        civ.setOnMouseExited(exit);
+
+                        map.getEventBroadcasterAtCoords(p).addEventCapturer(civ);
+                        Pane_ingame_mapEntities_Children.add(civ);
                     }
-                    Pane_ingame_mapEntities_Children.add(civ);
                 }
             }
         }
@@ -422,9 +457,9 @@ public class GameUI {
                         VBox_ingame_playerBuildings.getStyleClass().add("Alignment-topCenter");
                                 Label Label_ingame_buildings = new Label("Buildings");
                                 Label_ingame_buildings.getStyleClass().addAll("Font-size-S","Effect-dropshadow");
-                                ScrollPane ScrollPane_ingame_playerBuildingBar = createScrollPanePlayerBuildingBar(p);
-                                ScrollPane_ingame_playerBuildingBar.getStyleClass().add("ScrollPane-gameTheme");
-                        VBox_ingame_playerBuildings.getChildren().addAll(Label_ingame_buildings,ScrollPane_ingame_playerBuildingBar);
+                                //ScrollPane ScrollPane_ingame_playerBuildingBar = createScrollPanePlayerBuildingBar(p);
+                                //ScrollPane_ingame_playerBuildingBar.getStyleClass().add("ScrollPane-gameTheme");
+                        VBox_ingame_playerBuildings.getChildren().addAll(Label_ingame_buildings/*,ScrollPane_ingame_playerBuildingBar*/);
                 VBox_ingame_playerPanel.getChildren().addAll(HBox_ingame_playerMainDetails,VBox_ingame_playerResources,VBox_ingame_playerBuildings);
                 //endregion
                 Accordion_ingame_playerPanels_TitledPanes.add(new TitledPane(p.getName(), VBox_ingame_playerPanel));
@@ -432,8 +467,7 @@ public class GameUI {
             return Accordion_ingame_playerPanels;
         }
 
-        private static HBox createHBoxPlayerMainDetails(Player p)
-        {
+        private static HBox createHBoxPlayerMainDetails(Player p) {
             HBox HBox_ingame_playerMainDetails = new HBox();
             HBox_ingame_playerMainDetails.getStyleClass().add("Alignment-center");
                     Label Label_ingame_playerPos = new Label("Pos: ");
@@ -447,20 +481,19 @@ public class GameUI {
             return HBox_ingame_playerMainDetails;
         }
 
-        private static HBox createHBoxPlayerResourceBar(Player p)
-        {
+        private static HBox createHBoxPlayerResourceBar(Player p) {
             HBox HBox_ingame_playerResourceBar = new HBox();
             HBox_ingame_playerResourceBar.getStyleClass().addAll("Alignment-center","HBox-ingame-playerResourceBar");
             ObservableList<Node> HBox_ingame_playerResourceBar_Children = HBox_ingame_playerResourceBar.getChildren();
-            for(String res : Resource.RESOURCE_TYPES)
+            for(String res : ResourceBank.RESOURCEBANK_TYPES)
             {
                 VBox VBox_ingame_resource = new VBox();
                 VBox_ingame_resource.getStyleClass().addAll("Alignment-center","VBox-ingame-resource");
                         HBox HBox_ingame_resname = new HBox();
                         HBox_ingame_resname.getStyleClass().add("Alignment-center");
-                                ImageView iv = new ImageView(ImageLoader.getIcon("resource",res.toLowerCase()));
+                                ImageView iv = new ImageView(ImageLoader.getIcon("resource",res));
                                 iv.setFitWidth(16); iv.setFitHeight(16);
-                        HBox_ingame_resname.getChildren().addAll(iv,new Label(res));
+                        HBox_ingame_resname.getChildren().addAll(iv,new Label(res.substring(0,res.length()-12)));
                         Capturer_TextField Capturer_TextField_ingame_resnr = new Capturer_TextField();
                         Capturer_TextField_ingame_resnr.getStyleClass().add("TextField-gameTheme-small");
                         Capturer_TextField_ingame_resnr.setEditable(false);
@@ -471,13 +504,6 @@ public class GameUI {
             return HBox_ingame_playerResourceBar;
         }
 
-        private static ScrollPane createScrollPanePlayerBuildingBar(Player p)
-        {
-            ScrollPane ScrollPane_ingame_playerBuildingBar = new ScrollPane();
-
-            return ScrollPane_ingame_playerBuildingBar;
-        }
-
         private static Capturer_TextArea createCapturerTextAreaMessageLog(MessageLog log) {
             Capturer_TextArea cta = new Capturer_TextArea();
             log.getEventBroadcaster().addEventCapturer(cta);
@@ -486,6 +512,38 @@ public class GameUI {
             return cta;
         }
 
+        private static Capturer_TextFlow createCapturerTextFlowMessageLog(MessageLog log) {
+            Capturer_TextFlow ctf = new Capturer_TextFlow();
+            log.getEventBroadcaster().addEventCapturer(ctf);
+            return ctf;
+        }
+
     }
 
+    public static class GameBuilder {
+        private final Node extractionUI;
+
+        public GameBuilder(Node extractionUI)
+        {
+            this.extractionUI=extractionUI;
+        }
+
+        public Game createGameFromUI()
+        {
+            VBox choices = (VBox) extractionUI.lookup("#VBox-intro-config1Choices");    //Looking for the container where the intro choices for the game settings are, in order to get the needed values;
+            Accordion playersAccordion = (Accordion) extractionUI.lookup("#Accordion-intro-playersSettings");   //Looking for the accordion where the player settings are, in order to get the needed values;
+            int playersNr = (int) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-playersNr")).getValue();     //Getting the playersNr from its choicebox
+            System.out.println(playersNr);
+            List<Player> playersList = new LinkedList<>();
+            for (int i = 1; i <= playersNr ; i++) {
+                String playerName = ((TextField) playersAccordion.lookup("#TextField-intro-player" + i + "Name")).getText();
+                String playerColor = (String) ((ChoiceBox) playersAccordion.lookup("#ChoiceBox-intro-player" + i + "Color")).getValue();
+                playersList.add(new Player(playerName,playerColor));
+            }
+            String mapSize = (String) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-mapSize")).getValue();
+            String resDensity = (String) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-resDensity")).getValue();
+
+            return new Game(playersList,mapSize,resDensity);
+        }
+    }
 }

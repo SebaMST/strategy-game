@@ -2,7 +2,7 @@ package PixelWars.GUI.Events.Capturers;
 
 import PixelWars.GUI.Events.EventCapturer;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
-import PixelWars.GameLogic.Messaging.MessageLog;
+import PixelWars.GameLogic.MapLogic.Point;
 import javafx.application.Platform;
 import javafx.scene.control.TextField;
 
@@ -10,21 +10,18 @@ public class Capturer_TextField extends TextField implements EventCapturer {
     private static class UpdateHandler {
         static void handle(Player.ResourceValueWrapper cause, Capturer_TextField capturer)
         {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    capturer.setText(""+cause.getValue());
+            Platform.runLater(() -> {
+                synchronized (cause) {
+                    capturer.setText("" + cause.getValue());
                 }
             });
 
         }
         static void handle(Player cause, Capturer_TextField capturer)
         {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    capturer.setText(cause.getPosX()+","+cause.getPosY());
-                }
+            Platform.runLater(() -> {
+                Point coords = cause.getCoords();
+                capturer.setText(coords.getX()+","+coords.getY());
             });
         }
     }

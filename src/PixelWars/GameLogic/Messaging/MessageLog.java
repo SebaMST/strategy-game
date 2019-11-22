@@ -1,39 +1,35 @@
 package PixelWars.GameLogic.Messaging;
 
 import PixelWars.GUI.Events.EventBroadcaster;
+import jdk.nashorn.internal.objects.Global;
 
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MessageLog{
 
-    private LinkedList<String> messages;
+    private final Queue<Message> messages;
 
-    public MessageLog() {
-        messages = new LinkedList<>();
+    MessageLog() {
+        messages = new ConcurrentLinkedQueue<>();
     }
 
-    public synchronized void addMessage(String Who, String What) {
-        String message = Who + ": " + What;
-        messages.add(message);
-        eb.notifyEventCapturers();
+    void addMessage(Message message) {
+            messages.add(message);
+            eb.notifyEventCapturers();
     }
 
-    public void clearMessages()
+    void clearMessages()
     {
         messages.clear();
     }
 
-    public String lastMessage()
+    public Message lastMessage()
     {
-        return messages.isEmpty()?null:messages.getLast();
-    }
-
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        for (String m : messages) {
-            res.append(m).append("\n");
-        }
-        return res.toString();
+            return messages.remove();
     }
 
     //Events

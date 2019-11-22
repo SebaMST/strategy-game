@@ -1,7 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="bla bla" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GUI/ColorUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextFlow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/AbstractFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/ResourceFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Colosseum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Consumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ConsumptionHandlers/ConsumptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Producer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/BarracksPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/CastlePH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ChurchPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ColosseumPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/FoodPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/GoldPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/IronPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/StonePH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/WoodPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/FoodResourceBankPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GoldResourceBankPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/IronResourceBankPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ProductionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/StoneResourceBankPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/WoodResourceBankPH.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Point.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/GlobalSpeaker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/css/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/res/css/game.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/food.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/gold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/iron.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/lumber.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/stone.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/wood.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/brown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/cyan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/green.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/orange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/purple.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/red.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/old/yellow.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/CustomFX/ZoomableScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/CustomFX/ZoomableScrollPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_ImageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_ImageView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextArea.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/EventBroadcaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/EventBroadcaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/ImageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/MapBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/PerlinNoiseGeneration/ImprovedNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/PerlinNoiseGeneration/ImprovedNoise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/PerlinNoiseGeneration/NoiseGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/PerlinNoiseGeneration/NoiseGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/TerrainBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/TerrainBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Grass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Hill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Hill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Mountain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Mountain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/MountainPeak.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/MountainPeak.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Sand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Sand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Terrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Terrain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Water.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Water.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/WaterDeep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/WaterDeep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/FoodResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Gold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/GoldResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Iron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/IronResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/ResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Stone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/StoneResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Wood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/WoodResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +116,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="stylesheet.code.style.group" />
   </component>
   <component name="RecentsManager">
@@ -71,12 +150,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameEngine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.GameEngine" />
+    <configuration name="HelloWorld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PixelWars.HelloWorld" />
       <module name="PIXEL Wars GIT" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.case_pcbe.strategy_game.*" />
+          <option name="PATTERN" value="PixelWars.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -84,12 +163,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MULTIPLU" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.case_pcbe.strategy_game.MULTIPLU" />
+    <configuration name="Map" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PixelWars.GameLogic.MapLogic.Map" />
       <module name="PIXEL Wars GIT" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.case_pcbe.strategy_game.*" />
+          <option name="PATTERN" value="PixelWars.GameLogic.MapLogic.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,10 +199,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.GameEngine (1)" />
+        <item itemvalue="Application.HelloWorld" />
+        <item itemvalue="Application.Map" />
         <item itemvalue="Application.ZoomableScrollPane" />
         <item itemvalue="Application.What" />
-        <item itemvalue="Application.MULTIPLU" />
-        <item itemvalue="Application.GameEngine" />
       </list>
     </recent_temporary>
   </component>
@@ -166,7 +245,10 @@
       <workItem from="1574167044238" duration="2410000" />
       <workItem from="1574204283533" duration="241000" />
       <workItem from="1574208899739" duration="629000" />
-      <workItem from="1574256411580" duration="3051000" />
+      <workItem from="1574256411580" duration="4298000" />
+      <workItem from="1574278054938" duration="62872000" />
+      <workItem from="1574388437179" duration="17468000" />
+      <workItem from="1574435069390" duration="9602000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -301,7 +383,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574259281974</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="bla bla">
+      <created>1574259548483</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1574259548483</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,6 +427,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="bla bla" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine__1_.ic" NAME="GameEngine (1) Coverage Results" MODIFIED="1574395187653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>PixelWars.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine.ic" NAME="GameEngine Coverage Results" MODIFIED="1573048401600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.case_pcbe.strategy_game.GUI.*</FILTER>
     </SUITE>

@@ -199,13 +199,14 @@ Text,
     -fx-highlight-fill: CONTROL_ACTION_BG_COLOR;
 }
 
-Text,
+.Effect-dropshadow,
 .Accordion-gameTheme > .titled-pane > .title > .text {
     -fx-fill: TEXT_COLOR;
 }
 
 .ChoiceBox-gameTheme,
 .ChoiceBox-gameTheme .context-menu,
+.ContextMenu-gameTheme,
 .TextField-gameTheme,
 .TextField-gameTheme-small,
 .TextField-gameTheme-medium,
@@ -231,11 +232,14 @@ Text,
 }
 
 .ScrollPane-gameTheme {
-    -fx-background-color:transparent;
+    -fx-background-color:black;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+    -fx-pref-height: 520px;
 }
 
 .ScrollPane-gameTheme > .viewport {
-    -fx-background-color: transparent;
+    -fx-background-color: black;
 }
 
 .ChoiceBox-gameTheme:hover,
@@ -273,6 +277,7 @@ Text,
 
 .ChoiceBox-gameTheme,
 .ChoiceBox-gameTheme .context-menu,
+.ContextMenu-gameTheme,
 .TextField-gameTheme,
 .TextField-gameTheme-small,
 .TextField-gameTheme-medium,

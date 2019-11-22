@@ -3,17 +3,14 @@ package PixelWars;
 import PixelWars.GUI.GameUI;
 import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
-import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class GameEngine extends Application {
     private Stage mainStage;
@@ -43,27 +40,19 @@ public class GameEngine extends Application {
 
         Button playButton = (Button) introButtons.lookup("#Button-intro-play");     //Setting event handler for clicking the play button
         playButton.setOnMouseClicked(playEvent -> {
-                    VBox choices = (VBox) mainScene.lookup("#VBox-intro-config1Choices");    //Looking for the container where the intro choices for the game settings are, in order to get the needed values;
-                    Accordion playersAccordion = (Accordion) mainScene.lookup("#Accordion-intro-playersSettings");   //Looking for the accordion where the player settings are, in order to get the needed values;
-                    int playersNr = (int) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-playersNr")).getValue();     //Getting the playersNr from its choicebox
-                    List<Player> playersList = new LinkedList<>();
-                    for (int i = 1; i <= playersNr ; i++) {
-                        String playerName = ((TextField) playersAccordion.lookup("#TextField-intro-player" + i + "Name")).getText();
-                        String playerColor = (String) ((ChoiceBox) playersAccordion.lookup("#ChoiceBox-intro-player" + i + "Color")).getValue();
-                        playersList.add(new Player(playerName,playerColor));
-                    }
-
-                    String mapSize = (String) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-mapSize")).getValue();
-                    String resDensity = (String) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-resDensity")).getValue();
-
-                    Game g = new Game(playersList,mapSize,resDensity);
+                    Game g = new GameUI.GameBuilder(intro).createGameFromUI();
 
                     //Setting the scene's root to inGameUI
+
                     Parent ingame = GameUI.InGameUI.createInGameUI(g);
+
                     HBox ingameButtons = (HBox) ingame.lookup("#HBox-ingame-buttons");
 
                     Button beginButton = (Button) ingameButtons.lookup("#Button-ingame-begin");
-                    beginButton.setOnMouseClicked(beginEvent -> g.begin());
+                    beginButton.setOnMouseClicked(beginEvent -> {
+                        beginButton.setDisable(true);
+                        g.begin();
+                    });
                     Button resetButton = (Button) ingameButtons.lookup("#Button-ingame-reset");
                     resetButton.setOnMouseClicked(resetEvent -> {
                         MessagingSystem.reset();

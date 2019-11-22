@@ -10,7 +10,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 public class ZoomableScrollPane extends ScrollPane {
 
@@ -21,7 +23,9 @@ public class ZoomableScrollPane extends ScrollPane {
     public ZoomableScrollPane()
     {
         panAndZoomPane=new PanAndZoomPane();
+
         setContent(panAndZoomPane);
+
         panAndZoomPane.toBack();
 
         addEventFilter(MouseEvent.MOUSE_CLICKED, panAndZoomPane.getOnMouseClickedEventHandler());
@@ -37,11 +41,12 @@ public class ZoomableScrollPane extends ScrollPane {
 
     public void setInside(Node content) {
         ObservableList<Node> panAndZoomPane_Children = panAndZoomPane.getChildren();
-        if (panAndZoomPane_Children.isEmpty()) {
-            panAndZoomPane_Children.add(new Group(content));
-        } else {
-            panAndZoomPane_Children.set(0, new Group(content));
-        }
+        panAndZoomPane_Children.clear();
+        Group g = new Group(content);
+        long l=System.currentTimeMillis();
+        panAndZoomPane_Children.add(g);
+        System.out.println("ADDING TO CHILDREN "+(System.currentTimeMillis()-l));
+
     }
 
     public Node getInside() {
