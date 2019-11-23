@@ -1,84 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GUI/ColorUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextFlow.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/AbstractFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/ResourceFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Colosseum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Consumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ConsumptionHandlers/ConsumptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Producer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/BarracksPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/CastlePH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ChurchPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ColosseumPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/FoodPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/GoldPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/IronPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/StonePH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/WoodPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/FoodResourceBankPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GoldResourceBankPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/IronResourceBankPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ProductionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/StoneResourceBankPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/WoodResourceBankPH.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Point.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/GlobalSpeaker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" afterDir="false" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="Players resources exploatation is now thread safe&#10;&#10;Explaination:&#10;-firsly, the players are going to search for a specific random type of resource calling the searchResource(resourceName) method;&#10;-the search is based on a breadth-first search on the map's matrix;&#10;-if they find a solution (a mapentity that is a resource on operational terrain and isn't busy at the moment/doesn't already have 4 players that exploit it), they are moving to it (by teleporting there now, will travel step by step in a path later, but now, to demonstrate the thread-safety, they will teleport).&#10;-after moving to the resource found, they are trying to exploit it, after checking it wasn't already EXPLOITED (not on the map anymore);&#10;-if a resource is exploited and reaches 0 durability, the player thread that consumes it will remove it from the map;&#10;-finally, if no resource of the name resoucreName is found, the players will set locally in a hashmap that the map doesnt have that type of resource anymore. If the map contains not even a single type of resource, the randomization of the resourceName to search can't be completed anymore, so the player thread will be notified to stop (players will leave the land as it reached a desolate state);&#10;&#10;Things that occur:&#10;-thread safety achieved via syncrhonization over the MapTiles reading/writing entities, and also via syncrhonization over the resources exploit method;&#10;-players won't try to collect a resource that reached 0 hp in a previous exploatation (as it's removed from the map);&#10;-players won't try to collect a resource that is busy now (4 players already exploiting it);&#10;&#10;Other things happening this commit:&#10;-The global MessageLog has now a TextFlow capturer object reflecting colors of the GlobalSpeakers that chat there.&#10;-When a global speaker chats via the messaging system, the last message is going to be appended to the globallog, formated in a specific way of the global speaker (for example players and objectives text will have the text written in their color/owner colors);&#10;-The global MessageLog is thread-safe (via synrchonization), of course, as more threads are trying to write data (messages) in there.">
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Exceptions/AttemptExploitZeroException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Exceptions/InvalidMapCoordsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Exceptions/ResourceBankExtinctionException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/res/css/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/res/css/game.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/food.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/gold.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/iron.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/lumber.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/stone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/resource/wood.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/brown.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/cyan.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/old/yellow.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/CustomFX/ZoomableScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/CustomFX/ZoomableScrollPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_ImageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_ImageView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextArea.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/EventBroadcaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/EventBroadcaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextFlow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/ImageLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/MapBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/PerlinNoiseGeneration/ImprovedNoise.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/PerlinNoiseGeneration/ImprovedNoise.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/PerlinNoiseGeneration/NoiseGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/PerlinNoiseGeneration/NoiseGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/TerrainBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/TerrainBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Grass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Grass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Hill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Hill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Mountain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Mountain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/MountainPeak.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/MountainPeak.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Sand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Sand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Terrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Terrain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/Water.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/Water.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapCreation/TerrainCreation/Terrains/WaterDeep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/TerrainCreation/Terrains/WaterDeep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Map.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Building.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/FoodResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Gold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/GoldResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Iron.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/IronResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Resource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/ResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Stone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/StoneResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/Wood.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/WoodResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/FoodResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/FoodResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/GoldResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/GoldResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/IronResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/IronResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/ResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/ResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/StoneResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/StoneResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/WoodResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/WoodResourceBank.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessagingSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -249,6 +196,7 @@
       <workItem from="1574278054938" duration="62872000" />
       <workItem from="1574388437179" duration="17468000" />
       <workItem from="1574435069390" duration="9602000" />
+      <workItem from="1574451408869" duration="35166000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -390,7 +338,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574259548483</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="bla bla">
+      <created>1574451530342</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1574451530342</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,7 +379,8 @@
     <MESSAGE value="Observer pattern &amp; Threading features&#10;-Added event broadcasters &amp; captures via observer pattern. Their role is to offer SYNCHRONIZED updates to the ingameUI considering the on-the-fly state of the game object; Further events broadcasters/capturers coming soon.&#10;-Threading for loading the UI faster. &#10;-Players now implement runnable and will have soon their infinite loop ongoing in their run()&#10;-Hitting BEGIN button will trigger the Game begin() method, that will spawn the players and start their threads" />
     <MESSAGE value="player move now" />
     <MESSAGE value="bla bla" />
-    <option name="LAST_COMMIT_MESSAGE" value="bla bla" />
+    <MESSAGE value="Players resources exploatation is now thread safe&#10;&#10;Explaination:&#10;-firsly, the players are going to search for a specific random type of resource calling the searchResource(resourceName) method;&#10;-the search is based on a breadth-first search on the map's matrix;&#10;-if they find a solution (a mapentity that is a resource on operational terrain and isn't busy at the moment/doesn't already have 4 players that exploit it), they are moving to it (by teleporting there now, will travel step by step in a path later, but now, to demonstrate the thread-safety, they will teleport).&#10;-after moving to the resource found, they are trying to exploit it, after checking it wasn't already EXPLOITED (not on the map anymore);&#10;-if a resource is exploited and reaches 0 durability, the player thread that consumes it will remove it from the map;&#10;-finally, if no resource of the name resoucreName is found, the players will set locally in a hashmap that the map doesnt have that type of resource anymore. If the map contains not even a single type of resource, the randomization of the resourceName to search can't be completed anymore, so the player thread will be notified to stop (players will leave the land as it reached a desolate state);&#10;&#10;Things that occur:&#10;-thread safety achieved via syncrhonization over the MapTiles reading/writing entities, and also via syncrhonization over the resources exploit method;&#10;-players won't try to collect a resource that reached 0 hp in a previous exploatation (as it's removed from the map);&#10;-players won't try to collect a resource that is busy now (4 players already exploiting it);&#10;&#10;Other things happening this commit:&#10;-The global MessageLog has now a TextFlow capturer object reflecting colors of the GlobalSpeakers that chat there.&#10;-When a global speaker chats via the messaging system, the last message is going to be appended to the globallog, formated in a specific way of the global speaker (for example players and objectives text will have the text written in their color/owner colors);&#10;-The global MessageLog is thread-safe (via synrchonization), of course, as more threads are trying to write data (messages) in there." />
+    <option name="LAST_COMMIT_MESSAGE" value="Players resources exploatation is now thread safe&#10;&#10;Explaination:&#10;-firsly, the players are going to search for a specific random type of resource calling the searchResource(resourceName) method;&#10;-the search is based on a breadth-first search on the map's matrix;&#10;-if they find a solution (a mapentity that is a resource on operational terrain and isn't busy at the moment/doesn't already have 4 players that exploit it), they are moving to it (by teleporting there now, will travel step by step in a path later, but now, to demonstrate the thread-safety, they will teleport).&#10;-after moving to the resource found, they are trying to exploit it, after checking it wasn't already EXPLOITED (not on the map anymore);&#10;-if a resource is exploited and reaches 0 durability, the player thread that consumes it will remove it from the map;&#10;-finally, if no resource of the name resoucreName is found, the players will set locally in a hashmap that the map doesnt have that type of resource anymore. If the map contains not even a single type of resource, the randomization of the resourceName to search can't be completed anymore, so the player thread will be notified to stop (players will leave the land as it reached a desolate state);&#10;&#10;Things that occur:&#10;-thread safety achieved via syncrhonization over the MapTiles reading/writing entities, and also via syncrhonization over the resources exploit method;&#10;-players won't try to collect a resource that reached 0 hp in a previous exploatation (as it's removed from the map);&#10;-players won't try to collect a resource that is busy now (4 players already exploiting it);&#10;&#10;Other things happening this commit:&#10;-The global MessageLog has now a TextFlow capturer object reflecting colors of the GlobalSpeakers that chat there.&#10;-When a global speaker chats via the messaging system, the last message is going to be appended to the globallog, formated in a specific way of the global speaker (for example players and objectives text will have the text written in their color/owner colors);&#10;-The global MessageLog is thread-safe (via synrchonization), of course, as more threads are trying to write data (messages) in there." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/PIXEL_Wars_GIT$GameEngine__1_.ic" NAME="GameEngine (1) Coverage Results" MODIFIED="1574395187653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

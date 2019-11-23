@@ -8,11 +8,11 @@ import PixelWars.GUI.Events.Capturers.Capturer_TextFlow;
 import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.MapLogic.Map;
 import PixelWars.GameLogic.MapLogic.MapBuilder;
+import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
 import PixelWars.GameLogic.MapLogic.Point;
 
-import PixelWars.GameLogic.Messaging.Message;
 import PixelWars.GameLogic.Messaging.MessageLog;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
 import javafx.beans.value.ChangeListener;
@@ -27,7 +27,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
@@ -294,10 +293,11 @@ public class GameUI {
                                     Text_ingame_globalLog.getStyleClass().addAll("Font-size-S", "Font-family-header", "Effect-dropshadow");
                                     //endregion
                                     //region TextArea_ingame_globalLog
-                                    TextArea TextArea_ingame_globalLog = createCapturerTextAreaMessageLog(MessagingSystem.getGlobalLog());
-                                    TextArea_ingame_globalLog.getStyleClass().add("TextArea-gameTheme"); TextArea_ingame_globalLog.setId("TextArea-ingame-globalLog");
+                                    TextFlow Capturer_TextFlow_ingame_globalLog = createCapturerTextFlowMessageLog(MessagingSystem.getGlobalLog());
+                                    ScrollPane ScrollPane_ingame_globalLog = new ScrollPane(Capturer_TextFlow_ingame_globalLog);
+                                    ScrollPane_ingame_globalLog.getStyleClass().add("ScrollPane-gameTheme"); ScrollPane_ingame_globalLog.setId("ScrollPane-ingame-globalLog");
                                     //endregion
-                            VBox_ingame_leftLower.getChildren().addAll(Text_ingame_globalLog, TextArea_ingame_globalLog);
+                            VBox_ingame_leftLower.getChildren().addAll(Text_ingame_globalLog, ScrollPane_ingame_globalLog);
                             //endregion
                     VBox_ingame_left.getChildren().addAll(VBox_ingame_leftUpper, VBox_ingame_leftLower);
                     //endregion
@@ -333,7 +333,6 @@ public class GameUI {
                                             bg1.setOnSucceeded(event -> {
 
                                                 Pane_ingame_mapContainer.getChildren().add(Pane_ingame_mapTerrain);
-                                                System.out.println("MAP TERRAIN THREAD: "+(System.currentTimeMillis()-l));
                                                 Pane_ingame_mapTerrain.toBack();
 
                                                 ZoomableScrollPane_ingame_map.setInside(Pane_ingame_mapContainer);
@@ -424,7 +423,14 @@ public class GameUI {
 
                         EventHandler<MouseEvent> enter = event -> {
                             contextMenu.show(civ, Side.BOTTOM,event.getX(),event.getY());
-                            contextMenu.getItems().get(0).setText("X:"+x+",Y:"+y);
+                            MapEntity entity = map.getMapEntityAtCoords(p);
+                            String details="";
+                            if(entity instanceof Player)
+                                details+=((Player) entity).getName()+" "+((Player) entity).getColor();
+                            else if(entity instanceof ResourceBank)
+                                details+=entity.getConcreteName()+" "+((ResourceBank) entity).getDurability();
+                            details+="\nX:"+x+",Y:"+y;
+                            contextMenu.getItems().get(0).setText(details);
                         };
                         civ.setOnMouseEntered(enter);
 

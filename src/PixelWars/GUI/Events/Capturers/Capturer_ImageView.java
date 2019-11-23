@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 
 public class Capturer_ImageView extends ImageView implements EventCapturer {
     private static class UpdateHandler {
-        static void handle(MapTile cause, Capturer_ImageView capturer) {
+        private static void handle(MapTile cause, Capturer_ImageView capturer) {
             Platform.runLater(() -> {
                 MapEntity me = cause.getMapEntity();
                 capturer.setImage(me != null ? me.getIcon() : null);
@@ -17,7 +17,7 @@ public class Capturer_ImageView extends ImageView implements EventCapturer {
     }
 
     @Override
-    public synchronized void update(Object cause) {
+    public void update(Object cause) {
         if(cause instanceof MapTile)
             UpdateHandler.handle((MapTile)cause,this);
     }

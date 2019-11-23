@@ -17,7 +17,6 @@ public class Capturer_TextArea extends TextArea implements EventCapturer {
         static void handle(MessageLog cause, Capturer_TextArea capturer)
         {
             Platform.runLater(() -> {
-                synchronized (cause) {
                     Message m = cause.lastMessage();
                     GlobalSpeaker sender = m.getSender();
 
@@ -26,21 +25,18 @@ public class Capturer_TextArea extends TextArea implements EventCapturer {
                         String name = ((Player) sender).getName();
                         String color = ((Player) sender).getColor();
                         capturer.appendText(name+" ("+color+"): "+m.getContent()+"\n");
-
-
                     }
                     else if(sender instanceof Game)
                     {
                         String name = "SYSTEM";
                         capturer.appendText(name+": "+m.getContent()+"\n");
                     }
-                }
             });
 
         }
     }
     @Override
-    public synchronized void update(Object cause) {
+    public void update(Object cause) {
         if(cause instanceof MessageLog)
         {
             UpdateHandler.handle((MessageLog)cause,this);

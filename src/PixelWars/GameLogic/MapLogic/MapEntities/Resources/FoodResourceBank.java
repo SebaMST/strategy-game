@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class FoodResourceBank extends ResourceBank {
 
     public FoodResourceBank() {
-        setInitProduction(120);
+        super(120,30);
     }
 
     public Image getIcon() {

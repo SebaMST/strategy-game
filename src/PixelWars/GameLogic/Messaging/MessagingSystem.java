@@ -1,15 +1,15 @@
 package PixelWars.GameLogic.Messaging;
 
 public final class MessagingSystem {
-    private static final MessageLog GLOBAL_LOG = new MessageLog();
+    private static MessageLog GLOBAL_LOG = new MessageLog();
 
-    static synchronized void chat(GlobalSpeaker sender, String content) {
+    static void chat(GlobalSpeaker sender, String content) {
         GLOBAL_LOG.addMessage(new Message(sender,content));
     }
 
     public static void reset()
     {
-        GLOBAL_LOG.clearMessages();
+        GLOBAL_LOG = new MessageLog();
     }
 
     public static MessageLog getGlobalLog() {

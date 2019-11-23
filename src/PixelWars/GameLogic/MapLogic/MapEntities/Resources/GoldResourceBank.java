@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class GoldResourceBank extends ResourceBank {
 
     public GoldResourceBank() {
-        setInitProduction(40);
+        super(40,5);
     }
 
     public Image getIcon() {

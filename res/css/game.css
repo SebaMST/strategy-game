@@ -232,14 +232,17 @@ Text,
 }
 
 .ScrollPane-gameTheme {
-    -fx-background-color:black;
+    -fx-background: black;
     -fx-fit-to-width: true;
     -fx-fit-to-height: true;
-    -fx-pref-height: 520px;
 }
 
 .ScrollPane-gameTheme > .viewport {
-    -fx-background-color: black;
+    -fx-background-color: transparent;
+}
+
+.ScrollPane-gameTheme .viewport {
+    -fx-background-color: transparent;
 }
 
 .ChoiceBox-gameTheme:hover,
@@ -391,6 +394,11 @@ Text,
 #VBox-ingame-right {
     -fx-pref-width: 1440px;
     -fx-spacing: 10;
+}
+
+#ScrollPane-ingame-globalLog {
+    -fx-pref-height: 520px;
+    -fx-padding: 10;
 }
 
 #ZoomableScrollPane-ingame-map {

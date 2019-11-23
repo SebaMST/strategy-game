@@ -1,37 +1,38 @@
 package PixelWars.GameLogic.MapLogic.MapEntities.Resources;
 
+import PixelWars.GameLogic.Exceptions.AttemptExploitZeroException;
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
-import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 
 public abstract class ResourceBank extends MapEntity {
     public static final String[] RESOURCEBANK_TYPES = {"FoodResourceBank", "WoodResourceBank", "StoneResourceBank", "IronResourceBank", "GoldResourceBank"};
-    private int production;
-    private boolean producedAlready = false;
+    private int durability;
+    private final int dropAmount;
 
-    protected void setInitProduction(int production) {
-        if (!producedAlready) {
-            producedAlready = true;
-            this.production = production;
-        } else throw new RuntimeException("This ResourceBank has already produced its initial resource amount");
+    protected ResourceBank(int initDurability,int dropAmount)
+    {
+        this.durability =initDurability;
+        this.dropAmount=dropAmount;
     }
 
     public synchronized int exploit() {
-        int amountMined;
-        if (production > 10) {
-            amountMined = 10;
-            production -= amountMined;
-            return amountMined;
-        } else if(production > 0){
-            amountMined = production;
-            production -= amountMined;
-            getMap().setMapEntityAtCoords(getCoords(), null);
-            return amountMined;
+        if (durability > dropAmount) {
+            durability -= dropAmount;
+            return dropAmount;
+        } else if(durability > 0){
+            int leftAmount = durability;
+            durability = 0;
+            getMap().setMapEntityAtCoords(getCoords(),null);
+            return leftAmount;
         }
-        else return 0;
+        throw new IllegalStateException("EXPLOIT");
     }
 
-    public int cooldown() {
-        return 100;
+    public synchronized int getDurability() {
+        return durability;
+    }
+
+    public int getDropAmount() {
+        return dropAmount;
     }
 
     public abstract String getConcreteName();

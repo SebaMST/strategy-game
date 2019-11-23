@@ -1,7 +1,10 @@
 package PixelWars.GameLogic.MapLogic;
 
 import PixelWars.GUI.Events.EventBroadcaster;
+import PixelWars.GameLogic.Exceptions.InvalidMapCoordsException;
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
+import PixelWars.GameLogic.MapLogic.MapEntities.Player;
+import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
 import PixelWars.GameLogic.MapLogic.TerrainCreation.Terrains.Terrain;
 
 import java.util.Random;
@@ -25,30 +28,30 @@ public class Map {
         return height;
     }
 
-    public synchronized boolean isFreeAtCoords(Point coords) {
+    public boolean isFreeAtCoords(Point coords) {
         if(areCoordsValid(coords)) {
                 return mapTilesMatrix[coords.getY()][coords.getX()].isFree();
         }
         else {
-            throw new IllegalArgumentException(Thread.currentThread().toString() + "-> Map: isFreeAtCoords(Point): coords not valid");
+            throw new InvalidMapCoordsException(coords);
         }
     }
 
-    public synchronized MapEntity getMapEntityAtCoords(Point coords) {
+    public MapEntity getMapEntityAtCoords(Point coords) {
         if(areCoordsValid(coords)) {
-            return mapTilesMatrix[coords.getY()][coords.getX()].getMapEntity();
+                return mapTilesMatrix[coords.getY()][coords.getX()].getMapEntity();
         }
         else {
-            throw new IllegalArgumentException(Thread.currentThread().toString()+"-> Map: getMapEntityAtCoords(Point): coords not valid");
+            throw new InvalidMapCoordsException(coords);
         }
     }
 
-    public synchronized void setMapEntityAtCoords(Point coords, MapEntity mapEntity) {
+    public void setMapEntityAtCoords(Point coords, MapEntity mapEntity) {
         if(areCoordsValid(coords)) {
-            mapTilesMatrix[coords.getY()][coords.getX()].setMapEntity(mapEntity);
+                mapTilesMatrix[coords.getY()][coords.getX()].setMapEntity(mapEntity);
         }
         else {
-            throw new IllegalArgumentException(Thread.currentThread().toString()+"-> Map: updateMapEntityAtCoords(Point,MapEntity): coords not valid");
+            throw new InvalidMapCoordsException(coords);
         }
     }
 
@@ -57,7 +60,7 @@ public class Map {
                 return mapTilesMatrix[coords.getY()][coords.getX()].isOperational();
         }
         else {
-            throw new IllegalArgumentException(Thread.currentThread().toString()+"-> Map: isOperationalAtCoords(Point): coords not valid");
+            throw new InvalidMapCoordsException(coords);
         }
     }
 
@@ -67,7 +70,7 @@ public class Map {
             return mapTilesMatrix[coords.getY()][coords.getX()].getTerrain();
         }
         else {
-            throw new IllegalArgumentException(Thread.currentThread().toString()+"-> Map: getTerrainAtCoords(Point): coords not valid");
+            throw new InvalidMapCoordsException(coords);
         }
     }
 
@@ -91,6 +94,30 @@ public class Map {
         return pos;
     }
 
+    public Point neighbourFreeInhabitablePoint(Point where)
+    {
+        int[] translateX = {-1, 0, 1, 0};
+        int[] translateY = {0, 1, 0, -1};
+        int crtX = where.getX(), crtY = where.getY(), newX, newY;
+        Point newPoint;
+        for (int i = 0; i < translateX.length; i++) {
+            newX = translateX[i] + crtX;
+            newY = translateY[i] + crtY;
+            newPoint = new Point(newX, newY);
+            if (areCoordsValid(newPoint)) {
+                if (isOperationalAtCoords(newPoint))
+                    if (isFreeAtCoords(newPoint)) {
+                        return newPoint;
+                    }
+            }
+        }
+        return null;
+    }
+
+    public boolean areNeighbours(MapEntity m1, MapEntity m2)
+    {
+        return Point.calculateDistance(m1.getCoords(),m2.getCoords())==1.0D;
+    }
     //region EVENTS
     public EventBroadcaster getEventBroadcasterAtCoords(Point coords)
     {

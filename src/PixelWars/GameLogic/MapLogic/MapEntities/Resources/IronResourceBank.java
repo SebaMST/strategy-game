@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class IronResourceBank extends ResourceBank {
 
     public IronResourceBank() {
-        setInitProduction(60);
+        super(60,10);
     }
 
     public Image getIcon() {

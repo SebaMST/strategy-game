@@ -1,5 +1,6 @@
 package PixelWars.GameLogic.MapLogic.MapEntities;
 
+import PixelWars.GameLogic.Exceptions.InvalidMapCoordsException;
 import PixelWars.GameLogic.MapLogic.Map;
 import PixelWars.GameLogic.MapLogic.Point;
 import javafx.scene.image.Image;
@@ -8,9 +9,14 @@ public abstract class MapEntity{
 
     private Point coords;
 
-    public void setCoords(Point coords) {
-        this.coords=coords;
-        map.setMapEntityAtCoords(coords,this);
+    protected void setCoords(Point coords) {
+        try {
+            map.setMapEntityAtCoords(coords,this);
+            this.coords=coords;
+        }
+        catch (InvalidMapCoordsException e) {
+            e.printStackTrace();
+        }
     }
 
     public Point getCoords()

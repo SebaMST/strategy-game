@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class StoneResourceBank extends ResourceBank {
 
     public StoneResourceBank() {
-        setInitProduction(80);
+        super(80,15);
     }
 
     public Image getIcon() {

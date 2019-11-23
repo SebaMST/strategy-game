@@ -43,9 +43,7 @@ public class ZoomableScrollPane extends ScrollPane {
         ObservableList<Node> panAndZoomPane_Children = panAndZoomPane.getChildren();
         panAndZoomPane_Children.clear();
         Group g = new Group(content);
-        long l=System.currentTimeMillis();
         panAndZoomPane_Children.add(g);
-        System.out.println("ADDING TO CHILDREN "+(System.currentTimeMillis()-l));
 
     }
 
@@ -95,19 +93,19 @@ public class ZoomableScrollPane extends ScrollPane {
         double translateAnchorX;
         double translateAnchorY;
 
-        public EventHandler<MouseEvent> getOnMouseClickedEventHandler() {
+        private EventHandler<MouseEvent> getOnMouseClickedEventHandler() {
             return onMouseClickedEventHandler;
         }
 
-        public EventHandler<MouseEvent> getOnMousePressedEventHandler() {
+        private EventHandler<MouseEvent> getOnMousePressedEventHandler() {
             return onMousePressedEventHandler;
         }
 
-        public EventHandler<MouseEvent> getOnMouseDraggedEventHandler() {
+        private EventHandler<MouseEvent> getOnMouseDraggedEventHandler() {
             return onMouseDraggedEventHandler;
         }
 
-        public EventHandler<ScrollEvent> getOnScrollEventHandler() {
+        private EventHandler<ScrollEvent> getOnScrollEventHandler() {
             return onScrollEventHandler;
         }
 

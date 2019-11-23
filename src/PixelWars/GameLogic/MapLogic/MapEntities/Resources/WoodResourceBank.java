@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class WoodResourceBank extends ResourceBank {
 
     public WoodResourceBank() {
-        setInitProduction(100);
+        super(100,20);
     }
 
     public Image getIcon() {
