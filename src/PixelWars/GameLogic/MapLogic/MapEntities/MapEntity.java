@@ -28,8 +28,13 @@ public abstract class MapEntity{
 
     public void setMap(Map map)
     {
+        setMap(map,map.generateRandomEligiblePoint());
+    }
+
+    public void setMap(Map map,Point coords)
+    {
         this.map=map;
-        setCoords(map.generateRandomEligiblePoint());
+        setCoords(coords);
     }
 
     protected Map getMap()

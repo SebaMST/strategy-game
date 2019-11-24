@@ -3,6 +3,7 @@ package PixelWars.GUI.Events.Capturers;
 import PixelWars.GUI.ColorUtils;
 import PixelWars.GUI.Events.EventCapturer;
 import PixelWars.GameLogic.Game;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Building;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.Messaging.GlobalSpeaker;
 import PixelWars.GameLogic.Messaging.Message;
@@ -25,6 +26,12 @@ public class Capturer_TextArea extends TextArea implements EventCapturer {
                         String name = ((Player) sender).getName();
                         String color = ((Player) sender).getColor();
                         capturer.appendText(name+" ("+color+"): "+m.getContent()+"\n");
+                    }
+                    else if(sender instanceof Building)
+                    {
+                        String name= ((Building) sender).getConcreteName();
+                        String owner=((Building)sender).getOwner().getName();
+                        capturer.appendText(owner+"'s "+name+": "+m.getContent()+"\n");
                     }
                     else if(sender instanceof Game)
                     {

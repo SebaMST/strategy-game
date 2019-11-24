@@ -1,12 +1,22 @@
 package PixelWars.GameLogic.MapLogic.MapEntities.Buildings;
 
-import PixelWars.GUI.ImageLoader;
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.Producer;
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.ProductionHandlers.ProductionHandler;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
-import javafx.scene.image.Image;
 
-public class Colosseum extends Building implements Producer {
+public class Colosseum extends Building {
+    private static final BuildRequirements br;
+
+    static {
+        br=new BuildRequirements();
+        br.addRequiredBuilding("Castle",4);
+        br.addRequiredResource("GoldResourceBank",300);
+        br.addRequiredResource("IronResourceBank",800);
+        br.addRequiredResource("StoneResourceBank",1200);
+    }
+
+    public static BuildRequirements getBuildRequirements()
+    {
+        return br;
+    }
 
     public Colosseum(Player owner) {
         super(owner);
@@ -17,12 +27,4 @@ public class Colosseum extends Building implements Producer {
         return "Colosseum";
     }
 
-    public Image getIcon() {
-        return ImageLoader.getIcon("building","colosseum");
-    }
-
-    @Override
-    public void produce(ProductionHandler productionHandler) {
-
-    }
 }

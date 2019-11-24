@@ -1,5 +1,6 @@
 package PixelWars.GameLogic.MapLogic;
 
+import PixelWars.GameLogic.Factory.ResourceFactory;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
 import PixelWars.GameLogic.MapLogic.TerrainCreation.TerrainBuilder;
@@ -21,16 +22,17 @@ public class MapBuilder {
         MAPSIZE_MULTIPLIERS.put("Large", 90);
         MAPSIZE_MULTIPLIERS.put("Giant", 100);
     }
-    public static final HashMap<String,Double> RESOURCENR_PERCENTS = new LinkedHashMap<>();
+    private static final HashMap<String,Double> RESOURCEDENSITY_PERCENTS = new LinkedHashMap<>();
     static {
-        RESOURCENR_PERCENTS.put("Starvation", 0.01D);
-        RESOURCENR_PERCENTS.put("Moderate", 0.02D);
-        RESOURCENR_PERCENTS.put("Richness", 0.03D);
+        RESOURCEDENSITY_PERCENTS.put("Starvation", 0.02D);
+        RESOURCEDENSITY_PERCENTS.put("Moderate", 0.03D);
+        RESOURCEDENSITY_PERCENTS.put("Richness", 0.04D);
     }
 
     public static String[] getMapSizes() {
         return MAPSIZE_MULTIPLIERS.keySet().toArray(new String[0]);
     }
+    public static String[] getResourceDensities() { return RESOURCEDENSITY_PERCENTS.keySet().toArray(new String[0]); }
 
     private static class Spawner {
         private final Map where;
@@ -50,26 +52,15 @@ public class MapBuilder {
             int mapWidth = where.getWidth();
             int mapHeight = where.getHeight();
             int mapArea = mapWidth*mapHeight;
-            double percent = (200*300.)/(mapArea)*RESOURCENR_PERCENTS.get(resDensity);
+            double percent = (200*300.)/(mapArea)*RESOURCEDENSITY_PERCENTS.get(resDensity);
             int resourceNr = (int) (percent*mapArea);
-            int resourceNrOfAType = resourceNr/ ResourceBank.RESOURCEBANK_TYPES.length;
+            int resourceNrOfAType = resourceNr/ ResourceFactory.getResourceTypes().length;
 
-            for (String resource : ResourceBank.RESOURCEBANK_TYPES) {
-                Constructor c = null;
-                try {
-                    c = Class.forName("PixelWars.GameLogic.MapLogic.MapEntities.Resources."+resource).getDeclaredConstructor();
-                } catch (NoSuchMethodException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-                for (int i = 0; i < resourceNrOfAType; i++) {
-                    ResourceBank res;
-                    try {
-                        assert c != null;
-                        res = (ResourceBank) c.newInstance();
-                        res.setMap(where);
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
+            ResourceFactory rf = new ResourceFactory();
+            for (String resource : ResourceFactory.getResourceTypes()) {
+                for(int i=0;i<resourceNrOfAType;i++) {
+                    ResourceBank rb = rf.create(resource);
+                    rb.setMap(where);
                 }
             }
         }

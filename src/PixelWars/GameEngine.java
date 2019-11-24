@@ -4,6 +4,7 @@ import PixelWars.GUI.GameUI;
 import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -40,6 +41,7 @@ public class GameEngine extends Application {
 
         Button playButton = (Button) introButtons.lookup("#Button-intro-play");     //Setting event handler for clicking the play button
         playButton.setOnMouseClicked(playEvent -> {
+                    MessagingSystem.reset();
                     Game g = new GameUI.GameBuilder(intro).createGameFromUI();
 
                     //Setting the scene's root to inGameUI
@@ -55,7 +57,6 @@ public class GameEngine extends Application {
                     });
                     Button resetButton = (Button) ingameButtons.lookup("#Button-ingame-reset");
                     resetButton.setOnMouseClicked(resetEvent -> {
-                        MessagingSystem.reset();
                         g.stop();
                         game();
                     });
@@ -64,7 +65,10 @@ public class GameEngine extends Application {
                     mainScene.setRoot(ingame);
         });
         Button quitButton = (Button) introButtons.lookup("#Button-intro-quit");
-        quitButton.setOnMouseClicked(quitEvent -> mainStage.close());
+        quitButton.setOnMouseClicked(quitEvent -> {
+            mainStage.close();
+            Platform.exit();
+        });
 
         //Setting main scene's root as the introUI
         mainScene.setRoot(intro);

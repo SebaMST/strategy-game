@@ -47,4 +47,8 @@ public final class Game implements GlobalSpeaker {
     public static int getPlayersNrMax() {
         return 8;
     }
+
+    public static String[] getNeededObjectives() {
+        return new String[]{"Colosseum","Mosque","Sphinx"};
+    }
 }

@@ -6,11 +6,7 @@ import javafx.scene.image.Image;
 public class IronResourceBank extends ResourceBank {
 
     public IronResourceBank() {
-        super(60,10);
-    }
-
-    public Image getIcon() {
-        return ImageLoader.getIcon("resource", "ironresourcebank");
+        super(200,30);
     }
 
     @Override

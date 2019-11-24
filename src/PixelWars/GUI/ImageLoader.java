@@ -49,11 +49,11 @@ public class ImageLoader {
 
     public static Image getIcon(String category, String iconName)
     {
-        if(category.toLowerCase().equals("player"))
-            return playerIconsMap.get(iconName.toLowerCase());
-        else if(category.toLowerCase().equals("resource"))
-            return resourceIconsMap.get(iconName.toLowerCase());
-        else return buildingIconsMap.get(category.toLowerCase()).get(iconName.toLowerCase());
+        if(category.equals("player"))
+            return playerIconsMap.get(iconName);
+        else if(category.equals("resource"))
+            return resourceIconsMap.get(iconName);
+        else return buildingIconsMap.get(category).get(iconName);
         //if null is thrown then the icon was not found
     }
 

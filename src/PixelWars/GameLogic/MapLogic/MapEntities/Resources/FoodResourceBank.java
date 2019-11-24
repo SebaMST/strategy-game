@@ -6,11 +6,7 @@ import javafx.scene.image.Image;
 public class FoodResourceBank extends ResourceBank {
 
     public FoodResourceBank() {
-        super(120,30);
-    }
-
-    public Image getIcon() {
-        return ImageLoader.getIcon("resource", "foodresourcebank");
+        super(270,50);
     }
 
     @Override

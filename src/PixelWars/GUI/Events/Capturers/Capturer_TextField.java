@@ -8,14 +8,14 @@ import javafx.scene.control.TextField;
 
 public class Capturer_TextField extends TextField implements EventCapturer {
     private static class UpdateHandler {
-        static void handle(Player.ResourceValueWrapper cause, Capturer_TextField capturer)
+        static void handle(Player.ResourceDetailWrapper cause, Capturer_TextField capturer)
         {
-            Platform.runLater(() -> {
-                synchronized (cause) {
-                    capturer.setText("" + cause.getValue());
-                }
-            });
+            Platform.runLater(() -> capturer.setText("" + cause.getValue()));
 
+        }
+        static void handle(Player.BuildingDetailWrapper cause, Capturer_TextField capturer)
+        {
+            Platform.runLater(() -> capturer.setText(""+cause.getBuildingList().size()));
         }
         static void handle(Player cause, Capturer_TextField capturer)
         {
@@ -26,10 +26,14 @@ public class Capturer_TextField extends TextField implements EventCapturer {
         }
     }
     @Override
-    public synchronized void update(Object cause) {
-        if(cause instanceof Player.ResourceValueWrapper)
+    public void update(Object cause) {
+        if(cause instanceof Player.ResourceDetailWrapper)
         {
-            UpdateHandler.handle((Player.ResourceValueWrapper) cause,this);
+            UpdateHandler.handle((Player.ResourceDetailWrapper) cause,this);
+        }
+        else if(cause instanceof Player.BuildingDetailWrapper)
+        {
+            UpdateHandler.handle((Player.BuildingDetailWrapper) cause, this);
         }
         else if (cause instanceof Player)
         {

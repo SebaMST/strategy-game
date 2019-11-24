@@ -2,17 +2,18 @@ package PixelWars.GUI;
 
 import PixelWars.GUI.CustomFX.ZoomableScrollPane;
 import PixelWars.GUI.Events.Capturers.Capturer_ImageView;
-import PixelWars.GUI.Events.Capturers.Capturer_TextArea;
 import PixelWars.GUI.Events.Capturers.Capturer_TextField;
 import PixelWars.GUI.Events.Capturers.Capturer_TextFlow;
+import PixelWars.GameLogic.Factory.BuildingFactory;
+import PixelWars.GameLogic.Factory.ResourceFactory;
 import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.MapLogic.Map;
 import PixelWars.GameLogic.MapLogic.MapBuilder;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Building;
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
 import PixelWars.GameLogic.MapLogic.Point;
-
 import PixelWars.GameLogic.Messaging.MessageLog;
 import PixelWars.GameLogic.Messaging.MessagingSystem;
 import javafx.beans.value.ChangeListener;
@@ -27,7 +28,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -37,12 +38,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameUI {
     private static final double SCREEN_WIDTH, SCREEN_HEIGHT;
@@ -185,7 +187,7 @@ public class GameUI {
         }
 
         private static ChoiceBox<String> createChoiceBoxResDensity() {
-            String[] resDensities = MapBuilder.RESOURCENR_PERCENTS.keySet().toArray(new String[0]);
+            String[] resDensities = MapBuilder.getResourceDensities();
             ChoiceBox<String> ChoiceBox_intro_resDensity = new ChoiceBox<>(FXCollections.observableArrayList(resDensities));
             ChoiceBox_intro_resDensity.setValue(resDensities[0]);
             return ChoiceBox_intro_resDensity;
@@ -252,7 +254,7 @@ public class GameUI {
         }
 
         private static ChoiceBox<String> createChoiceBoxPlayerColor(int playerNr, ImageView img) {
-            String[] playerColors = Player.PLAYER_COLORS;
+            String[] playerColors = Player.getPlayerColors();
             String color = playerColors[playerNr - 1];
             ChoiceBox<String> ChoiceBox_playerColors = new ChoiceBox<>(FXCollections.observableArrayList(playerColors));
             ChoiceBox_playerColors.setValue(color);
@@ -292,9 +294,8 @@ public class GameUI {
                                     Text Text_ingame_globalLog = new Text("Global Event Log");
                                     Text_ingame_globalLog.getStyleClass().addAll("Font-size-S", "Font-family-header", "Effect-dropshadow");
                                     //endregion
-                                    //region TextArea_ingame_globalLog
-                                    TextFlow Capturer_TextFlow_ingame_globalLog = createCapturerTextFlowMessageLog(MessagingSystem.getGlobalLog());
-                                    ScrollPane ScrollPane_ingame_globalLog = new ScrollPane(Capturer_TextFlow_ingame_globalLog);
+                                    //region ScrollPane_ingame_globalLog
+                                    ScrollPane ScrollPane_ingame_globalLog = new ScrollPane(createCapturerTextFlowMessageLog(MessagingSystem.getGlobalLog()));
                                     ScrollPane_ingame_globalLog.getStyleClass().add("ScrollPane-gameTheme"); ScrollPane_ingame_globalLog.setId("ScrollPane-ingame-globalLog");
                                     //endregion
                             VBox_ingame_leftLower.getChildren().addAll(Text_ingame_globalLog, ScrollPane_ingame_globalLog);
@@ -316,14 +317,12 @@ public class GameUI {
                                             //region Pane_ingame_mapTerrain
                                             Pane Pane_ingame_mapTerrain = new Pane();
                                             Pane_ingame_mapTerrain.setId("Pane-ingame-mapTerrain");
-                                            long l = System.currentTimeMillis();
                                             Service<Void> bg1 = new Service<Void>() {
                                                 @Override
                                                 protected Task<Void> createTask() {
                                                     return new Task<Void>() {
                                                         @Override
                                                         protected Void call() {
-
                                                             createPaneMapTerrain(game.getMap(),Pane_ingame_mapTerrain);
                                                             return null;
                                                         }
@@ -331,12 +330,9 @@ public class GameUI {
                                                 }
                                             };
                                             bg1.setOnSucceeded(event -> {
-
                                                 Pane_ingame_mapContainer.getChildren().add(Pane_ingame_mapTerrain);
                                                 Pane_ingame_mapTerrain.toBack();
-
                                                 ZoomableScrollPane_ingame_map.setInside(Pane_ingame_mapContainer);
-
                                             });
                                             bg1.start();
                                             //endregion
@@ -426,9 +422,11 @@ public class GameUI {
                             MapEntity entity = map.getMapEntityAtCoords(p);
                             String details="";
                             if(entity instanceof Player)
-                                details+=((Player) entity).getName()+" "+((Player) entity).getColor();
+                                details+="Name: "+((Player) entity).getName()+"\nColor: "+((Player) entity).getColor();
                             else if(entity instanceof ResourceBank)
-                                details+=entity.getConcreteName()+" "+((ResourceBank) entity).getDurability();
+                                details+=entity.getConcreteName()+"\nDurability: "+((ResourceBank) entity).getDurability();
+                            else if(entity instanceof Building)
+                                details+=entity.getConcreteName()+"\nOwner: "+((Building)entity).getOwner().getName()+" ("+((Building)entity).getOwner().getColor()+")";
                             details+="\nX:"+x+",Y:"+y;
                             contextMenu.getItems().get(0).setText(details);
                         };
@@ -463,9 +461,8 @@ public class GameUI {
                         VBox_ingame_playerBuildings.getStyleClass().add("Alignment-topCenter");
                                 Label Label_ingame_buildings = new Label("Buildings");
                                 Label_ingame_buildings.getStyleClass().addAll("Font-size-S","Effect-dropshadow");
-                                //ScrollPane ScrollPane_ingame_playerBuildingBar = createScrollPanePlayerBuildingBar(p);
-                                //ScrollPane_ingame_playerBuildingBar.getStyleClass().add("ScrollPane-gameTheme");
-                        VBox_ingame_playerBuildings.getChildren().addAll(Label_ingame_buildings/*,ScrollPane_ingame_playerBuildingBar*/);
+                                ScrollPane ScrollPane_ingame_playerBuildingBar = createScrollPanePlayerBuildingBar(p);
+                        VBox_ingame_playerBuildings.getChildren().addAll(Label_ingame_buildings,ScrollPane_ingame_playerBuildingBar);
                 VBox_ingame_playerPanel.getChildren().addAll(HBox_ingame_playerMainDetails,VBox_ingame_playerResources,VBox_ingame_playerBuildings);
                 //endregion
                 Accordion_ingame_playerPanels_TitledPanes.add(new TitledPane(p.getName(), VBox_ingame_playerPanel));
@@ -475,14 +472,15 @@ public class GameUI {
 
         private static HBox createHBoxPlayerMainDetails(Player p) {
             HBox HBox_ingame_playerMainDetails = new HBox();
-            HBox_ingame_playerMainDetails.getStyleClass().add("Alignment-center");
-                    Label Label_ingame_playerPos = new Label("Pos: ");
+            HBox_ingame_playerMainDetails.getStyleClass().addAll("Alignment-center","HBox-ingame-playerMainDetails");
+                    ImageView img = new ImageView(p.getIcon());
+                    Label Label_ingame_playerPos = new Label("Position:");
                     Label_ingame_playerPos.getStyleClass().addAll("Font-size-S","Effect-dropshadow");
                     Capturer_TextField Capturer_TextField_ingame_playerPos = new Capturer_TextField();
                     Capturer_TextField_ingame_playerPos.getStyleClass().add("TextField-gameTheme-medium");
                     Capturer_TextField_ingame_playerPos.setEditable(false);
                     p.getEventBroadcaster().addEventCapturer(Capturer_TextField_ingame_playerPos);
-            HBox_ingame_playerMainDetails.getChildren().addAll(Label_ingame_playerPos,Capturer_TextField_ingame_playerPos);
+            HBox_ingame_playerMainDetails.getChildren().addAll(img,Label_ingame_playerPos,Capturer_TextField_ingame_playerPos);
 
             return HBox_ingame_playerMainDetails;
         }
@@ -491,13 +489,13 @@ public class GameUI {
             HBox HBox_ingame_playerResourceBar = new HBox();
             HBox_ingame_playerResourceBar.getStyleClass().addAll("Alignment-center","HBox-ingame-playerResourceBar");
             ObservableList<Node> HBox_ingame_playerResourceBar_Children = HBox_ingame_playerResourceBar.getChildren();
-            for(String res : ResourceBank.RESOURCEBANK_TYPES)
+            for(String res : ResourceFactory.getResourceTypes())
             {
                 VBox VBox_ingame_resource = new VBox();
                 VBox_ingame_resource.getStyleClass().addAll("Alignment-center","VBox-ingame-resource");
                         HBox HBox_ingame_resname = new HBox();
                         HBox_ingame_resname.getStyleClass().add("Alignment-center");
-                                ImageView iv = new ImageView(ImageLoader.getIcon("resource",res));
+                                ImageView iv = new ImageView(ImageLoader.getIcon("resource",res.toLowerCase()));
                                 iv.setFitWidth(16); iv.setFitHeight(16);
                         HBox_ingame_resname.getChildren().addAll(iv,new Label(res.substring(0,res.length()-12)));
                         Capturer_TextField Capturer_TextField_ingame_resnr = new Capturer_TextField();
@@ -510,13 +508,52 @@ public class GameUI {
             return HBox_ingame_playerResourceBar;
         }
 
-        private static Capturer_TextArea createCapturerTextAreaMessageLog(MessageLog log) {
+        private static ScrollPane createScrollPanePlayerBuildingBar(Player p) {
+            ScrollPane ScrollPane_ingame_playerBuildingBar = new ScrollPane();
+            ScrollPane_ingame_playerBuildingBar.getStyleClass().addAll("ScrollPane-gameTheme","ScrollPane-ingame-playerBuildingBar");
+                VBox VBox_ingame_playerBuildingBar=new VBox();
+                VBox_ingame_playerBuildingBar.getStyleClass().addAll("VBox-ingame-playerBuildingBar");
+                ObservableList<Node> VBox_ingame_playerBuildingBar_Children = VBox_ingame_playerBuildingBar.getChildren();
+                for(String building: BuildingFactory.getBuildingTypes())
+                {
+                    VBox VBox_ingame_building=new VBox();
+                    VBox_ingame_building.getStyleClass().addAll("Alignment-leftCenter","VBox-ingame-building");
+                            HBox HBox_ingame_buildingTitle=new HBox();
+                            HBox_ingame_buildingTitle.getStyleClass().addAll("Alignment-leftCenter","HBox-ingame-buildingTitle");
+                                    ImageView iv = new ImageView(ImageLoader.getIcon(building.toLowerCase(),p.getColor()));
+                                    Label Label_ingame_buildingname=new Label(building+"  - ");
+                                    Label_ingame_buildingname.getStyleClass().addAll("Font-size-2XS","Effect-dropshadow");
+                            HBox_ingame_buildingTitle.getChildren().addAll(iv,Label_ingame_buildingname);
+                                    for(HashMap.Entry<String,Integer> resourceEntry : Objects.requireNonNull(BuildingFactory.getRequirements(building)).getRequiredResources().entrySet())
+                                    {
+                                        ImageView resView = new ImageView(ImageLoader.getIcon("resource",resourceEntry.getKey().toLowerCase()));
+                                        resView.setFitWidth(16); resView.setFitHeight(16);
+                                        Label resNeededCnt = new Label(""+resourceEntry.getValue());
+                                        HBox_ingame_buildingTitle.getChildren().addAll(resView,resNeededCnt);
+                                    }
+                            HBox HBox_ingame_buildingCount=new HBox();
+                            HBox_ingame_buildingCount.getStyleClass().addAll("Alignment-leftCenter","HBox-ingame-buildingTitle");
+                                    Label Label_ingame_owned = new Label("Owned: ");
+                                    Label_ingame_owned.getStyleClass().addAll("Font-size-2XS","Effect-dropshadow");
+                                    Capturer_TextField Capturer_TextField_ingame_ownedCount = new Capturer_TextField();
+                                    Capturer_TextField_ingame_ownedCount.getStyleClass().add("TextField-gameTheme-small");
+                                    Capturer_TextField_ingame_ownedCount.setEditable(false);
+                                    p.getBuildingBar().get(building).getEventBroadcaster().addEventCapturer(Capturer_TextField_ingame_ownedCount);
+                            HBox_ingame_buildingCount.getChildren().addAll(Label_ingame_owned,Capturer_TextField_ingame_ownedCount);
+                    VBox_ingame_building.getChildren().addAll(HBox_ingame_buildingTitle,HBox_ingame_buildingCount);
+                    VBox_ingame_playerBuildingBar_Children.addAll(VBox_ingame_building);
+                }
+            ScrollPane_ingame_playerBuildingBar.setContent(VBox_ingame_playerBuildingBar);
+            return ScrollPane_ingame_playerBuildingBar;
+        }
+
+        /*private static Capturer_TextArea createCapturerTextAreaMessageLog(MessageLog log) {
             Capturer_TextArea cta = new Capturer_TextArea();
             log.getEventBroadcaster().addEventCapturer(cta);
             cta.setEditable(false);
             cta.setWrapText(true);
             return cta;
-        }
+        }*/
 
         private static Capturer_TextFlow createCapturerTextFlowMessageLog(MessageLog log) {
             Capturer_TextFlow ctf = new Capturer_TextFlow();
@@ -539,7 +576,6 @@ public class GameUI {
             VBox choices = (VBox) extractionUI.lookup("#VBox-intro-config1Choices");    //Looking for the container where the intro choices for the game settings are, in order to get the needed values;
             Accordion playersAccordion = (Accordion) extractionUI.lookup("#Accordion-intro-playersSettings");   //Looking for the accordion where the player settings are, in order to get the needed values;
             int playersNr = (int) ((ChoiceBox) choices.lookup("#ChoiceBox-intro-playersNr")).getValue();     //Getting the playersNr from its choicebox
-            System.out.println(playersNr);
             List<Player> playersList = new LinkedList<>();
             for (int i = 1; i <= playersNr ; i++) {
                 String playerName = ((TextField) playersAccordion.lookup("#TextField-intro-player" + i + "Name")).getText();

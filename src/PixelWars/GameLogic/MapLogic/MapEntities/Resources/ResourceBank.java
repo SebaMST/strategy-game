@@ -1,10 +1,12 @@
 package PixelWars.GameLogic.MapLogic.MapEntities.Resources;
 
+import PixelWars.GUI.ImageLoader;
 import PixelWars.GameLogic.Exceptions.AttemptExploitZeroException;
 import PixelWars.GameLogic.MapLogic.MapEntities.MapEntity;
+import PixelWars.GameLogic.MapLogic.MapEntities.Player;
+import javafx.scene.image.Image;
 
 public abstract class ResourceBank extends MapEntity {
-    public static final String[] RESOURCEBANK_TYPES = {"FoodResourceBank", "WoodResourceBank", "StoneResourceBank", "IronResourceBank", "GoldResourceBank"};
     private int durability;
     private final int dropAmount;
 
@@ -24,7 +26,7 @@ public abstract class ResourceBank extends MapEntity {
             getMap().setMapEntityAtCoords(getCoords(),null);
             return leftAmount;
         }
-        throw new IllegalStateException("EXPLOIT");
+        return 0;
     }
 
     public synchronized int getDurability() {
@@ -35,7 +37,10 @@ public abstract class ResourceBank extends MapEntity {
         return dropAmount;
     }
 
-    public abstract String getConcreteName();
+    public Image getIcon()
+    {
+        return ImageLoader.getIcon("resource",getConcreteName().toLowerCase());
+    }
 }
 
 

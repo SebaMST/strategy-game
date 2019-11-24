@@ -6,11 +6,7 @@ import javafx.scene.image.Image;
 public class WoodResourceBank extends ResourceBank {
 
     public WoodResourceBank() {
-        super(100,20);
-    }
-
-    public Image getIcon() {
-        return ImageLoader.getIcon("resource", "woodresourcebank");
+        super(270,40);
     }
 
     @Override

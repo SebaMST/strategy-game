@@ -3,7 +3,12 @@ package PixelWars.GameLogic.MapLogic.MapEntities;
 import PixelWars.GUI.Events.EventBroadcaster;
 import PixelWars.GUI.ImageLoader;
 import PixelWars.GameLogic.Exceptions.ResourceBankExtinctionException;
+import PixelWars.GameLogic.Factory.BuildingFactory;
+import PixelWars.GameLogic.Factory.ResourceFactory;
+import PixelWars.GameLogic.Game;
 import PixelWars.GameLogic.MapLogic.Map;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.BuildRequirements;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Building;
 import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
 import PixelWars.GameLogic.MapLogic.Point;
 import PixelWars.GameLogic.Messaging.GlobalSpeaker;
@@ -13,15 +18,23 @@ import javafx.scene.image.Image;
 import java.util.*;
 
 public class Player extends MapEntity implements Runnable, GlobalSpeaker {
-    public static final String[] PLAYER_COLORS = new String[]{"red", "orange", "yellow", "brown", "green", "cyan", "blue", "purple"};
+    private static final String[] PLAYER_COLORS = new String[]{"red", "orange", "yellow", "brown", "green", "cyan", "blue", "purple"};
+    public static String[] getPlayerColors()
+    {
+        return PLAYER_COLORS.clone();
+    }
     private final String name;
     private final String color;
-    private final HashMap<String, ResourceValueWrapper> resourceBar;
+    private final HashMap<String, ResourceDetailWrapper> resourceBar;
+    private final HashMap<String,BuildingDetailWrapper> buildingBar;
+    private final BuildingFactory buildingFactory;
+    private final String[] needToCompleteObjectives=Game.getNeededObjectives();
+    private final boolean[] completedObjectives=new boolean[Game.getNeededObjectives().length];
 
-    public static class ResourceValueWrapper {
+    public static class ResourceDetailWrapper {
         private int value;
 
-        private ResourceValueWrapper() {
+        private ResourceDetailWrapper() {
             setValue(0);
         }
 
@@ -34,20 +47,51 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
             eb.notifyEventCapturers();
         }
 
-        //Events
+        //region EVENTS
         private EventBroadcaster eb = new EventBroadcaster(this);
 
         public EventBroadcaster getEventBroadcaster() {
             return eb;
         }
+        //endregion
+    }
+
+    public static class BuildingDetailWrapper {
+        private List<Building> buildingList;
+
+        private BuildingDetailWrapper() {
+            buildingList=new LinkedList<>();
+        }
+
+        public List<Building> getBuildingList() {
+            return buildingList;
+        }
+
+        private void addToBuildingList(Building b) {
+            buildingList.add(b);
+            eb.notifyEventCapturers();
+        }
+
+        //region EVENTS
+        private EventBroadcaster eb = new EventBroadcaster(this);
+
+        public EventBroadcaster getEventBroadcaster() {
+            return eb;
+        }
+        //endregion
     }
 
     public Player(String name, String color) {
         this.name = name;
         this.color = color;
         resourceBar = new LinkedHashMap<>();
-        for (String res : ResourceBank.RESOURCEBANK_TYPES) {
-            resourceBar.put(res, new ResourceValueWrapper());
+        buildingFactory=new BuildingFactory(this);
+        buildingBar=new HashMap<>();
+        for (String res : ResourceFactory.getResourceTypes()) {
+            resourceBar.put(res, new ResourceDetailWrapper());
+        }
+        for(String building: BuildingFactory.getBuildingTypes()) {
+            buildingBar.put(building,new BuildingDetailWrapper());
         }
     }
 
@@ -55,7 +99,7 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
         if (Point.equals(this.getCoords(), coords))
             return;
         Map map = getMap();
-        synchronized (map) {
+        synchronized (map) { //safe to ignore warning
             if (map.isFreeAtCoords(coords)) {
                 if (map.isOperationalAtCoords(coords)) {
                     map.setMapEntityAtCoords(getCoords(), null);
@@ -97,18 +141,19 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
                                 if (map.getMapEntityAtCoords(crtPoint) != null) {
                                     int amount = ((ResourceBank) currentEntity).exploit();
                                     updateResourceBar(resourceName, amount);
-                                    speak("Mined " + amount + " from " + resourceName + " at " + crtPoint.getX() + " " + crtPoint.getY() + ". Now has " + resourceBar.get(resourceName).getValue() + " " + resourceName.substring(0, resourceName.length() - 12));
+                                    //speak("Mined " + amount + " from " + resourceName + " at " + crtPoint.getX() + " " + crtPoint.getY() + ". Now has " + resourceBar.get(resourceName).getValue() + " " + resourceName.substring(0, resourceName.length() - 12));
                                 }
                                 return;
                             }
                         }
                         else
                         {
-                            System.out.println(this.getColor()+" IS NEIGHBOUR WITH "+currentEntity.getConcreteName()+" "+currentEntity.getCoords().getX()+","+currentEntity.getCoords().getY());
                             if (map.getMapEntityAtCoords(crtPoint) != null) {
                                 int amount = ((ResourceBank) currentEntity).exploit();
-                                updateResourceBar(resourceName, amount);
-                                speak("Mined " + amount + " from " + resourceName + " at " + crtPoint.getX() + " " + crtPoint.getY() + ". Now has " + resourceBar.get(resourceName).getValue() + " " + resourceName.substring(0, resourceName.length() - 12));
+                                if(amount>0) {
+                                    updateResourceBar(resourceName, amount);
+                                    //speak("Mined " + amount + " from " + resourceName + " at " + crtPoint.getX() + " " + crtPoint.getY() + ". Now has " + resourceBar.get(resourceName).getValue() + " " + resourceName.substring(0, resourceName.length() - 12));
+                                }
                             }
                             return;
                         }
@@ -130,23 +175,78 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
         throw new ResourceBankExtinctionException(resourceName);
     }
 
+    private void build(String buildingType)
+    {
+        BuildRequirements br = BuildingFactory.getRequirements(buildingType);
+        if(br!=null) {
+            for (HashMap.Entry<String, Integer> reqBuildEntry : br.getRequiredBuildings().entrySet()) {
+                int nrRequiredBuildings = reqBuildEntry.getValue();
+                int nrOwnedBuildings = buildingBar.get(reqBuildEntry.getKey()).getBuildingList().size();
+                if (nrRequiredBuildings > nrOwnedBuildings) {
+                    //System.out.println("DONT HAVE REQUIRED BUILDINGS FOR "+buildingType);
+                    int nrToBuild = nrRequiredBuildings - nrOwnedBuildings;
+                    for (int i = 0; i < nrToBuild; i++) {
+                        //System.out.println("NEED TO BUILD "+reqBuildEntry.getKey());
+                        build(reqBuildEntry.getKey());
+                    }
+                }
+            }
+            for(HashMap.Entry<String, Integer> reqResEntry : br.getRequiredResources().entrySet()) {
+                int nrRequiredResourceCount=reqResEntry.getValue();
+                ResourceDetailWrapper ownedResourceCountWrapper = resourceBar.get(reqResEntry.getKey());
+                int nrOwnedResourceCount=ownedResourceCountWrapper.getValue();
+                while(nrRequiredResourceCount>nrOwnedResourceCount) {
+                        searchForResource(reqResEntry.getKey());
+                        //delayForDebug(50);
+                        nrOwnedResourceCount=ownedResourceCountWrapper.getValue();
+                }
+            }
+            Point buildCoords=getMap().neighbourFreeInhabitablePoint(getCoords()); //search if can build nearby actual position
+            if(buildCoords==null||getMap().getMapEntityAtCoords(buildCoords)!=null) //este we need another spot
+            {
+                Point whereToMove;
+                do
+                {
+                    whereToMove=getMap().generateRandomEligiblePoint(); //trying to go to another random spot
+                    buildCoords=getMap().neighbourFreeInhabitablePoint(whereToMove); //and check the neighbours there, if it doesnt have any neighbour free, to that again
+                }while(buildCoords==null);
+                moveTo(whereToMove);//finally we move to a good spot
+            }
 
-    public synchronized HashMap<String, ResourceValueWrapper> getResourceBar() {
+            Building b = buildingFactory.create(buildingType);
+            b.setMap(getMap(),buildCoords);
+            buildingBar.get(buildingType).addToBuildingList(b);
+            StringBuilder needs= new StringBuilder(" |");
+            for(HashMap.Entry<String,Integer> reqResEntry: br.getRequiredResources().entrySet()) {
+                needs.append(reqResEntry.getKey(), 0, reqResEntry.getKey().length() - 12).append(" ").append(reqResEntry.getValue()).append("|");
+                updateResourceBar(reqResEntry.getKey(),-reqResEntry.getValue());
+            }
+            speak("Built " + buildingType +  " at " + buildCoords.getX() + " " + buildCoords.getY() + " (costed:"+needs+"). Now has " + buildingBar.get(buildingType).getBuildingList().size() + " x " + buildingType);
+            //delayForDebug(200);
+        }
+        else throw new IllegalStateException("Player build(String buildingType): invalid building type. can't retrieve requirements");
+    }
+
+    public synchronized HashMap<String, ResourceDetailWrapper> getResourceBar() {
         return resourceBar;
     }
 
-    private synchronized void updateResourceBar(String resourceName, int resourcecamount) {
-        ResourceValueWrapper rvw = resourceBar.get(resourceName);
+    private synchronized void updateResourceBar(String resourceName, int resourceAmount) {
+        ResourceDetailWrapper rvw = resourceBar.get(resourceName);
         if (rvw != null) {
-            int futureAmount = rvw.getValue() + resourcecamount;
+            int futureAmount = rvw.getValue() + resourceAmount;
             if (futureAmount >= 0) {
                 rvw.setValue(futureAmount);
             } else {
-                throw new IllegalArgumentException("Player: updateResourceBar(String resourceName,int resourceAmount): can't update " + resourceName + " on the bar with " + resourcecamount + " because the value will be lower than 0.");
+                throw new IllegalArgumentException("Player: updateResourceBar(String resourceName,int resourceAmount): can't update " + resourceName + " on the bar with " + resourceAmount + " because the value will be lower than 0.");
             }
         } else {
             throw new IllegalArgumentException("Player: updateResourceBar(String resourceName,int resourceAmount): invalid resourceName(" + resourceName + ") to update");
         }
+    }
+
+    public HashMap<String,BuildingDetailWrapper> getBuildingBar() {
+        return buildingBar;
     }
 
     public String getName() {
@@ -200,13 +300,11 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
             isStarted = false;
             try {
                 thread.join();
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
             //System.out.println(toString() + " thread STOPPED");
         }
-
     }
 
     private void delayForDebug(long millis) {
@@ -223,15 +321,32 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
         Random r = new Random(System.nanoTime());
         speak(MessagingSystem.BEGIN_THREAT_MESSAGES[r.nextInt(MessagingSystem.BEGIN_THREAT_MESSAGES.length)]);
         delayForDebug(1);
+
+        boolean noResourceLeft=false;
+        while(!noResourceLeft&&!gameCompleted()) {
+            int randomIndex = r.nextInt(needToCompleteObjectives.length);
+            if (completedObjectives[randomIndex])
+                continue;
+            try {
+                String nextToBuild = needToCompleteObjectives[randomIndex];
+                build(nextToBuild);
+                completedObjectives[randomIndex]=true;
+            }catch(ResourceBankExtinctionException e) {
+                noResourceLeft = true;
+                speak("This land is DESOLATE! My empire can't continue living here, we're out!");
+                e.printStackTrace();
+            }
+        }
+        /*String[] gameResources = ResourceFactory.getResourceTypes();
         HashMap<String,Boolean> extinctResources = new HashMap<>();
-        for(String res: ResourceBank.RESOURCEBANK_TYPES)
+        for(String res: gameResources)
         {
             extinctResources.put(res,false);
         }
         boolean noResourceLeft=false;
         do {
             try {
-                String resourceName = ResourceBank.RESOURCEBANK_TYPES[r.nextInt(ResourceBank.RESOURCEBANK_TYPES.length)];
+                String resourceName = gameResources[r.nextInt(gameResources.length)];
                 if (!extinctResources.get(resourceName)) {
                     searchForResource(resourceName);
                     delayForDebug(25);
@@ -246,8 +361,17 @@ public class Player extends MapEntity implements Runnable, GlobalSpeaker {
                     }
                 }
             }
-        } while (!noResourceLeft); //While there are resources left mine mine mine...
+        } while (isStarted&&!noResourceLeft); //While there are resources left mine mine mine...
+        */
+    }
 
-        speak("This land is DESOLATE! My empire can't continue living here, we're out!");
+    private boolean gameCompleted()
+    {
+        for(boolean b : completedObjectives)
+        {
+            if(!b)
+                return false;
+        }
+        return true;
     }
 }

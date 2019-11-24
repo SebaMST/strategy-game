@@ -32,10 +32,6 @@ public class Capturer_TextFlow extends TextFlow implements EventCapturer {
                     text.setFill(ColorUtils.COLOR_MAP.get(color));
                     text.setFont(new Font(11));
                     capturer.getChildren().add(text);
-                    if(capturer.getChildren().size()>30)
-                    {
-                        capturer.getChildren().remove(0);
-                    }
                 }
                 else if(sender instanceof Game)
                 {
@@ -44,10 +40,6 @@ public class Capturer_TextFlow extends TextFlow implements EventCapturer {
                     text.setFill(Color.WHITE);
                     text.setFont(new Font(11));
                     capturer.getChildren().add(text);
-                    if(capturer.getChildren().size()>30)
-                    {
-                        capturer.getChildren().remove(0);
-                    }
                 }
 
             });

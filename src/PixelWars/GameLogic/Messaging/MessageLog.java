@@ -19,8 +19,6 @@ public class MessageLog{
 
     synchronized void addMessage(Message message) {
         synchronized (messages) {
-            if(message.getSender() instanceof Player)
-            System.out.println(((Player) message.getSender()).getColor()+" "+message.getContent());
             messages.add(message);
             eb.notifyEventCapturers();
         }

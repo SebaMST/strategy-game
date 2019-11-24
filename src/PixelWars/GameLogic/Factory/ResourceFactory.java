@@ -1,25 +1,23 @@
 package PixelWars.GameLogic.Factory;
 
-import PixelWars.GameLogic.MapLogic.MapEntities.Resources.*;
+import PixelWars.GameLogic.MapLogic.MapEntities.Resources.ResourceBank;
+
+import java.lang.reflect.Constructor;
 
 public class ResourceFactory implements AbstractFactory<ResourceBank> {
-    public static final String[] RESOURCE_TYPES = {"food","wood","stone","iron","gold"};
+    private static final String[] RESOURCE_TYPES = {"FoodResourceBank", "GoldResourceBank", "IronResourceBank", "StoneResourceBank", "WoodResourceBank"};
+    public static String[] getResourceTypes() {
+        return RESOURCE_TYPES.clone();
+    }
 
     @Override
-    public ResourceBank create(String resourceType){
-        if ("food".equals(resourceType)) {
-            return new FoodResourceBank();
-        } else if ("wood".equals(resourceType)) {
-            return new WoodResourceBank();
-        } else if ("stone".equals(resourceType)) {
-            return new StoneResourceBank();
-        } else if ("iron".equals(resourceType)) {
-            return new IronResourceBank();
-        } else if ("gold".equals(resourceType)) {
-            return new GoldResourceBank();
-        }
-        else {
-            throw new IllegalArgumentException();
+    public ResourceBank create(String resourceType) {
+        try {
+            Class c = Class.forName("PixelWars.GameLogic.MapLogic.MapEntities.Resources." + resourceType);
+            return (ResourceBank) c.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

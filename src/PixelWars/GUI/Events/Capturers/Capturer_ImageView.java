@@ -10,8 +10,10 @@ public class Capturer_ImageView extends ImageView implements EventCapturer {
     private static class UpdateHandler {
         private static void handle(MapTile cause, Capturer_ImageView capturer) {
             Platform.runLater(() -> {
-                MapEntity me = cause.getMapEntity();
-                capturer.setImage(me != null ? me.getIcon() : null);
+                synchronized (cause) {
+                    MapEntity me = cause.getMapEntity();
+                    capturer.setImage(me != null ? me.getIcon() : null);
+                }
             });
         }
     }

@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 
 public class ZoomableScrollPane extends ScrollPane {
 
-    private final double minZoomScale = 2 / 3., maxZoomScale = 5 / 3.;
+    private final double minZoomScale = 2 / 3., maxZoomScale = 7 / 3.;
 
     private PanAndZoomPane panAndZoomPane;
 
