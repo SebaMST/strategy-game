@@ -17,16 +17,24 @@ public final class Game implements GlobalSpeaker {
         this.map = MapBuilder.createMap(mapSize,resDensity,players);
     }
 
+    private boolean started=false;
     public void begin() {
-        for (Player player : players) {
-            player.start();
+        if(!started)
+            started=true;
+        {
+            for (Player player : players) {
+                player.startPlayerThread();
+            }
         }
     }
 
     public void stop() {
-        for(Player p:players)
-        {
-            p.stop();
+        if(started) {
+            started=false;
+            for (Player p : players) {
+                p.interruptPlayerThread();
+                p.joinPlayerthread();
+            }
         }
     }
 

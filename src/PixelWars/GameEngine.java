@@ -13,24 +13,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class GameEngine extends Application {
     private Stage mainStage;
     private Scene mainScene;
 
     @Override
     public void start(Stage primaryStage) {
-        mainStage = primaryStage;
+
         //Initializing the stage
+        mainStage = primaryStage;
         mainStage.setTitle("PIXEL WARS");
         mainStage.setFullScreen(true);
         mainStage.setFullScreenExitHint("");
         mainStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+
         //Initializing the scene
-        mainScene = new Scene(new Region());//dummy scene
-        mainScene.getStylesheets().add("res/css/game.css");//Setting scene's css reference
+        mainScene = new Scene(new Region());    //dummy scene for inititalizing
+        mainScene.getStylesheets().add("res/css/game.css"); //Setting scene's css reference
+
         //Setting the stage's scene
         mainStage.setScene(mainScene);
-        //Initializing GameUI Components
+
+        //Initializing GameUI Components (like loading images..)
         GameUI.init();
         game();
     }
@@ -41,20 +47,20 @@ public class GameEngine extends Application {
 
         Button playButton = (Button) introButtons.lookup("#Button-intro-play");     //Setting event handler for clicking the play button
         playButton.setOnMouseClicked(playEvent -> {
-                    MessagingSystem.reset();
-                    Game g = new GameUI.GameBuilder(intro).createGameFromUI();
 
-                    //Setting the scene's root to inGameUI
+                    MessagingSystem.reset();    //resetting any previous data in the messaging system
 
-                    Parent ingame = GameUI.InGameUI.createInGameUI(g);
+                    Game g = new GameUI.GameBuilder(intro).createGameFromUI();  //creating the new game object from the intro scene
+                    Parent ingame = GameUI.InGameUI.createInGameUI(g);  //Creating the Parent object for the inGameUI
 
-                    HBox ingameButtons = (HBox) ingame.lookup("#HBox-ingame-buttons");
+                    HBox ingameButtons = (HBox) ingame.lookup("#HBox-ingame-buttons");  //Looking for the container where the ingame buttons are, in order to set event handlers for what could come next
 
                     Button beginButton = (Button) ingameButtons.lookup("#Button-ingame-begin");
                     beginButton.setOnMouseClicked(beginEvent -> {
-                        beginButton.setDisable(true);
-                        g.begin();
+                            beginButton.setDisable(true);
+                            g.begin();
                     });
+
                     Button resetButton = (Button) ingameButtons.lookup("#Button-ingame-reset");
                     resetButton.setOnMouseClicked(resetEvent -> {
                         g.stop();

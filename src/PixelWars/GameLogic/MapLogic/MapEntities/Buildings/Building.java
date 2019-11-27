@@ -6,7 +6,7 @@ import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.Messaging.GlobalSpeaker;
 import javafx.scene.image.Image;
 
-public abstract class Building extends MapEntity implements GlobalSpeaker {
+public abstract class Building extends MapEntity implements Runnable, GlobalSpeaker {
     private Player owner;
 
     public Building(Player owner) {
@@ -27,4 +27,38 @@ public abstract class Building extends MapEntity implements GlobalSpeaker {
         GlobalSpeaker.super.speak(message);
     }
     //endregion
+
+    //region THREADING
+    private boolean isProdctuionThreadStarted = false;
+    private Thread productionThread;
+
+    protected boolean getIsProductionThreadStarted()
+    {
+        return isProdctuionThreadStarted;
+    }
+
+    public void startProductionthread() {
+        if (!isProdctuionThreadStarted) {
+            //System.out.println(toString()+" thread is stopped. We are trying to start it");
+            isProdctuionThreadStarted = true;
+            productionThread = new Thread(this);
+            productionThread.start();
+            //System.out.println(toString() + " thread STARTED");
+        }
+    }
+
+    public void interruptProductionThread() {
+        if (isProdctuionThreadStarted) {
+            isProdctuionThreadStarted = false;
+        }
+        productionThread.interrupt();
+    }
+
+    public void joinProductionThread() {
+        try {
+            productionThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

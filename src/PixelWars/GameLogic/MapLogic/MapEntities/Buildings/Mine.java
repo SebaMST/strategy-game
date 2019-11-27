@@ -1,11 +1,16 @@
 package PixelWars.GameLogic.MapLogic.MapEntities.Buildings;
 
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.Producer;
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.ProductionHandlers.ProductionHandler;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.BuildingAbstractPHs.MinePH;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.ConcretePHs.*;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.ProductionHandler;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 
-public class Mine extends Building implements Producer {
+import java.util.Arrays;
+import java.util.List;
+
+public class Mine extends Building {
     private static final BuildRequirements br;
+    private static final List<ProductionHandler> productionHandlers;
 
     static {
         br=new BuildRequirements();
@@ -13,12 +18,15 @@ public class Mine extends Building implements Producer {
         br.addRequiredResource("GoldResourceBank",30);
         br.addRequiredResource("IronResourceBank",50);
         br.addRequiredResource("StoneResourceBank",50);
+        productionHandlers= Arrays.asList(new GoldPH(), new IronPH(), new StonePH());
     }
 
     public static BuildRequirements getBuildRequirements()
     {
         return br;
     }
+
+    public static List<ProductionHandler> getProductionHandlers() { return productionHandlers; }
 
     public Mine(Player owner) {
         super(owner);
@@ -30,16 +38,19 @@ public class Mine extends Building implements Producer {
     }
 
     @Override
-    public void produce(ProductionHandler productionHandler) {
-    }
-
-    @Override
-    public ProductionHandler[] getProductionHandlers() {
-        return new ProductionHandler[0];
-    }
-
-    @Override
     public void run() {
-
+        if(!productionHandlers.isEmpty())
+            while(getIsProductionThreadStarted())
+            {
+                try {
+                    Thread.sleep(MinePH.getProductionCooldown());
+                } catch (InterruptedException ignored) {
+                }
+                for(ProductionHandler ph: productionHandlers)
+                {
+                    ((MinePH)ph).requestProduction(this);
+                }
+                speak("Produced resources.");
+            }
     }
 }

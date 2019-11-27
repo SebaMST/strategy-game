@@ -21,7 +21,7 @@ public class Capturer_TextField extends TextField implements EventCapturer {
         {
             Platform.runLater(() -> {
                 Point coords = cause.getCoords();
-                capturer.setText(coords.getX()+","+coords.getY());
+                capturer.setText("X:"+coords.getX()+",Y:"+coords.getY());
             });
         }
     }

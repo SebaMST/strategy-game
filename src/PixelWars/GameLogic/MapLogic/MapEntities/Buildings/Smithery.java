@@ -1,23 +1,31 @@
 package PixelWars.GameLogic.MapLogic.MapEntities.Buildings;
 
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.Producer;
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.ProductionHandlers.ProductionHandler;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.BuildingAbstractPHs.SmitheryPH;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.ConcretePHs.IronPH;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.ProductionHandler;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 
-public class Smithery extends Building implements Producer {
+import java.util.Arrays;
+import java.util.List;
+
+public class Smithery extends Building{
     private static final BuildRequirements br;
+    private static final List<ProductionHandler> productionHandlers;
 
     static {
         br=new BuildRequirements();
         br.addRequiredBuilding("Mine",2);
         br.addRequiredResource("GoldResourceBank",50);
         br.addRequiredResource("IronResourceBank",110);
+        productionHandlers= Arrays.asList(new IronPH());
     }
 
     public static BuildRequirements getBuildRequirements()
     {
         return br;
     }
+
+    public static List<ProductionHandler> getProductionHandlers() { return productionHandlers; }
 
     public Smithery(Player owner) {
         super(owner);
@@ -29,16 +37,20 @@ public class Smithery extends Building implements Producer {
     }
 
     @Override
-    public void produce(ProductionHandler productionHandler) {
-    }
-
-    @Override
-    public ProductionHandler[] getProductionHandlers() {
-        return new ProductionHandler[0];
-    }
-
-    @Override
     public void run() {
-
+        if(!productionHandlers.isEmpty())
+            while(getIsProductionThreadStarted())
+            {
+                try {
+                    Thread.sleep(SmitheryPH.getProductionCooldown());
+                } catch (InterruptedException ignored) {
+                }
+                for(ProductionHandler ph: productionHandlers)
+                {
+                    ((SmitheryPH)ph).requestProduction(this);
+                }
+                speak("Produced resources.");
+            }
     }
+
 }

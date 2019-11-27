@@ -58,6 +58,7 @@ public class GameUI {
     public static void init()
     {
         new ImageLoader();
+        new ColorUtils();
     }
 
     public static class IntroUI {
@@ -477,7 +478,7 @@ public class GameUI {
                     Label Label_ingame_playerPos = new Label("Position:");
                     Label_ingame_playerPos.getStyleClass().addAll("Font-size-S","Effect-dropshadow");
                     Capturer_TextField Capturer_TextField_ingame_playerPos = new Capturer_TextField();
-                    Capturer_TextField_ingame_playerPos.getStyleClass().add("TextField-gameTheme-medium");
+                    Capturer_TextField_ingame_playerPos.getStyleClass().add("TextField-gameTheme");
                     Capturer_TextField_ingame_playerPos.setEditable(false);
                     p.getEventBroadcaster().addEventCapturer(Capturer_TextField_ingame_playerPos);
             HBox_ingame_playerMainDetails.getChildren().addAll(img,Label_ingame_playerPos,Capturer_TextField_ingame_playerPos);

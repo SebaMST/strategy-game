@@ -1,23 +1,31 @@
 package PixelWars.GameLogic.MapLogic.MapEntities.Buildings;
 
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.Producer;
-import PixelWars.GameLogic.MapLogic.MapEntities.Interfaces.ProductionHandlers.ProductionHandler;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.BuildingAbstractPHs.MansionPH;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.ConcretePHs.FoodPH;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Production.ProductionHandler;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 
-public class Mansion extends Building implements Producer {
+import java.util.Arrays;
+import java.util.List;
+
+public class Mansion extends Building {
     private static final BuildRequirements br;
+    private static final List<ProductionHandler> productionHandlers;
 
     static {
         br=new BuildRequirements();
         br.addRequiredBuilding("House",2);
         br.addRequiredResource("FoodResourceBank",50);
         br.addRequiredResource("WoodResourceBank",70);
+        productionHandlers= Arrays.asList(new FoodPH());
     }
 
     public static BuildRequirements getBuildRequirements()
     {
         return br;
     }
+
+    public static List<ProductionHandler> getProductionHandlers() { return productionHandlers; }
 
     public Mansion(Player owner) {
         super(owner);
@@ -29,16 +37,19 @@ public class Mansion extends Building implements Producer {
     }
 
     @Override
-    public void produce(ProductionHandler productionHandler) {
-    }
-
-    @Override
-    public ProductionHandler[] getProductionHandlers() {
-        return new ProductionHandler[0];
-    }
-
-    @Override
     public void run() {
-
+        if(!productionHandlers.isEmpty())
+            while(getIsProductionThreadStarted())
+            {
+                try {
+                    Thread.sleep(MansionPH.getProductionCooldown());
+                } catch (InterruptedException ignored) {
+                }
+                for(ProductionHandler ph: productionHandlers)
+                {
+                    ((MansionPH)ph).requestProduction(this);
+                }
+                speak("Produced resources.");
+            }
     }
 }

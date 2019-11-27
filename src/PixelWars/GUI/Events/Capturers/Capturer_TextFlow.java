@@ -3,6 +3,7 @@ package PixelWars.GUI.Events.Capturers;
 import PixelWars.GUI.ColorUtils;
 import PixelWars.GUI.Events.EventCapturer;
 import PixelWars.GameLogic.Game;
+import PixelWars.GameLogic.MapLogic.MapEntities.Buildings.Building;
 import PixelWars.GameLogic.MapLogic.MapEntities.Player;
 import PixelWars.GameLogic.Messaging.GlobalSpeaker;
 import PixelWars.GameLogic.Messaging.Message;
@@ -32,6 +33,24 @@ public class Capturer_TextFlow extends TextFlow implements EventCapturer {
                     text.setFill(ColorUtils.COLOR_MAP.get(color));
                     text.setFont(new Font(11));
                     capturer.getChildren().add(text);
+                    if(capturer.getChildren().size()>150)
+                    {
+                        capturer.getChildren().remove(0);
+                    }
+                }
+                else if(sender instanceof Building)
+                {
+                    name= ((Building) sender).getConcreteName();
+                    String owner=((Building)sender).getOwner().getName();
+                    String color=((Building)sender).getOwner().getColor();
+                    Text text = new Text(owner+"'s "+name+": "+m.getContent()+"\n");
+                    text.setFill(ColorUtils.COLOR_MAP.get(color));
+                    text.setFont(new Font(11));
+                    capturer.getChildren().add(text);
+                    if(capturer.getChildren().size()>150)
+                    {
+                        capturer.getChildren().remove(0);
+                    }
                 }
                 else if(sender instanceof Game)
                 {
@@ -40,6 +59,10 @@ public class Capturer_TextFlow extends TextFlow implements EventCapturer {
                     text.setFill(Color.WHITE);
                     text.setFont(new Font(11));
                     capturer.getChildren().add(text);
+                    if(capturer.getChildren().size()>150)
+                    {
+                        capturer.getChildren().remove(0);
+                    }
                 }
 
             });

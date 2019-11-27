@@ -1,137 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="Buildings System Implemented successfully.&#10;&#10;Players are having now a winning objetcive(a set of need to complete buildings), that the Game class will decide.&#10;&#10;For each objective building in that set, the players will try to build it by fulfilling their build requirements. The aproach is top-down as it follows: every building may have another already owned building requirements or resources cost requirements. If players do fulfill both of theese requirements, the player will build that building in his neighbourhood(if free), or if the neighbourhood is already occupied, the player will randomly teleport in another free-neighbour-spot to build the building. If the player does not fulfill the requirements, he will divide and conquer the requirements and call the build method for every building in those requirements, or if the player needs resources, the player will start searching and exploiting for what is needed. If the map reaches starvation (resources not available anymore, the player stops and leaves the battlefield).&#10;&#10;Every building may also implement the Producer interface, meaning they may have their own separate threads that will produce different types of resources, once upon a build-in cooldown.&#10;&#10;The resources they produce are established by a set of ProductionHandlers, which are implementations of a visitor interfaces hierarchy. So, based on the concrete type of Producer that tries to request production from the ProductionHandler, this one from end will call the right production method, setting the types and amount of the resources that the concrete Producer will produce (as said earlier, once upon a specific cooldown).&#10;&#10;The updates into the player's resourceBar are thread-safe, of course, thanks to the synchronization in the player/resoucreValueWrapper classes.&#10;&#10;Future updates coming in setting theese specific ProductionHandlers, for every producer.">
-      <change afterPath="$PROJECT_DIR$/art/buildings hierarchy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/brown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/cyan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/orange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/purple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/lumbercamp/yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/brown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/cyan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/orange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/purple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/townhall/yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/brown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/cyan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/orange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/purple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/tradecenter/yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/blue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/brown.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/cyan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/green.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/orange.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/purple.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/img/icon/building/watchtower/yellow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/BuildingFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Barracks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/BuildRequirements.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Castle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Church.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Granary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Hospital.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/House.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/LumberCamp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mansion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mosque.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Observatory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Parliament.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Smithery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Sphinx.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Stable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Temple.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/TownHall.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/TradeCenter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/University.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/WatchTower.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/LumberCampPH.java" afterDir="false" />
+    <list default="true" id="c480c090-ebfa-40c8-8136-5f2b3363f53f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Production/BuildingAbstractPHs/BarracksPH.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/css/game.css" beforeDir="false" afterPath="$PROJECT_DIR$/res/css/game.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/brown.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/cyan.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/town hall/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/brown.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/cyan.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/trade center/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/blue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/brown.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/cyan.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/green.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/orange.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/purple.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/red.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/img/icon/building/watch tower/yellow.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/CustomFX/ZoomableScrollPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/CustomFX/ZoomableScrollPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_ImageView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_ImageView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextArea.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextArea.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextFlow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/Events/Capturers/Capturer_TextFlow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/GameUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GUI/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GUI/ImageLoader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Exceptions/ResourceBankExtinctionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Exceptions/ResourceBankExtinctionException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/ResourceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Factory/ResourceFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Barracks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Barracks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/BuildRequirements.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/BuildRequirements.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Building.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Castle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Castle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Church.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Church.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Colosseum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Colosseum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Producer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Producer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/BarracksPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/BarracksPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/CastlePH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/CastlePH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ChurchPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ChurchPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ColosseumPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ColosseumPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GoldResourceBankPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GoldResourceBankPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GranaryPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GranaryPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/HospitalPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/HospitalPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/HousePH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/HousePH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MansionPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MansionPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MillPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MillPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MinePH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MinePH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MosquePH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MosquePH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ObservatoryPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ObservatoryPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ParliamentPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ParliamentPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/SmitheryPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/SmitheryPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/SphinxPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/SphinxPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/StablePH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/StablePH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TemplePH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TemplePH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TownHallPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TownHallPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TradeCenterPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TradeCenterPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/UniversityPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/UniversityPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/WatchTowerPH.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/WatchTowerPH.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/MapEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Granary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Granary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Hospital.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Hospital.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/House.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/House.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/LumberCamp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/LumberCamp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mansion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mansion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mosque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Mosque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Observatory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Observatory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Parliament.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Parliament.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Smithery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Smithery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Sphinx.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Sphinx.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Stable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Stable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Temple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/Temple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/TownHall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/TownHall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/TradeCenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/TradeCenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/University.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/University.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/WatchTower.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Buildings/WatchTower.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Consumer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ConsumptionHandlers/ConsumptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/Producer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/BarracksPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/CastlePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ChurchPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ColosseumPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/FoodPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/GoldPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/IronPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/StonePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ConcretePHs/WoodPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/FoodResourceBankPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GoldResourceBankPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/GranaryPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/HospitalPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/HousePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/IronResourceBankPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/LumberCampPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MansionPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MillPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MinePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/MosquePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ObservatoryPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ParliamentPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/ProductionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/SmitheryPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/SphinxPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/StablePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/StoneResourceBankPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TemplePH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TownHallPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/TradeCenterPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/UniversityPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/WatchTowerPH.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Interfaces/ProductionHandlers/WoodResourceBankPH.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/FoodResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/FoodResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/GoldResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/GoldResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/IronResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/IronResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/ResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/ResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/StoneResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/StoneResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/WoodResourceBank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/MapLogic/MapEntities/Resources/WoodResourceBank.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/GameLogic/Messaging/MessageLog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PixelWars/HelloWorld.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -303,7 +242,9 @@
       <workItem from="1574388437179" duration="17468000" />
       <workItem from="1574435069390" duration="9602000" />
       <workItem from="1574451408869" duration="60109000" />
-      <workItem from="1574602735617" duration="25292000" />
+      <workItem from="1574602735617" duration="25483000" />
+      <workItem from="1574787477484" duration="6290000" />
+      <workItem from="1574797103609" duration="23330000" />
     </task>
     <task id="LOCAL-00001" summary="1. Added Basic GameUI:&#10;One scene for the initial game configuration form&#10;One scene for the in game (player bars, map, global chat log)&#10;&#10;2. Added Procedural Map Generation logic based on PerlinNoise algorithm">
       <created>1572711273038</created>
@@ -459,7 +400,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574532388441</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Buildings System Implemented successfully.&#10;&#10;Players are having now a winning objetcive(a set of need to complete buildings), that the Game class will decide.&#10;&#10;For each objective building in that set, the players will try to build it by fulfilling their build requirements. The aproach is top-down as it follows: every building may have another already owned building requirements or resources cost requirements. If players do fulfill both of theese requirements, the player will build that building in his neighbourhood(if free), or if the neighbourhood is already occupied, the player will randomly teleport in another free-neighbour-spot to build the building. If the player does not fulfill the requirements, he will divide and conquer the requirements and call the build method for every building in those requirements, or if the player needs resources, the player will start searching and exploiting for what is needed. If the map reaches starvation (resources not available anymore, the player stops and leaves the battlefield).&#10;&#10;Every building may also implement the Producer interface, meaning they may have their own separate threads that will produce different types of resources, once upon a build-in cooldown.&#10;&#10;The resources they produce are established by a set of ProductionHandlers, which are implementations of a visitor interfaces hierarchy. So, based on the concrete type of Producer that tries to request production from the ProductionHandler, this one from end will call the right production method, setting the types and amount of the resources that the concrete Producer will produce (as said earlier, once upon a specific cooldown).&#10;&#10;The updates into the player's resourceBar are thread-safe, of course, thanks to the synchronization in the player/resoucreValueWrapper classes.&#10;&#10;Future updates coming in setting theese specific ProductionHandlers, for every producer.">
+      <created>1574629843911</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1574629843911</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
